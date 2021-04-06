@@ -1,0 +1,28 @@
+{% extends "views/_base.njk" %}
+
+{% block content %}
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-start mb-0 xnavigator">{{ appname }}</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-end">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link" href="/features">Features</a>
+                    <a class="nav-link" href="/contact">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="px-3">
+            {% block page %}{% endblock page %}
+        </main>
+
+        <footer class="mt-auto text-white-50">
+            <p>{{ appname }} template is made with <a href="https://getbootstrap.com/" class="text-white">Bootstrap
+                    5</a>.</p>
+        </footer>
+    </div>
+
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends "views/_page.njk" %}
+
+{% block title %}
+    Features
+{% endblock title %}
+
+{% block page %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                &nbsp;
+            </div>
+            <div class="col-8">
+                <h1 class="xtitle">{{ title }}</h1>
+                <p>{{ description }}</p>
+            </div>
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                &nbsp;
+            </div>
+            <div class="col-5">
+                <p class="mt-2 py-3">
+                <ul class="list-group">
+                    {% for feature, link in features %}
+                        <li class="list-group-item"><a href="{{ link }}" target="_blank">{{ feature }}</a></li>
+                    {% endfor %}
+                </ul>
+
+                </p>
+            </div>
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                &nbsp;
+            </div>
+            <div class="col-8">
+                <p class="mt-5">
+                    <a href="/" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Back Home</a>
+                </p>
+            </div>
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+{% endblock page %}

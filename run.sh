@@ -1,1 +1,1 @@
-deno run --allow-net --allow-read src/main.ts
+deno run -r --allow-net --allow-read src/main.ts
