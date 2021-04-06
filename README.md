@@ -9,6 +9,10 @@ It uses:
 * [Bootstrap Responsive HTML Library](https://getbootstrap.com/)
 * [DyeLog Logger](https://deno.land/x/dyelog@v0.1.1)
 
+### Cache dependencies locally
+
+    deno cache src/deps.ts
+
 ### Run with Docker
 
     docker build -t smart-deno .
