@@ -1,5 +1,7 @@
 # SmartDeno
 
+[![deno version](https://img.shields.io/badge/deno-^1.8.2-lightgrey?logo=deno)](https://github.com/denoland/deno)
+
 A simple template App Server written in Deno.
 
 It uses:
