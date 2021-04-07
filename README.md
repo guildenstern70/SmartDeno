@@ -1,6 +1,7 @@
 # SmartDeno
 
 [![deno version](https://img.shields.io/badge/deno-^1.8.2-lightgrey?logo=deno)](https://github.com/denoland/deno)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A simple template App Server written in Deno.
 

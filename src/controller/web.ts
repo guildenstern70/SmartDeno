@@ -7,18 +7,18 @@
  */
 
 // Routes
-import { Router } from './deps.ts';
+import { Router, RouterContext } from '../deps.ts';
 
-export const router = new Router();
+export const webRouter = new Router();
 
-router.get("/", (ctx) => {
+webRouter.get("/", (ctx: RouterContext) => {
     ctx.render('views/index.njk', {
         appname: "SmartDeno",
         appdescription: "🦕 A simple template site written in Deno 🦕"
     });
 });
 
-router.get("/features", (ctx) => {
+webRouter.get("/features", (ctx: RouterContext) => {
     ctx.render('views/features.njk', {
         appname: "SmartDeno",
         title: "Features",
@@ -32,7 +32,7 @@ router.get("/features", (ctx) => {
     });
 });
 
-router.get("/login", (ctx) => {
+webRouter.get("/login", (ctx: RouterContext) => {
     ctx.render('views/login.njk', {
         appname: "SmartDeno",
         title: "Contact",

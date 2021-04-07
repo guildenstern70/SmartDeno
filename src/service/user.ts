@@ -6,6 +6,7 @@
  * MIT License
  */
 
+
 export default class User
 {
     public readonly id: number;

@@ -6,15 +6,16 @@
  * MIT License
  */
 
+import { IUser } from './dtos.ts';
 import User from './user.ts';
 
 export default class UsersDb {
 
     private users: User[] = [];
 
-    public add(username: string, password: string) {
+    public add(newUser: IUser) {
         const id = this.users.length;
-        const user = new User(id, username, password);
+        const user = new User(id, newUser.username, newUser.password);
         this.users.push(user);
     }
 
@@ -25,8 +26,10 @@ export default class UsersDb {
         return users[0]
     }
 
-    public get(id: number): User|undefined {
-        const users = this.users.filter( user => user.id == id )
+    public get(id: string): User|undefined {
+        const userId = parseInt(id);
+        if (isNaN(userId)) return undefined;
+        const users = this.users.filter( user => user.id == userId )
         if (users.length < 1)
             return undefined;
         return users[0]
@@ -42,7 +45,9 @@ export default class UsersDb {
         return this.users.length;
     }
 
-    public delete(id: number): boolean {
+    public delete(id: string): boolean {
+        const userId = parseInt(id);
+        if (isNaN(userId)) return false;
         const user = this.get(id);
         if (user == undefined)
             return false;
