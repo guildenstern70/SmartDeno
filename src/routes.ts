@@ -1,3 +1,11 @@
+/**
+ * Smart Deno
+ * A template project for DENO
+ *
+ * Copyright (c) 2020-21 Alessio Saltarin
+ * MIT License
+ */
+
 // Routes
 import { Router } from './deps.ts';
 
@@ -24,8 +32,8 @@ router.get("/features", (ctx) => {
     });
 });
 
-router.get("/contact", (ctx) => {
-    ctx.render('views/contact.njk', {
+router.get("/login", (ctx) => {
+    ctx.render('views/login.njk', {
         appname: "SmartDeno",
         title: "Contact",
         description: "🦕 SmartDeno has been made by Alessio Saltarin <alessiosaltarin@gmail.com> 🦕"

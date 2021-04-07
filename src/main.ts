@@ -2,7 +2,7 @@
  * Smart Deno
  * A template project for DENO
  *
- * Copyright (c) 2020 Alessio Saltarin
+ * Copyright (c) 2020-21 Alessio Saltarin
  * MIT License
  */
 
@@ -47,16 +47,14 @@ app.use(async (ctx, next) => {
     const filePath = ctx.request.url.pathname;
     const allowedRequests = ["/css", "/img"];
     await next();
-    for (let request of allowedRequests) {
+    for (const request of allowedRequests) {
         if (filePath.startsWith(request)) {
-            logger.info("Serving /static" + filePath);
             await send(ctx, filePath, {
                 root: `${Deno.cwd()}/static`
             });
         }
     }
 });
-
 
 // Imported Routes
 app.use(router.routes());
