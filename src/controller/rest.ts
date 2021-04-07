@@ -42,13 +42,13 @@ export default class RestRouter extends Router
         }
     }
 
-    private getUsers = async (ctx: RouterContext) => {
+    private getUsers = (ctx: RouterContext) => {
         ctx.response.status = Status.OK;
         ctx.response.type = 'json';
         ctx.response.body = this.usersDb.getAll();
     }
 
-    private getUser = async (ctx: RouterContext)=> {
+    private getUser = (ctx: RouterContext)=> {
         ctx.response.type = 'json';
         const userId = ctx.params.id;
         if (userId == undefined) {
@@ -70,7 +70,7 @@ export default class RestRouter extends Router
         const { username, password } = await ctx.request.body().value;
         const newUser = { "username": username, "password":password };
         this.logger.info("Received " + JSON.stringify(newUser));
-        if (!newUser.hasOwnProperty('username')) {
+        if (!Object.prototype.hasOwnProperty.call(newUser, username)) {
             ctx.response.body = { message: 'KO - Cannot insert user unknown' }
             ctx.response.status = 400;
         }
@@ -81,7 +81,7 @@ export default class RestRouter extends Router
         }
     }
 
-    private deleteUser = async (ctx: RouterContext) => {
+    private deleteUser = (ctx: RouterContext) => {
         ctx.response.type = 'json';
         const userId = ctx.params.id;
         if (userId == undefined) {
