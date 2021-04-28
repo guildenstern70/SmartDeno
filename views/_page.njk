@@ -6,10 +6,10 @@
         <header class="mb-auto">
             <div>
                 <h3 class="float-md-start mb-0 xnavigator">{{ appname }}</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    <a class="nav-link" href="/features">Features</a>
-                    <a class="nav-link" href="/login">Login</a>
+                <nav class="nav nav-masthead justify-content-center float-md-end pr-4">
+                    <a id="menuitem0" class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a id="menuitem1" class="nav-link" href="/features">Features</a>
+                    <a id="menuitem2" class="nav-link" href="/login">Login</a>
                 </nav>
             </div>
         </header>
@@ -19,8 +19,10 @@
         </main>
 
         <footer class="mt-auto text-white-50">
-            <p>{{ appname }} template is made with <a href="https://getbootstrap.com/" class="text-white">Bootstrap
-                    5</a>.</p>
+            <div class="text-end">
+                {{ appname }} template is made with <a href="https://getbootstrap.com/" class="text-white">Bootstrap
+                    5</a>.
+            </div>
         </footer>
     </div>
 

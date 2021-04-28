@@ -31,6 +31,7 @@ app.use(viewEngine(oakAdapter, denjucksEngine));
 // Logger
 const logger = new DyeLog({
     timestamp: true,
+    printlevel: true,
     level: LogLevel.TRACE
 });
 
@@ -59,7 +60,7 @@ app.use(async (ctx, next) => {
 // Static Files
 app.use(async (ctx, next) => {
     const filePath = ctx.request.url.pathname;
-    const allowedRequests = ["/css", "/img"];
+    const allowedRequests = ["/css", "/img", "/js"];
     await next();
     for (const request of allowedRequests) {
         if (filePath.startsWith(request)) {

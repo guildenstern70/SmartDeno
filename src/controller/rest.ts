@@ -8,7 +8,6 @@
  */
 
 import { DyeLog, Router, RouterContext, Status } from '../deps.ts';
-import { IUser } from '../service/dtos.ts';
 import User from '../service/user.ts';
 import UsersDb from '../service/usersdb.ts';
 

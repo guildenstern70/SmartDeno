@@ -1,3 +1,32 @@
+a:link {
+    text-decoration: none;
+    color: lightblue;
+}
+
+a:visited {
+    text-decoration: none;
+    color: cadetblue;
+}
+
+a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: lightgreen;
+}
+
+a:active {
+    text-decoration: none;
+    color: hotpink;
+}
+
+.featuresfiller {
+    margin-bottom: 250px;
+}
+
+.features {
+    background-color: darkgray;
+}
+
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
@@ -8,6 +37,14 @@
 
 .xnavigator {
     color: #bbb;
+}
+
+.loginform {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 40px;
+    color: #333;
+    background-color: darkgray;
 }
 
 .xtitle {

@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block page %}
-    <div class="container">
+    <div class="container text-center">
         <div class="row">
             <div class="col">
                 &nbsp;
@@ -24,7 +24,7 @@
             </div>
             <div class="col-5">
                 <p class="mt-2 py-3">
-                <ul class="list-group">
+                <ul class="list-group features">
                     {% for feature, link in features %}
                         <li class="list-group-item"><a href="{{ link }}" target="_blank">{{ feature }}</a></li>
                     {% endfor %}
@@ -41,18 +41,21 @@
                 &nbsp;
             </div>
             <div class="col-8">
-                <p class="mt-5">
-                    <a href="/" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Back Home</a>
-                </p>
+                &nbsp;
             </div>
             <div class="col">
                 &nbsp;
             </div>
         </div>
-        <div class="row">
+        <div class="row featuresfiller">
             <div class="col">
                 &nbsp;
             </div>
         </div>
     </div>
 {% endblock page %}
+
+{% block javascripts %}
+    <script src="/js/features.js"></script>
+{% endblock javascripts %}
+
