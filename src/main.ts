@@ -6,7 +6,7 @@
  * MIT License
  */
 
-import RestRouter from './controller/rest.ts';
+
 import { Application, send } from "./deps.ts";
 import { DyeLog, LogLevel } from "./deps.ts";
 import {
@@ -14,14 +14,15 @@ import {
     engineFactory,
     adapterFactory,
 } from "./deps.ts";
-import { webRouter } from './controller/web.ts';
+import RestRouter from './controller/rest.ts';
+import WebRouter from './controller/web.ts';
 import UsersDb from './service/usersdb.ts';
 
 const app = new Application();
 
 // In memory DB
 const usersdb = new UsersDb();
-usersdb.add({ username: "guest", password: "guest" });
+usersdb.add({username: "guest", password: "guest"});
 
 // Templating Engine
 const denjucksEngine = engineFactory.getDenjuckEngine();
@@ -49,13 +50,11 @@ app.use(async (ctx, next) => {
 });
 
 // Exception Handling
-app.use(async (ctx, next) => {
-    try {
-        await next();
-    } catch (err) {
-        logger.error(err);
-    }
-})
+app.addEventListener("error", (evt) => {
+    // Will log the thrown error to the console.
+    logger.error(evt.error.message);
+    console.log(evt.error);
+});
 
 // Static Files
 app.use(async (ctx, next) => {
@@ -73,6 +72,7 @@ app.use(async (ctx, next) => {
 
 // Imported Routes
 const restRouter = new RestRouter(usersdb, logger);
+const webRouter = new WebRouter(usersdb, logger);
 app.use(restRouter.routes());
 app.use(restRouter.allowedMethods());
 app.use(webRouter.routes());

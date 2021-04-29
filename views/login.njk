@@ -8,15 +8,16 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
-                <form class="loginform">
+                <form class="loginform" action="/login" method="post">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username (eMail)</label>
-                        <input type="email" class="form-control" id="username" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" id="username"
+                               aria-describedby="usernameHelp">
+                        <div id="usernameHelp" class="form-text">Try 'guest' with password 'guest'.</div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" name="password" id="password">
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="rememberme">

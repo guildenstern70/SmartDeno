@@ -1,3 +1,7 @@
+body {
+    font-family: 'Ubuntu', sans-serif;;
+}
+
 a:link {
     text-decoration: none;
     color: lightblue;
@@ -36,7 +40,8 @@ a:active {
 }
 
 .xnavigator {
-    color: #bbb;
+    color: #b180ca;
+    font-weight: 400;
 }
 
 .loginform {
@@ -49,6 +54,7 @@ a:active {
 
 .xtitle {
     color: #b180ca;
+    font-weight: 700;
 }
 
 .coverimage {
