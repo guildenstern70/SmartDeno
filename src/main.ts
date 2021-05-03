@@ -18,7 +18,7 @@ import RestRouter from './controller/rest.ts';
 import WebRouter from './controller/web.ts';
 import UsersDb from './service/usersdb.ts';
 
-const app = new Application();
+const app = new Application<{ loggedUser?: string }>({state: {}});
 
 // In memory DB
 const usersdb = new UsersDb();

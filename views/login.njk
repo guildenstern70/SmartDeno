@@ -23,6 +23,12 @@
                         <input type="checkbox" class="form-check-input" id="rememberme">
                         <label class="form-check-label" for="rememberme">Remember me</label>
                     </div>
+                    {% if loginErrors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error</strong> Unknown username or wrong password.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
             </div>

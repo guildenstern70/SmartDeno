@@ -6,10 +6,14 @@
         <header class="mb-auto">
             <div>
                 <h3 class="float-md-start mb-0 xtitle">{{ appname }}</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end pr-4">
+                <nav class="nav nav-masthead justify-content-center float-md-end mr-4">
                     <a id="menuitem0" class="nav-link active" aria-current="page" href="/">Home</a>
                     <a id="menuitem1" class="nav-link" href="/features">Features</a>
-                    <a id="menuitem2" class="nav-link" href="/login">Login</a>
+                    {% if sessionUser %}
+                        <a id="menuitem2" class="nav-link" href="/logout">Logout</a>
+                    {% else %}
+                        <a id="menuitem2" class="nav-link" href="/login">Login</a>
+                    {% endif %}
                 </nav>
             </div>
         </header>
@@ -25,6 +29,4 @@
             </div>
         </footer>
     </div>
-
-
 {% endblock content %}

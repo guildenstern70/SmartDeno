@@ -7,7 +7,7 @@
  */
 
 // Routes
-import { DyeLog, Router, RouterContext, Status } from '../deps.ts';
+import { DyeLog, Router, RouterContext } from '../deps.ts';
 import { IUser } from '../service/dtos.ts';
 import User from '../service/user.ts';
 import UsersDb from '../service/usersdb.ts';
@@ -32,6 +32,7 @@ export default class WebRouter extends Router {
                 .get('/features', this.getFeatures)
                 .get('/login', this.getLogin)
                 .post('/login', this.postLogin)
+                .get('/logout', this.getLogout)
 
         } catch (err: any) {
             this.logger.error("ERROR");
@@ -39,10 +40,16 @@ export default class WebRouter extends Router {
         }
     }
 
-    private getHome = (ctx: RouterContext) => {
+    private getHome = async (ctx: RouterContext) => {
+        const sessionUser = await ctx.state.loggedUser;
+        let welcomeMessage = "🦕 A simple template site written in Deno 🦕";
+        if (sessionUser) {
+            welcomeMessage = `🦕 Welcome to SmartDeno, ${sessionUser} 🦕`;
+        }
         ctx.render('views/index.njk', {
             appname: "SmartDeno",
-            appdescription: "🦕 A simple template site written in Deno 🦕"
+            appdescription: welcomeMessage,
+            sessionUser,
         });
     }
 
@@ -63,11 +70,24 @@ export default class WebRouter extends Router {
 
     private getLogin = (ctx: RouterContext) => {
         this.logger.info("GET /login");
+        const qParams = ctx.request.url.searchParams;
+        const error = qParams.get("error");
+        this.logger.warn("Error == " + error);
+        let loginErrors = false;
+        if (error) loginErrors = true;
+        this.logger.warn("loginErrors == " + loginErrors);
         ctx.render('views/login.njk', {
             appname: "SmartDeno",
             title: "Contact",
+            loginErrors,
             description: "🦕 SmartDeno has been made by Alessio Saltarin <alessiosaltarin@gmail.com> 🦕"
         });
+    }
+
+    private getLogout = async (ctx: RouterContext) => {
+        this.logger.info("GET /logout");
+        ctx.state.loggedUser = null;
+        ctx.response.redirect("/");
     }
 
     private postLogin = async (ctx: RouterContext) => {
@@ -88,6 +108,8 @@ export default class WebRouter extends Router {
             const user: User | undefined = this.usersDb.getByUsername(posteduser.username);
             if ((user != undefined) && (user.password === posteduser.password)) {
                 this.logger.info("Ok, user logged in.");
+                ctx.state.loggedUser = user.username;
+                this.logger.info("POST LOGIN Logged User is " + ctx.state.loggedUser);
                 ctx.response.redirect("/");
             } else {
                 this.logger.info("User unknown or wrong password");
