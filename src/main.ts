@@ -70,7 +70,7 @@ app.use(async (ctx, next) => {
     }
 });
 
-// Imported Routes
+// Routes
 const restRouter = new RestRouter(usersdb, logger);
 const webRouter = new WebRouter(usersdb, logger);
 app.use(restRouter.routes());
