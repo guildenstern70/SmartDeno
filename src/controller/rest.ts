@@ -47,12 +47,12 @@ export default class RestRouter extends Router
         ctx.response.body = this.usersDb.getAll();
     }
 
-    private getUser = (ctx: RouterContext)=> {
+    private getUser = (ctx: RouterContext) => {
         ctx.response.type = "json";
         const userId = ctx.params.id;
-        if (userId == undefined) {
+        if (typeof userId === "undefined") {
             ctx.response.status = 404;
-            ctx.response.body = {message: `User not found.`}
+            ctx.response.body = {message: "User not found."};
             return;
         }
         const user: User | undefined = this.usersDb.get(userId);
@@ -61,21 +61,21 @@ export default class RestRouter extends Router
             ctx.response.body = user;
         } else {
             ctx.response.status = 404;
-            ctx.response.body = {message: `User with ID=${userId} not found.`}
+            ctx.response.body = {message: `User with ID=${userId} not found.`};
         }
     }
 
     private addUser = async (ctx: RouterContext) => {
         const { username, password } = await ctx.request.body().value;
-        const newUser = { "username": username, "password":password };
+        const newUser = { username, password };
         this.logger.info("Received " + JSON.stringify(newUser));
         if (!Object.prototype.hasOwnProperty.call(newUser, username)) {
-            ctx.response.body = { message: "KO - Cannot insert user unknown" }
+            ctx.response.body = { message: "KO - Cannot insert user unknown" };
             ctx.response.status = 400;
         }
         else {
             this.usersDb.add(newUser);
-            ctx.response.body = {message: "OK - User inserted"}
+            ctx.response.body = {message: "OK - User inserted"};
             ctx.response.status = 201;
         }
     }
@@ -93,7 +93,7 @@ export default class RestRouter extends Router
             ctx.response.body = {message: "OK - Deleted"};
             ctx.response.status = 200;
         } else {
-            ctx.response.body = {message: `User with ID=${userId} was not found.`}
+            ctx.response.body = {message: `User with ID=${userId} was not found.`};
             ctx.response.status = 404;
         }
     }

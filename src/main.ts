@@ -1,3 +1,4 @@
+/*global Deno */
 /**
  * Smart Deno
  * A template project for DENO

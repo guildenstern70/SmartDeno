@@ -32,7 +32,7 @@ export default class WebRouter extends Router {
                 .get("/features", this.getFeatures)
                 .get("/login", this.getLogin)
                 .post("/login", this.postLogin)
-                .get("/logout", this.getLogout)
+                .get("/logout", this.getLogout);
 
         } catch (err) {
             this.logger.error("ERROR");
@@ -74,7 +74,9 @@ export default class WebRouter extends Router {
         const error = qParams.get("error");
         this.logger.warn("Error == " + error);
         let loginErrors = false;
-        if (error) loginErrors = true;
+        if (error) {
+            loginErrors = true;
+        }
         this.logger.warn("loginErrors == " + loginErrors);
         ctx.render("views/login.njk", {
             appname: "SmartDeno",
@@ -93,8 +95,7 @@ export default class WebRouter extends Router {
     private postLogin = async (ctx: RouterContext) => {
         this.logger.info("POST /login");
         if (ctx.request.hasBody) {
-            const body = await ctx.request.body();
-            const value: URLSearchParams = await body.value;
+            const value: URLSearchParams = await ctx.request.body().value;
             if (value == undefined) {
                 this.logger.info("Unknown form parameters");
                 ctx.response.redirect("/login?error=notfound");
@@ -102,13 +103,10 @@ export default class WebRouter extends Router {
             const posteduser: IUser = {
                 username: value.get("username")!,
                 password: value.get("password")!,
-            }
-            this.logger.info("Got login request with User=" + posteduser.username
-                + " and password=" + posteduser.password);
-            const user: User | undefined = this.usersDb.getByUsername(posteduser.username);
-            if ((user != undefined) && (user.password === posteduser.password)) {
+            };
+            if (this.checkLogin(posteduser)) {
                 this.logger.info("Ok, user logged in.");
-                ctx.state.loggedUser = user.username;
+                ctx.state.loggedUser = posteduser.username;
                 this.logger.info("POST LOGIN Logged User is " + ctx.state.loggedUser);
                 ctx.response.redirect("/");
             } else {
@@ -119,6 +117,15 @@ export default class WebRouter extends Router {
             this.logger.error("Empty body");
             ctx.response.redirect("/login?error=notfound");
         }
+    }
+
+    private checkLogin(postedUser: IUser): Boolean {
+        this.logger.info("Got login request with User=" + postedUser.username
+            + " and password=" + postedUser.password);
+        const user: User | undefined = this.usersDb.getByUsername(postedUser.username);
+        return (typeof user !== 'undefined') &&
+            (user.password === postedUser.password);
+
     }
 }
 

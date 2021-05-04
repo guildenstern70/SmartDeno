@@ -6,8 +6,8 @@
  * MIT License
  */
 
-import { IUser } from './dtos.ts';
-import User from './user.ts';
+import { IUser } from "./dtos.ts";
+import User from "./user.ts";
 
 export default class UsersDb {
 
@@ -20,16 +20,17 @@ export default class UsersDb {
     }
 
     public getByUsername(username: string): User|undefined {
-        const users = this.users.filter( user => user.username == username )
-        if (users.length < 1)
+        const users = this.users.filter( (user) => user.username === username );
+        if (users.length < 1) {
             return undefined;
+        }
         return users[0]
     }
 
     public get(id: string): User|undefined {
         const userId = parseInt(id);
         if (isNaN(userId)) return undefined;
-        const users = this.users.filter( user => user.id == userId )
+        const users = this.users.filter( (user) => user.id === userId )
         if (users.length < 1)
             return undefined;
         return users[0]
@@ -49,8 +50,9 @@ export default class UsersDb {
         const userId = parseInt(id);
         if (isNaN(userId)) return false;
         const user = this.get(id);
-        if (user == undefined)
+        if (user == undefined) {
             return false;
+        }
         this.users = this.users.filter(obj => obj !== user);
         return true;
     }

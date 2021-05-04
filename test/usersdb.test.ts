@@ -1,3 +1,4 @@
+/*global Deno */
 /**
  * Smart Deno
  * A template project for DENO
@@ -27,7 +28,7 @@ Deno.test("UsersDB User Get", () => {
     usersdb.add({ username: "user2", password: "yyy"});
     usersdb.add({ username: "user3", password: "zzz"});
     const user = usersdb.getByUsername("user2");
-    assertEquals(user!.password, "yyy")
+    assertEquals(user!.password, "yyy");
 });
 
 Deno.test("UsersDB User Remove", () => {
@@ -38,13 +39,13 @@ Deno.test("UsersDB User Remove", () => {
     const user = usersdb.getByUsername("user2");
     assertExists(user);
     usersdb.delete(user!.id.toString());
-    assertEquals(usersdb.size(), 2)
+    assertEquals(usersdb.size(), 2);
 });
 
 Deno.test("UsersDB Get Unknown User", () => {
     const usersdb = new UsersDb();
     const user = usersdb.getByUsername("user-xxxxx");
-    assertEquals(user, undefined);
+    assertEquals(typeof user, "undefined");
 });
 
 
