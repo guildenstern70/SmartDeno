@@ -14,9 +14,9 @@ import {
     engineFactory,
     adapterFactory,
 } from "./deps.ts";
-import RestRouter from './controller/rest.ts';
-import WebRouter from './controller/web.ts';
-import UsersDb from './service/usersdb.ts';
+import RestRouter from "./controller/rest.ts";
+import WebRouter from "./controller/web.ts";
+import UsersDb from "./service/usersdb.ts";
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
 

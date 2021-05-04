@@ -7,9 +7,9 @@
  * MIT License
  */
 
-import { DyeLog, Router, RouterContext, Status } from '../deps.ts';
-import User from '../service/user.ts';
-import UsersDb from '../service/usersdb.ts';
+import { DyeLog, Router, RouterContext, Status } from "../deps.ts";
+import User from "../service/user.ts";
+import UsersDb from "../service/usersdb.ts";
 
 
 export default class RestRouter extends Router
@@ -30,10 +30,10 @@ export default class RestRouter extends Router
         try
         {
             this
-                .get   ('/api/v1/user', this.getUsers)
-                .get   ('/api/v1/user/:id', this.getUser)
-                .post  ('/api/v1/user', this.addUser)
-                .delete('/api/v1/user/:id', this.deleteUser);
+                .get   ("/api/v1/user", this.getUsers)
+                .get   ("/api/v1/user/:id", this.getUser)
+                .post  ("/api/v1/user", this.addUser)
+                .delete("/api/v1/user/:id", this.deleteUser);
 
         } catch (err: any) {
             this.logger.error("ERROR");
@@ -43,12 +43,12 @@ export default class RestRouter extends Router
 
     private getUsers = (ctx: RouterContext) => {
         ctx.response.status = Status.OK;
-        ctx.response.type = 'json';
+        ctx.response.type = "json";
         ctx.response.body = this.usersDb.getAll();
     }
 
     private getUser = (ctx: RouterContext)=> {
-        ctx.response.type = 'json';
+        ctx.response.type = "json";
         const userId = ctx.params.id;
         if (userId == undefined) {
             ctx.response.status = 404;
@@ -70,18 +70,18 @@ export default class RestRouter extends Router
         const newUser = { "username": username, "password":password };
         this.logger.info("Received " + JSON.stringify(newUser));
         if (!Object.prototype.hasOwnProperty.call(newUser, username)) {
-            ctx.response.body = { message: 'KO - Cannot insert user unknown' }
+            ctx.response.body = { message: "KO - Cannot insert user unknown" }
             ctx.response.status = 400;
         }
         else {
             this.usersDb.add(newUser);
-            ctx.response.body = {message: 'OK - User inserted'}
+            ctx.response.body = {message: "OK - User inserted"}
             ctx.response.status = 201;
         }
     }
 
     private deleteUser = (ctx: RouterContext) => {
-        ctx.response.type = 'json';
+        ctx.response.type = "json";
         const userId = ctx.params.id;
         if (userId == undefined) {
             ctx.response.status = 404;
@@ -90,7 +90,7 @@ export default class RestRouter extends Router
         }
         const deleted = this.usersDb.delete(userId);
         if (deleted) {
-            ctx.response.body = {message: 'OK - Deleted'};
+            ctx.response.body = {message: "OK - Deleted"};
             ctx.response.status = 200;
         } else {
             ctx.response.body = {message: `User with ID=${userId} was not found.`}

@@ -7,10 +7,10 @@
  */
 
 // Routes
-import { DyeLog, Router, RouterContext } from '../deps.ts';
-import { IUser } from '../service/dtos.ts';
-import User from '../service/user.ts';
-import UsersDb from '../service/usersdb.ts';
+import { DyeLog, Router, RouterContext } from "../deps.ts";
+import { IUser } from "../service/dtos.ts";
+import User from "../service/user.ts";
+import UsersDb from "../service/usersdb.ts";
 
 export default class WebRouter extends Router {
     private readonly logger: DyeLog;
@@ -28,13 +28,13 @@ export default class WebRouter extends Router {
         this.logger.info("Setting up web routes...");
         try {
             this
-                .get('/', this.getHome)
-                .get('/features', this.getFeatures)
-                .get('/login', this.getLogin)
-                .post('/login', this.postLogin)
-                .get('/logout', this.getLogout)
+                .get("/", this.getHome)
+                .get("/features", this.getFeatures)
+                .get("/login", this.getLogin)
+                .post("/login", this.postLogin)
+                .get("/logout", this.getLogout)
 
-        } catch (err: any) {
+        } catch (err) {
             this.logger.error("ERROR");
             this.logger.error(err);
         }
@@ -46,7 +46,7 @@ export default class WebRouter extends Router {
         if (sessionUser) {
             welcomeMessage = `🦕 Welcome to SmartDeno, ${sessionUser} 🦕`;
         }
-        ctx.render('views/index.njk', {
+        ctx.render("views/index.njk", {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
             sessionUser,
@@ -55,7 +55,7 @@ export default class WebRouter extends Router {
 
     private getFeatures = (ctx: RouterContext) => {
         this.logger.info("GET /features");
-        ctx.render('views/features.njk', {
+        ctx.render("views/features.njk", {
             appname: "SmartDeno",
             title: "Features",
             description: "🦕 SmartDeno is made with the following building blocks: 🦕",
@@ -76,7 +76,7 @@ export default class WebRouter extends Router {
         let loginErrors = false;
         if (error) loginErrors = true;
         this.logger.warn("loginErrors == " + loginErrors);
-        ctx.render('views/login.njk', {
+        ctx.render("views/login.njk", {
             appname: "SmartDeno",
             title: "Contact",
             loginErrors,
@@ -84,7 +84,7 @@ export default class WebRouter extends Router {
         });
     }
 
-    private getLogout = async (ctx: RouterContext) => {
+    private getLogout = (ctx: RouterContext) => {
         this.logger.info("GET /logout");
         ctx.state.loggedUser = null;
         ctx.response.redirect("/");
@@ -94,7 +94,7 @@ export default class WebRouter extends Router {
         this.logger.info("POST /login");
         if (ctx.request.hasBody) {
             const body = await ctx.request.body();
-            let value: URLSearchParams = await body.value;
+            const value: URLSearchParams = await body.value;
             if (value == undefined) {
                 this.logger.info("Unknown form parameters");
                 ctx.response.redirect("/login?error=notfound");

@@ -1,84 +1,84 @@
 body {
-    font-family: 'Ubuntu', sans-serif;;
+  font-family: 'Ubuntu', sans-serif;;
 }
 
 a:link {
-    text-decoration: none;
-    color: lightblue;
+  text-decoration: none;
+  color: lightblue;
 }
 
 a:visited {
-    text-decoration: none;
-    color: cadetblue;
+  text-decoration: none;
+  color: cadetblue;
 }
 
 a:hover {
-    text-decoration: none;
-    font-weight: bold;
-    color: lightgreen;
+  text-decoration: none;
+  font-weight: bold;
+  color: lightgreen;
 }
 
 a:active {
-    text-decoration: none;
-    color: hotpink;
+  text-decoration: none;
+  color: hotpink;
 }
 
 .featuresfiller {
-    margin-bottom: 250px;
+  margin-bottom: 250px;
 }
 
 .features {
-    background-color: darkgray;
+  background-color: darkgray;
 }
 
 /* Custom default button */
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
-    color: #333;
-    text-shadow: none; /* Prevent inheritance from `body` */
+  color: #333;
+  text-shadow: none; /* Prevent inheritance from `body` */
 }
 
 .xnavigator {
-    color: #b180ca;
-    font-weight: 400;
+  color: #b180ca;
+  font-weight: 400;
 }
 
 .loginform {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    padding: 40px;
-    color: #333;
-    background-color: darkgray;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding: 40px;
+  color: #333;
+  background-color: darkgray;
 }
 
 .xtitle {
-    color: #b180ca;
-    font-weight: 700;
+  color: #b180ca;
+  font-weight: 700;
 }
 
 .coverimage {
-    width: 800px;
+  width: 800px;
 }
 
 .nav-masthead .nav-link {
-    padding: .25rem 0;
-    font-weight: 700;
-    color: rgba(255, 255, 255, .5);
-    background-color: transparent;
-    border-bottom: .25rem solid transparent;
+  padding: .25rem 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, .5);
+  background-color: transparent;
+  border-bottom: .25rem solid transparent;
 }
 
 .nav-masthead .nav-link:hover,
 .nav-masthead .nav-link:focus {
-    border-bottom-color: rgba(255, 255, 255, .25);
+  border-bottom-color: rgba(255, 255, 255, .25);
 }
 
 .nav-masthead .nav-link + .nav-link {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .nav-masthead .active {
-    color: #fff;
-    border-bottom-color: #fff;
+  color: #fff;
+  border-bottom-color: #fff;
 }
