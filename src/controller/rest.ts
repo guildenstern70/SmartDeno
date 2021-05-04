@@ -83,9 +83,9 @@ export default class RestRouter extends Router
     private deleteUser = (ctx: RouterContext) => {
         ctx.response.type = "json";
         const userId = ctx.params.id;
-        if (userId == undefined) {
+        if (typeof userId === "undefined") {
             ctx.response.status = 404;
-            ctx.response.body = {message: `User not found.`}
+            ctx.response.body = {message: "User not found."};
             return;
         }
         const deleted = this.usersDb.delete(userId);

@@ -96,7 +96,7 @@ export default class WebRouter extends Router {
         this.logger.info("POST /login");
         if (ctx.request.hasBody) {
             const value: URLSearchParams = await ctx.request.body().value;
-            if (value == undefined) {
+            if (typeof value === "undefined") {
                 this.logger.info("Unknown form parameters");
                 ctx.response.redirect("/login?error=notfound");
             }
