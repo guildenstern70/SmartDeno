@@ -123,7 +123,7 @@ export default class WebRouter extends Router {
         this.logger.info("Got login request with User=" + postedUser.username
             + " and password=" + postedUser.password);
         const user: User | undefined = this.usersDb.getByUsername(postedUser.username);
-        return (typeof user !== 'undefined') &&
+        return (typeof user !== "undefined") &&
             (user.password === postedUser.password);
 
     }

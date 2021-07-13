@@ -24,16 +24,19 @@ export default class UsersDb {
         if (users.length < 1) {
             return undefined;
         }
-        return users[0]
+        return users[0];
     }
 
     public get(id: string): User | undefined {
         const userId = parseInt(id);
-        if (isNaN(userId)) return undefined;
-        const users = this.users.filter((user) => user.id === userId)
-        if (users.length < 1)
+        if (isNaN(userId)) {
             return undefined;
-        return users[0]
+        }
+        const users = this.users.filter((user) => user.id === userId);
+        if (users.length < 1) {
+            return undefined;
+        }
+        return users[0];
     }
 
     public getAll(): User[] {
@@ -46,12 +49,14 @@ export default class UsersDb {
 
     public delete(id: string): boolean {
         const userId = parseInt(id);
-        if (isNaN(userId)) return false;
+        if (isNaN(userId)) {
+            return false;
+        }
         const user = this.get(id);
         if (user == undefined) {
             return false;
         }
-        this.users = this.users.filter(obj => obj !== user);
+        this.users = this.users.filter( (obj) => obj !== user);
         return true;
     }
 
