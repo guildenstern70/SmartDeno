@@ -12,8 +12,7 @@ import User from "../service/user.ts";
 import UsersDb from "../service/usersdb.ts";
 
 
-export default class RestRouter extends Router
-{
+export default class RestRouter extends Router {
     private readonly usersDb: UsersDb;
     private readonly logger: DyeLog;
 
@@ -27,12 +26,11 @@ export default class RestRouter extends Router
 
     private setupRoutes() {
         this.logger.info("Setting up routes...");
-        try
-        {
+        try {
             this
-                .get   ("/api/v1/user", this.getUsers)
-                .get   ("/api/v1/user/:id", this.getUser)
-                .post  ("/api/v1/user", this.addUser)
+                .get("/api/v1/user", this.getUsers)
+                .get("/api/v1/user/:id", this.getUser)
+                .post("/api/v1/user", this.addUser)
                 .delete("/api/v1/user/:id", this.deleteUser);
 
         } catch (err: any) {
@@ -66,14 +64,13 @@ export default class RestRouter extends Router
     }
 
     private addUser = async (ctx: RouterContext) => {
-        const { username, password } = await ctx.request.body().value;
-        const newUser = { username, password };
+        const {username, password} = await ctx.request.body().value;
+        const newUser = {username, password};
         this.logger.info("Received " + JSON.stringify(newUser));
         if (!Object.prototype.hasOwnProperty.call(newUser, username)) {
-            ctx.response.body = { message: "KO - Cannot insert user unknown" };
+            ctx.response.body = {message: "KO - Cannot insert user unknown"};
             ctx.response.status = 400;
-        }
-        else {
+        } else {
             this.usersDb.add(newUser);
             ctx.response.body = {message: "OK - User inserted"};
             ctx.response.status = 201;

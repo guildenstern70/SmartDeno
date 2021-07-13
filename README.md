@@ -1,9 +1,10 @@
 ## SmartDeno
 
-[![deno version](https://img.shields.io/badge/deno-^1.8.2-lightgrey?logo=deno)](https://github.com/denoland/deno)
+[![deno version](https://img.shields.io/badge/deno-^1.10.2-lightgrey?logo=deno)](https://github.com/denoland/deno)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ce723763948494fb69c6efd861fce4c)](https://www.codacy.com/gh/guildenstern70/SmartDeno/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guildenstern70/SmartDeno&amp;utm_campaign=Badge_Grade)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A simple template App Server written in Deno.
+A simple template App Server written in TypeScript for Deno.
 
 It uses:
 

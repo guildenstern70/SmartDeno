@@ -19,30 +19,28 @@ export default class UsersDb {
         this.users.push(user);
     }
 
-    public getByUsername(username: string): User|undefined {
-        const users = this.users.filter( (user) => user.username === username );
+    public getByUsername(username: string): User | undefined {
+        const users = this.users.filter((user) => user.username === username);
         if (users.length < 1) {
             return undefined;
         }
         return users[0]
     }
 
-    public get(id: string): User|undefined {
+    public get(id: string): User | undefined {
         const userId = parseInt(id);
         if (isNaN(userId)) return undefined;
-        const users = this.users.filter( (user) => user.id === userId )
+        const users = this.users.filter((user) => user.id === userId)
         if (users.length < 1)
             return undefined;
         return users[0]
     }
 
-    public getAll(): User[]
-    {
+    public getAll(): User[] {
         return this.users;
     }
 
-    public size(): number
-    {
+    public size(): number {
         return this.users.length;
     }
 

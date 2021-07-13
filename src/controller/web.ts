@@ -119,7 +119,7 @@ export default class WebRouter extends Router {
         }
     }
 
-    private checkLogin(postedUser: IUser): Boolean {
+    private checkLogin(postedUser: IUser): boolean {
         this.logger.info("Got login request with User=" + postedUser.username
             + " and password=" + postedUser.password);
         const user: User | undefined = this.usersDb.getByUsername(postedUser.username);

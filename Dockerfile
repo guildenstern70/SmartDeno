@@ -1,4 +1,4 @@
-FROM hayd/centos-deno:1.8.2
+FROM hayd/centos-deno:1.10.2
 EXPOSE 8000
 WORKDIR /app
 

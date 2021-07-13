@@ -8,22 +8,19 @@
  */
 
 
-import { Application, send } from "./deps.ts";
-import { DyeLog, LogLevel } from "./deps.ts";
-import {
-    viewEngine,
-    engineFactory,
-    adapterFactory,
-} from "./deps.ts";
 import RestRouter from "./controller/rest.ts";
 import WebRouter from "./controller/web.ts";
 import UsersDb from "./service/usersdb.ts";
+import {
+    adapterFactory,
+    Application,
+    DyeLog,
+    engineFactory,
+    LogLevel,
+    send,
+    viewEngine } from "./deps.ts";
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
-
-// In memory DB
-const usersdb = new UsersDb();
-usersdb.add({username: "guest", password: "guest"});
 
 // Templating Engine
 const denjucksEngine = engineFactory.getDenjuckEngine();
@@ -71,8 +68,14 @@ app.use(async (ctx, next) => {
     }
 });
 
+// In memory DB
+const usersdb = new UsersDb();
+usersdb.add({username: "guest", password: "guest"});
+
 // Routes
+// @ts-ignore: usersdb object is just fine
 const restRouter = new RestRouter(usersdb, logger);
+// @ts-ignore: usersdb object is just fine
 const webRouter = new WebRouter(usersdb, logger);
 app.use(restRouter.routes());
 app.use(restRouter.allowedMethods());
