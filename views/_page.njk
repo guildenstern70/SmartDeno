@@ -24,8 +24,12 @@
 
         <footer class="mt-auto text-white-50">
             <div class="text-end">
-                {{ appname }} template is made with <a href="https://getbootstrap.com/" class="text-white">Bootstrap
-                    5</a>.
+            {% if sessionUser %}
+                You are logged as <b>{{ sessionUser }}</b>. <a href="/logout">Logout</a>.
+            {% else %}
+                {{ appname }} template is made with
+                <a href="https://getbootstrap.com/" class="text-white">Bootstrap 5</a>.
+            {% endif %}
             </div>
         </footer>
     </div>
