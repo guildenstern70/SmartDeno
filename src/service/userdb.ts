@@ -6,7 +6,7 @@
  * MIT License
  */
 
-import { IUser } from "./dtos.ts";
+import { IUser } from "./dto.ts";
 import User from "./user.ts";
 
 export default class UsersDb {

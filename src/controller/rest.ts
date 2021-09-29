@@ -9,7 +9,7 @@
 
 import { DyeLog, Router, RouterContext, Status } from "../deps.ts";
 import User from "../service/user.ts";
-import UsersDb from "../service/usersdb.ts";
+import UsersDb from "../service/userdb.ts";
 
 
 export default class RestRouter extends Router {

@@ -8,9 +8,9 @@
 
 // Routes
 import { DyeLog, Router, RouterContext } from "../deps.ts";
-import { IUser } from "../service/dtos.ts";
+import { IUser } from "../service/dto.ts";
 import User from "../service/user.ts";
-import UsersDb from "../service/usersdb.ts";
+import UsersDb from "../service/userdb.ts";
 
 export default class WebRouter extends Router {
     private readonly logger: DyeLog;

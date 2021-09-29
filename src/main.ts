@@ -10,7 +10,7 @@
 
 import RestRouter from "./controller/rest.ts";
 import WebRouter from "./controller/web.ts";
-import UsersDb from "./service/usersdb.ts";
+import UsersDb from "./service/userdb.ts";
 import {
     adapterFactory,
     Application,
