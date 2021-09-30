@@ -11,7 +11,7 @@ import {
     assertEquals,
     assertExists
 } from "https://deno.land/std@0.78.0/testing/asserts.ts";
-import UsersDb from "../src/service/usersdb.ts";
+import UsersDb from "../src/service/userdb.ts";
 
 
 Deno.test("UsersDB User Add", () => {
