@@ -7,10 +7,11 @@
  */
 
 // Routes
-import { DyeLog, Router, RouterContext } from "../deps.ts";
+import { DyeLog, Router } from "../deps.ts";
 import { IUser } from "../service/dto.ts";
 import User from "../service/user.ts";
 import UsersDb from "../service/userdb.ts";
+
 
 export default class WebRouter extends Router {
     private readonly logger: DyeLog;
@@ -40,7 +41,7 @@ export default class WebRouter extends Router {
         }
     }
 
-    private getHome = async (ctx: RouterContext) => {
+    private getHome = async (ctx: any) => {
         const sessionUser = await ctx.state.loggedUser;
         let welcomeMessage = "🦕 A simple template site written in Deno 🦕";
         if (sessionUser) {
@@ -53,7 +54,7 @@ export default class WebRouter extends Router {
         });
     }
 
-    private getFeatures = (ctx: RouterContext) => {
+    private getFeatures = (ctx: any) => {
         this.logger.info("GET /features");
         ctx.render("views/features.njk", {
             appname: "SmartDeno",
@@ -68,7 +69,7 @@ export default class WebRouter extends Router {
         });
     }
 
-    private getLogin = (ctx: RouterContext) => {
+    private getLogin = (ctx: any) => {
         this.logger.info("GET /login");
         const qParams = ctx.request.url.searchParams;
         const error = qParams.get("error");
@@ -86,13 +87,13 @@ export default class WebRouter extends Router {
         });
     }
 
-    private getLogout = (ctx: RouterContext) => {
+    private getLogout = (ctx: any) => {
         this.logger.info("GET /logout");
         ctx.state.loggedUser = null;
         ctx.response.redirect("/");
     }
 
-    private postLogin = async (ctx: RouterContext) => {
+    private postLogin = async (ctx: any) => {
         this.logger.info("POST /login");
         if (ctx.request.hasBody) {
             const value: URLSearchParams = await ctx.request.body().value;
