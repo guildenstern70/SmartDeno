@@ -2,8 +2,7 @@
 /**
  * Smart Deno
  * A template project for DENO
- *
- * Copyright (c) 2020-21 Alessio Saltarin
+ * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
  */
 
@@ -12,20 +11,25 @@ import RestRouter from "./controller/rest.ts";
 import WebRouter from "./controller/web.ts";
 import UsersDb from "./service/userdb.ts";
 import {
-    adapterFactory,
     Application,
     DyeLog,
-    engineFactory,
     LogLevel,
+    oakAdapter,
     send,
-    viewEngine } from "./deps.ts";
+    denjuckEngine,
+    viewEngine
+} from './deps.ts';
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
 
 // Templating Engine
-const denjucksEngine = engineFactory.getDenjuckEngine();
-const oakAdapter = adapterFactory.getOakAdapter();
-app.use(viewEngine(oakAdapter, denjucksEngine));
+app.use(viewEngine(
+    oakAdapter,
+    denjuckEngine,
+    {
+        viewRoot: "./",
+    }
+));
 
 // Logger
 const logger = new DyeLog({
@@ -82,7 +86,9 @@ app.use(restRouter.allowedMethods());
 app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
 
+logger.info("Running in: " + Deno.cwd());
 logger.warn("🦕 Deno server running at http://localhost:8000/ 🦕");
+
 await app.listen({port: 8000});
 
 

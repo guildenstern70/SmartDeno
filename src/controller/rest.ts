@@ -2,8 +2,7 @@
 /**
  * Smart Deno
  * A template project for DENO
- *
- * Copyright (c) 2020-21 Alessio Saltarin
+ * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
  */
 
@@ -39,13 +38,13 @@ export default class RestRouter extends Router {
         }
     }
 
-    private getUsers = (ctx: RouterContext) => {
+    private getUsers = (ctx: any) => {
         ctx.response.status = Status.OK;
         ctx.response.type = "json";
         ctx.response.body = this.usersDb.getAll();
     }
 
-    private getUser = (ctx: RouterContext) => {
+    private getUser = (ctx: any) => {
         ctx.response.type = "json";
         const userId = ctx.params.id;
         if (typeof userId === "undefined") {
@@ -63,7 +62,7 @@ export default class RestRouter extends Router {
         }
     }
 
-    private addUser = async (ctx: RouterContext) => {
+    private addUser = async (ctx: any) => {
         const {username, password} = await ctx.request.body().value;
         const newUser = {username, password};
         this.logger.info("Received " + JSON.stringify(newUser));
@@ -77,7 +76,7 @@ export default class RestRouter extends Router {
         }
     }
 
-    private deleteUser = (ctx: RouterContext) => {
+    private deleteUser = (ctx: any) => {
         ctx.response.type = "json";
         const userId = ctx.params.id;
         if (typeof userId === "undefined") {
