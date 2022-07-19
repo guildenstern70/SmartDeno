@@ -1,4 +1,4 @@
-{% extends "views/_page.njk" %}
+<% layout("_page.eta") %>
 
 {% block title %}
     Login

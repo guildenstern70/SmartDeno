@@ -7,6 +7,7 @@
 
 // Routes
 import { DyeLog, Router } from "../deps.ts";
+import { render, renderFile, configure } from "../deps.ts";
 import { IUser } from "../service/dto.ts";
 import User from "../service/user.ts";
 import UsersDb from "../service/userdb.ts";
@@ -21,8 +22,15 @@ export default class WebRouter extends Router {
         super();
         this.logger = logger;
         this.usersDb = usersDb;
+
+        // Eta Views
+        configure({
+            views: `${Deno.cwd()}/views`
+        })
+
         this.setupRoutes();
     }
+
 
     private setupRoutes() {
         this.logger.info("Setting up web routes...");
@@ -41,21 +49,27 @@ export default class WebRouter extends Router {
     }
 
     private getHome = async (ctx: any) => {
+        this.logger.info("GET /index");
+
         const sessionUser = await ctx.state.loggedUser;
         let welcomeMessage = "🦕 A simple template site written in Deno 🦕";
         if (sessionUser) {
             welcomeMessage = `🦕 Welcome to SmartDeno, ${sessionUser} 🦕`;
         }
-        ctx.render("views/index.njk", {
+
+        ctx.response.headers.set("Content-Type", "text/html");
+        ctx.response.body = await renderFile("index.eta", {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
             sessionUser,
         });
     }
 
-    private getFeatures = (ctx: any) => {
+    private getFeatures = async (ctx: any) => {
         this.logger.info("GET /features");
-        ctx.render("views/features.njk", {
+
+        ctx.response.headers.set("Content-Type", "text/html");
+        ctx.response.body = await renderFile("features.eta", {
             appname: "SmartDeno",
             title: "Features",
             description: "🦕 SmartDeno is made with the following building blocks: 🦕",
@@ -78,7 +92,7 @@ export default class WebRouter extends Router {
             loginErrors = true;
         }
         this.logger.warn("loginErrors == " + loginErrors);
-        ctx.render("views/login.njk", {
+        ctx.render("views/login.eta", {
             appname: "SmartDeno",
             title: "Contact",
             loginErrors,
