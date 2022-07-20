@@ -34,8 +34,8 @@ export class Page implements View {
                     <% if (it.sessionUser) { %>
                         You are logged as <b><%= it.sessionUser %></b>. <a href="/logout">Logout</a>.
                     <% } else { %>
-                            <%= it.appname %> template is made with
-                            <a href="https://getbootstrap.com/" class="text-white">Bootstrap 5</a>.
+                            <%= it.appname %> Powered by 
+                            <a href="https://deno.land/" target="_blank" class="text-white">Deno</a>.
                     <% } %>
                 </div>
             </footer>

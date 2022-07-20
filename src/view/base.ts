@@ -24,6 +24,7 @@ export class Base implements View {
                 <link rel="preconnect" href="https://fonts.gstatic.com">
                 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
                 <title>Smart Deno</title>
+                <script src="/js/menuitems.js"></script>
             </head>
             <body class="text-white bg-dark">
             <main class="d-flex h-100">
@@ -32,7 +33,6 @@ export class Base implements View {
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
                     crossorigin="anonymous"></script>
-            <script src="/js/menuitems.js"></script>
             </body>
             </html>
         `;
