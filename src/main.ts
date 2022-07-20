@@ -50,7 +50,7 @@ app.addEventListener("error", (evt) => {
 // Static Files
 app.use(async (ctx, next) => {
     const filePath = ctx.request.url.pathname;
-    const allowedRequests = ["/css", "/img", "/js"];
+    const allowedRequests = ["/", "/css", "/img", "/js"];
     await next();
     for (const request of allowedRequests) {
         if (filePath.startsWith(request)) {
