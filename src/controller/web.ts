@@ -7,8 +7,8 @@
  */
 
 // Routes
-import { DyeLog, Router } from "../deps.ts";
-import { renderFile, configure } from "../deps.ts";
+import {DyeLog, Router} from "../deps.ts";
+import { renderFile, renderFileAsync, configure } from "../deps.ts";
 import { IUser } from "../service/dto.ts";
 import User from "../service/user.ts";
 import UsersDb from "../service/userdb.ts";
@@ -59,7 +59,7 @@ export default class WebRouter extends Router {
         }
 
         ctx.response.headers.set("Content-Type", "text/html");
-        ctx.response.body = await renderFile("index.eta", {
+        ctx.response.body = await renderFileAsync("index.eta", {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
             sessionUser
