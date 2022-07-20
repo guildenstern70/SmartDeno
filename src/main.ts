@@ -6,15 +6,12 @@
  * MIT License
  */
 
-
-import RestRouter from "./controller/rest.ts";
 import WebRouter from "./controller/web.ts";
 import UsersDb from "./service/userdb.ts";
 import {
     Application,
     DyeLog,
-    LogLevel,
-    send
+    LogLevel
 } from './deps.ts';
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
