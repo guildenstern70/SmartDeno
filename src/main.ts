@@ -40,20 +40,6 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
-// Static Files
-/*app.use(async (ctx, next) => {
-    const filePath = ctx.request.url.pathname;
-    const allowedRequests = ["/", "/css", "/img", "/js"];
-    await next();
-    for (const request of allowedRequests) {
-        if (filePath.startsWith(request)) {
-            await send(ctx, filePath, {
-                root: `${Deno.cwd()}/static`
-            });
-        }
-    }
-});*/
-
 // In memory DB
 const usersdb = new UsersDb();
 usersdb.add({username: "guest", password: "guest"});
@@ -67,6 +53,16 @@ app.use(restRouter.routes());
 app.use(restRouter.allowedMethods());
 app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
+
+// Static Files
+app.use(async (context, next) => {
+    const root = `${Deno.cwd()}/static`
+    try {
+        await context.send({ root })
+    } catch {
+        await next()
+    }
+})
 
 logger.info("Running in: " + Deno.cwd());
 app.addEventListener(
