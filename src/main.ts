@@ -27,9 +27,21 @@ const logger = new DyeLog({
     level: LogLevel.TRACE
 });
 
+// Timing (Logger and Response Header)
+app.use(async (ctx, next) => {
+    await next();
+    const rt = ctx.response.headers.get("X-Response-Time");
+    logger.info(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
+});
+app.use(async (ctx, next) => {
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    ctx.response.headers.set("X-Response-Time", `${ms}ms`);
+});
 
 // Static Files
-app.use(async (ctx, next) => {
+/*app.use(async (ctx, next) => {
     const filePath = ctx.request.url.pathname;
     const allowedRequests = ["/", "/css", "/img", "/js"];
     await next();
@@ -40,7 +52,7 @@ app.use(async (ctx, next) => {
             });
         }
     }
-});
+});*/
 
 // In memory DB
 const usersdb = new UsersDb();
@@ -57,7 +69,10 @@ app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
 
 logger.info("Running in: " + Deno.cwd());
-logger.warn("🦕 Deno server running at http://localhost:8000/ 🦕");
+app.addEventListener(
+    "listen",
+    (_e) => logger.warn("🦕 Deno server running at http://localhost:8000/ 🦕"),
+);
 
 await app.listen({port: 8000});
 
