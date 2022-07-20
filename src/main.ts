@@ -46,11 +46,7 @@ usersdb.add({username: "guest", password: "guest"});
 
 // Routes
 // @ts-ignore: usersdb object is just fine
-const restRouter = new RestRouter(usersdb, logger);
-// @ts-ignore: usersdb object is just fine
 const webRouter = new WebRouter(usersdb, logger);
-app.use(restRouter.routes());
-app.use(restRouter.allowedMethods());
 app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
 
