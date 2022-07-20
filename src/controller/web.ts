@@ -7,11 +7,14 @@
  */
 
 // Routes
-import {DyeLog, Router} from "../deps.ts";
-import { renderFile, renderFileAsync, configure } from "../deps.ts";
-import { IUser } from "../service/dto.ts";
 import User from "../service/user.ts";
 import UsersDb from "../service/userdb.ts";
+import { Features } from "../view/features.ts";
+import { IUser } from "../service/dto.ts";
+import { Index } from "../view/index.ts";
+import { Login } from "../view/login.ts";
+import { render } from "../deps.ts";
+import { DyeLog, Router } from "../deps.ts";
 
 
 export default class WebRouter extends Router {
@@ -23,11 +26,6 @@ export default class WebRouter extends Router {
         super();
         this.logger = logger;
         this.usersDb = usersDb;
-
-        // Eta Views path
-        configure({
-            views: `${Deno.cwd()}/views`
-        })
 
         this.setupRoutes();
     }
@@ -59,7 +57,8 @@ export default class WebRouter extends Router {
         }
 
         ctx.response.headers.set("Content-Type", "text/html");
-        ctx.response.body = await renderFileAsync("index.eta", {
+        const indexEta = new Index().get();
+        ctx.response.body = await render(indexEta, {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
             sessionUser
@@ -70,7 +69,8 @@ export default class WebRouter extends Router {
         this.logger.info("GET /features");
 
         ctx.response.headers.set("Content-Type", "text/html");
-        ctx.response.body = await renderFile("features.eta", {
+        const featuresEta = new Features().get();
+        ctx.response.body = await render(featuresEta, {
             appname: "SmartDeno",
             title: "Features",
             description: "🦕 SmartDeno has been made with the following building blocks: 🦕",
@@ -96,7 +96,8 @@ export default class WebRouter extends Router {
         this.logger.warn("loginErrors == " + loginErrors);
 
         ctx.response.headers.set("Content-Type", "text/html");
-        ctx.response.body = await renderFile("login.eta", {
+        const loginEta = new Login().get();
+        ctx.response.body = await render(loginEta, {
             appname: "SmartDeno",
             title: "Contact",
             description: "🦕 SmartDeno has been made by Alessio Saltarin <alessiosaltarin@gmail.com> 🦕"
