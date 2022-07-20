@@ -32,7 +32,7 @@ export class Features implements View {
                     <p class="mt-2 py-3">
                         <ul class="list-group features">
                             <% Object.keys(it.features).forEach((f) => { %>
-                                <li class="list-group-item"><a href="<%= f %>" target="_blank"><%= it.features[f]  %></a></li>
+                                <li class="list-group-item"><a href="<%= it.features[f] %>" target="_blank"><%= f %></a></li>
                             <% }) %>
                         </ul>
                     </p>
