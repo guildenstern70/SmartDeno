@@ -23,7 +23,7 @@ export class Base implements View {
                 <link rel="icon" href="/favicon.ico" type="image/x-icon">
                 <link rel="preconnect" href="https://fonts.gstatic.com">
                 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
-                <title>Tiny Deno</title>
+                <title>Smart Deno</title>
             </head>
             <body class="text-white bg-dark">
             <main class="d-flex h-100">
