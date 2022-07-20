@@ -50,9 +50,9 @@ export default class WebRouter extends Router {
     }
 
     private getHome = async (ctx: any) => {
-        this.logger.info("GET /index");
+        this.logger.info("GET /home");
 
-        const sessionUser = await ctx.state.loggedUser;
+        const sessionUser = "";
         let welcomeMessage = "🦕 A simple template site written in Deno 🦕";
         if (sessionUser) {
             welcomeMessage = `🦕 Welcome to SmartDeno, ${sessionUser} 🦕`;
@@ -62,7 +62,7 @@ export default class WebRouter extends Router {
         ctx.response.body = await renderFile("index.eta", {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
-            sessionUser,
+            sessionUser
         });
     }
 
