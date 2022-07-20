@@ -71,19 +71,7 @@ app.use(webRouter.allowedMethods());
 logger.info("Running in: " + Deno.cwd());
 logger.warn("🦕 Deno server running at http://localhost:8000/ 🦕");
 
-const listener = Deno.listen({ hostname: "localhost", port: 8000 });
-
-for await (const conn of listener) {
-    (async () => {
-        const requests = Deno.serveHttp(conn);
-        for await (const { request, respondWith } of requests) {
-            const response = await app.handle(request, conn);
-            if (response) {
-                respondWith(response);
-            }
-        }
-    });
-}
+await app.listen({port: 8000});
 
 
 
