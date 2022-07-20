@@ -27,18 +27,6 @@ const logger = new DyeLog({
     level: LogLevel.TRACE
 });
 
-// Timing (Logger and Response Header)
-app.use(async (ctx, next) => {
-    await next();
-    const rt = ctx.response.headers.get("X-Response-Time");
-    logger.info(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
-});
-app.use(async (ctx, next) => {
-    const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    ctx.response.headers.set("X-Response-Time", `${ms}ms`);
-});
 
 // Static Files
 app.use(async (ctx, next) => {
