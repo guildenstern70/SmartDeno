@@ -14,22 +14,11 @@ import {
     Application,
     DyeLog,
     LogLevel,
-    oakAdapter,
-    send,
-    denjuckEngine,
-    viewEngine
+    send
 } from './deps.ts';
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
 
-// Templating Engine
-app.use(viewEngine(
-    oakAdapter,
-    denjuckEngine,
-    {
-        viewRoot: "./",
-    }
-));
 
 // Logger
 const logger = new DyeLog({

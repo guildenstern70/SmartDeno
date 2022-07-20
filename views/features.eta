@@ -20,12 +20,11 @@
         </div>
         <div class="col-5">
             <p class="mt-2 py-3">
-            <ul class="list-group features">
-                {% for feature, link in features %}
-                    <li class="list-group-item"><a href="<%= it.link %>" target="_blank"><%= it.feature  %></a></li>
-                {% endfor %}
-            </ul>
-
+                <ul class="list-group features">
+                    <% Object.keys(it.features).forEach((f) => { %>
+                        <li class="list-group-item"><a href="<%= f %>" target="_blank"><%= it.features[f]  %></a></li>
+                    <% }) %>
+                </ul>
             </p>
         </div>
         <div class="col">

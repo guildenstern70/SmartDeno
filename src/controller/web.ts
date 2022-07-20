@@ -7,7 +7,7 @@
 
 // Routes
 import { DyeLog, Router } from "../deps.ts";
-import { render, renderFile, configure } from "../deps.ts";
+import { renderFile, configure } from "../deps.ts";
 import { IUser } from "../service/dto.ts";
 import User from "../service/user.ts";
 import UsersDb from "../service/userdb.ts";
@@ -23,7 +23,7 @@ export default class WebRouter extends Router {
         this.logger = logger;
         this.usersDb = usersDb;
 
-        // Eta Views
+        // Eta Views path
         configure({
             views: `${Deno.cwd()}/views`
         })
@@ -72,17 +72,18 @@ export default class WebRouter extends Router {
         ctx.response.body = await renderFile("features.eta", {
             appname: "SmartDeno",
             title: "Features",
-            description: "🦕 SmartDeno is made with the following building blocks: 🦕",
+            description: "🦕 SmartDeno has been made with the following building blocks: 🦕",
             features: {
                 "Deno": "https://deno.land",
                 "Bootstrap": "https://getbootstrap.com/",
-                "Denjucks": "https://deno.land/x/denjucks@1.1.1",
-                "DyeLog": "https://deno.land/x/dyelog@v0.1.1"
+                "Oak": "https://deno.land/x/oak",
+                "Eta": "https://eta.js.org/",
+                "DyeLog": "https://deno.land/x/dyelog"
             }
         });
     }
 
-    private getLogin = (ctx: any) => {
+    private getLogin = async (ctx: any) => {
         this.logger.info("GET /login");
         const qParams = ctx.request.url.searchParams;
         const error = qParams.get("error");
@@ -92,12 +93,14 @@ export default class WebRouter extends Router {
             loginErrors = true;
         }
         this.logger.warn("loginErrors == " + loginErrors);
-        ctx.render("views/login.eta", {
+
+        ctx.response.headers.set("Content-Type", "text/html");
+        ctx.response.body = await renderFile("login.eta", {
             appname: "SmartDeno",
             title: "Contact",
-            loginErrors,
             description: "🦕 SmartDeno has been made by Alessio Saltarin <alessiosaltarin@gmail.com> 🦕"
         });
+
     }
 
     private getLogout = (ctx: any) => {
