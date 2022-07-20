@@ -19,7 +19,7 @@ This application is compatible with [Deno Deploy](https://deno.com/deploy) and c
 
 ### Run locally
 
-    run --allow-net --allow-read src/main.ts
+    deno run --allow-net --allow-read src/main.ts
 
 ### Cache dependencies locally
 
