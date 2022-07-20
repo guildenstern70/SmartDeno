@@ -40,13 +40,6 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
-// Exception Handling
-app.addEventListener("error", (evt) => {
-    // Will log the thrown error to the console.
-    logger.error(evt.error.message);
-    console.log(evt.error);
-});
-
 // Static Files
 app.use(async (ctx, next) => {
     const filePath = ctx.request.url.pathname;
