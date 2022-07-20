@@ -13,6 +13,14 @@ This application is based on the following libraries:
 * [Bootstrap Responsive HTML Library](https://getbootstrap.com/)
 * [DyeLog Logger](https://deno.land/x/dyelog@v0.1.1)
 
+### Deno Deploy
+
+This application is compatible with [Deno Deploy](https://deno.com/deploy) and can be visited [here](https://smart-deno-project.deno.dev/)
+
+### Run locally
+
+    run --allow-net --allow-read src/main.ts
+
 ### Cache dependencies locally
 
     deno cache src/deps.ts
