@@ -16,9 +16,6 @@ import {
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
 
-// Clear localstorage
-localStorage.clear();
-
 // Logger
 const logger = new DyeLog({
     timestamp: true,
