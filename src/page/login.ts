@@ -11,7 +11,6 @@ import { LoginView } from '../view/loginView.ts';
 import { IUser } from '../service/dto.ts';
 import { Session } from '../service/session.ts';
 import User from '../service/user.ts';
-import UsersDb from '../service/userdb.ts';
 
 
 export class Login extends Page {

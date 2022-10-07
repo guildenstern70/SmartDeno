@@ -7,12 +7,14 @@
  */
 
 import WebRouter from "./controller/web.ts";
-import UsersDb from "./service/userdb.ts";
+
 import {
     Application,
     DyeLog,
     LogLevel
 } from './deps.ts';
+import { FaunaDb } from './db/fauna.ts';
+
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
 
@@ -36,9 +38,23 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
-// In memory DB (persisted in local storage)
-const usersdb = new UsersDb();
-usersdb.add({username: "guest", password: "guest"});
+// Fauna DB
+const faunaDb = new FaunaDb(logger);
+faunaDb.getAllUsers().then(users => {
+    if (users === undefined || users.length == 0) {
+        faunaDb.createUser(0,"guest", "guest").then( data => {
+            if (data.error) {
+                logger.error("FaunaDB cannot create first user: " + JSON.stringify(data.error));
+            }
+            else {
+                logger.info("Created guest user. ");
+            }
+        })}
+    else {
+        users.forEach(user => { logger.info("Found user: " + JSON.stringify(user)) } );
+    }
+});
+
 
 // Routes
 // @ts-ignore: usersdb object is just fine
