@@ -8,10 +8,14 @@
 export class Session {
 
     static getItem(itemName: string): string {
-        return localStorage.getItem(itemName);
+        return sessionStorage.getItem(itemName);
+    }
+
+    static removeItem(itemName: string): void {
+        sessionStorage.removeItem(itemName);
     }
 
     static setItem(itemName: string, itemValue: string): void {
-        localStorage.setItem(itemName, itemValue);
+        sessionStorage.setItem(itemName, itemValue);
     }
 }

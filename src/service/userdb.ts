@@ -92,10 +92,10 @@ export default class UsersDb {
 
     private getDb() {
 
-        let count = parseInt(localStorage.getItem("count"));
+        const count = parseInt(localStorage.getItem("count"));
         this.users = [];
         for (let j=0; j < count; j++) {
-            let user = new User();
+            const user = new User();
             user.username = localStorage.getItem(`${this.USERS}${j}-name`);
             user.password = localStorage.getItem(`${this.USERS}${j}-pwd`);
             user.id = parseInt(localStorage.getItem(`${this.USERS}${j}-id`));

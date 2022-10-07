@@ -11,6 +11,7 @@ import { Home } from "../page/home.ts";
 import { Login } from "../page/login.ts";
 import { DyeLog, Router } from "../deps.ts";
 import { Features } from '../page/features.ts';
+import { Session } from '../service/session.ts';
 
 export default class WebRouter extends Router {
 
@@ -53,7 +54,7 @@ export default class WebRouter extends Router {
 
     private getLogout = (ctx: any) => {
         this.logger.info("GET /logout");
-        ctx.state.loggedUser = null;
+        Session.removeItem("logged-user");
         ctx.response.redirect("/");
     }
 
