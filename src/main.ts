@@ -16,6 +16,8 @@ import {
 
 const app = new Application<{ loggedUser?: string }>({state: {}});
 
+// Clear localstorage
+localStorage.clear();
 
 // Logger
 const logger = new DyeLog({
@@ -37,13 +39,13 @@ app.use(async (ctx, next) => {
     ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
-// In memory DB
+// In memory DB (persisted in local storage)
 const usersdb = new UsersDb();
 usersdb.add({username: "guest", password: "guest"});
 
 // Routes
 // @ts-ignore: usersdb object is just fine
-const webRouter = new WebRouter(usersdb, logger);
+const webRouter = new WebRouter(logger);
 app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
 

@@ -7,8 +7,8 @@
 
 import { View } from "./view.ts";
 
-export class Base implements View {
-    public get(): string {
+export class BaseView implements View {
+     get(): string {
         return `
             <!doctype html>
             <html lang="en">

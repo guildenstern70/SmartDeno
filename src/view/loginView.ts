@@ -6,9 +6,9 @@
  */
 
 import {View} from "./view.ts";
-import {Page} from "./page.ts";
+import {LayoutView} from "./layoutView.ts";
 
-export class Login implements View {
+export class LoginView implements View {
 
     private login = `
             <div class="container">
@@ -44,8 +44,8 @@ export class Login implements View {
         <script src="/js/login.js"></script>
     `;
 
-    public get(): string {
-        const page = new Page();
+     get(): string {
+        const page = new LayoutView();
         return page.get().replace("<%~ it.body %>", this.login);
     }
 }

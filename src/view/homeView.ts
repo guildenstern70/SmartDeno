@@ -6,9 +6,9 @@
  */
 
 import {View} from "./view.ts";
-import {Page} from "./page.ts";
+import {LayoutView} from "./layoutView.ts";
 
-export class Index implements View {
+export class HomeView implements View {
 
     private index = `
             <div class="container text-center">
@@ -18,7 +18,11 @@ export class Index implements View {
                     </div>
                     <div class="col-8">
                         <h1 class="xtitle"><%= it.appname %></h1>
-                        <p><%= it.appdescription %></p>
+                        <p>🦕 <%= it.appdescription %>
+                        <% if (it.sessionUser) { %>
+                        <b><%= it.sessionUser %></b>
+                        <% } %> 🦕
+                        </p>
                         <img class="img-fluid" src="/img/cover_wide.jpeg" alt="Deno">
                     </div>
                     <div class="col">
@@ -31,7 +35,8 @@ export class Index implements View {
                     </div>
                     <div class="col-8">
                         <p class="mt-2 py-2">
-                            <a href="/features" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
+                            <a href="/features" class="btn btn-lg btn-secondary fw-bold border-white bg-white">
+                            Learn more</a>
                         </p>
                     </div>
                     <div class="col">
@@ -47,8 +52,8 @@ export class Index implements View {
             <script src="/js/index.js"></script>
         `;
 
-    public get(): string {
-        const page = new Page();
+     get(): string {
+        const page = new LayoutView();
         return page.get().replace("<%~ it.body %>", this.index);
     }
 }

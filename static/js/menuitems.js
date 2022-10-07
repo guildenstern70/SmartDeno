@@ -1,3 +1,10 @@
+/**
+ * Smart Deno
+ * A template project for DENO
+ * Copyright (c) 2020-22 Alessio Saltarin
+ * MIT License
+ */
+
 const setFeatureActive = (activeIndex) => {
     for (let j = 0; j < 3; j++) {
         const menuitem = document.getElementById("menuitem" + j);

@@ -6,9 +6,9 @@
  */
 
 import {View} from "./view.ts";
-import {Page} from "./page.ts";
+import {LayoutView} from "./layoutView.ts";
 
-export class Features implements View {
+export class FeaturesView implements View {
 
     private features = `
            <div class="container text-center">
@@ -61,8 +61,8 @@ export class Features implements View {
         <script src="/js/features.js"></script>
      `;
 
-    public get(): string {
-        const page = new Page();
+     get(): string {
+        const page = new LayoutView();
         return page.get().replace("<%~ it.body %>", this.features);
     }
 }

@@ -6,9 +6,9 @@
  */
 
 import {View} from "./view.ts";
-import {Base} from "./base.ts";
+import {BaseView} from "./baseView.ts";
 
-export class Page implements View {
+export class LayoutView implements View {
 
     private page = `
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -42,8 +42,8 @@ export class Page implements View {
         </div>
         `;
 
-    public get(): string {
-        const base = new Base();
+     get(): string {
+        const base = new BaseView();
         return base.get().replace("<%~ it.body %>", this.page);
     }
 }

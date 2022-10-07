@@ -7,14 +7,18 @@
 
 
 export default class User {
-    public readonly id: number;
-    public readonly username: string;
-    public readonly password: string;
+    id: number;
+    username: string;
+    password: string;
 
     constructor(id: number, username: string, password: string) {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public toString = () : string => {
+        return `#${this.id} - ${this.username}`;
     }
 }
 
