@@ -11,7 +11,6 @@ import { Home } from "../page/home.ts";
 import { Login } from "../page/login.ts";
 import { DyeLog, Router } from "../deps.ts";
 import { Features } from '../page/features.ts';
-import { Session } from '../service/session.ts';
 
 export default class WebRouter extends Router {
 
@@ -24,7 +23,7 @@ export default class WebRouter extends Router {
     }
 
 
-    private setupRoutes() {
+    private async setupRoutes() {
         this.logger.info("Setting up web routes...");
         try {
             this
@@ -52,9 +51,9 @@ export default class WebRouter extends Router {
         await new Login(this.logger, ctx).render();
     }
 
-    private getLogout = (ctx: any) => {
+    private getLogout = async (ctx: any) => {
         this.logger.info("GET /logout");
-        Session.removeItem("logged-user");
+        await ctx.state.session.set("logged-user", undefined);
         ctx.response.redirect("/");
     }
 

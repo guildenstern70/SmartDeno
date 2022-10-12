@@ -8,18 +8,18 @@
 import { DyeLog, render } from '../deps.ts';
 import { Page } from './page.ts';
 import { LoginView } from '../view/loginView.ts';
-import { IUser } from '../service/dto.ts';
-import { Session } from '../service/session.ts';
+import { IUser } from '../service/types.ts';
 import User from '../service/user.ts';
+import { FaunaDb } from '../db/fauna.ts';
 
 
 export class Login extends Page {
 
-    private readonly usersDb: UsersDb;
+    private faunaDb: FaunaDb
 
     constructor(logger: DyeLog, ctx: any) {
         super(logger, ctx);
-        this.usersDb = new UsersDb();
+        this.faunaDb = new FaunaDb(logger);
     }
 
     async post() {
@@ -34,15 +34,20 @@ export class Login extends Page {
                 username: value.get("username")!,
                 password: value.get("password")!,
             };
-            if (this.checkLogin(posteduser)) {
-                this.logger.info("Ok, user logged in.");
-                Session.setItem("logged-user", posteduser.username);
-                this.logger.info("POST LOGIN Logged User is " + Session.getItem("logged-user"));
+
+            const foundUser = await this.checkLogin(posteduser);
+            if (foundUser) {
+                this.logger.info("Ok, user logged in > " + posteduser.username);
+                await this.ctx.state.session.set("logged-user", posteduser.username);
+                const loggedUser = await this.ctx.state.session.get('logged-user');
+                this.logger.info("POST LOGIN Logged User is " + loggedUser);
                 this.ctx.response.redirect("/");
             } else {
                 this.logger.info("User unknown or wrong password");
                 this.ctx.response.redirect("/login?error=notfound");
             }
+
+
         } else {
             this.logger.error("Empty body");
             this.ctx.response.redirect("/login?error=notfound");
@@ -65,16 +70,29 @@ export class Login extends Page {
         this.ctx.response.body = await render(loginEta, {
             appname: "SmartDeno",
             title: "Contact",
+            loginerrors: loginErrors,
             description: "🦕 SmartDeno has been made by Alessio Saltarin <alessiosaltarin@gmail.com> 🦕"
         });
     }
 
-    private checkLogin(postedUser: IUser): boolean {
+    private async checkLogin(postedUser: IUser): Promise<boolean> {
+
         this.logger.info("Got login request with User=" + postedUser.username
             + " and password=" + postedUser.password);
-        const user: User | undefined = this.usersDb.getByUsername(postedUser.username);
-        return (typeof user !== "undefined") &&
-            (user.password === postedUser.password);
+
+        return new Promise((resolve, reject) => {
+            this.faunaDb.getAllUsers().then( users => {
+                const foundUsers = users.filter( u => u.username === postedUser.username );
+                if (foundUsers.length > 0)
+                {
+                    resolve (foundUsers[0].password === postedUser.password);
+                }
+                else
+                {
+                    resolve(false);
+                }
+            })
+        });
 
     }
 

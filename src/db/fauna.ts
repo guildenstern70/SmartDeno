@@ -7,27 +7,7 @@
 
 import { DyeLog } from '../deps.ts';
 import User from '../service/user.ts';
-
-interface UserDump {
-    id?: Number,
-    username?: string,
-    password?: string,
-    error?: string
-}
-
-interface DataResponse {
-    allUsers: AllUsers
-}
-
-interface AllUsers {
-    data: User[]
-}
-
-interface UsersQuery {
-    data: DataResponse,
-    error?: string
-}
-
+import { UserDump, UsersQuery } from '../service/types.ts';
 
 export class FaunaDb
 {
@@ -36,7 +16,7 @@ export class FaunaDb
         this.logger = logger;
     }
 
-    async getAllUsers(): User[] {
+    async getAllUsers(): Promise<User[]> {
         const query = `
                 query {
                   allUsers {

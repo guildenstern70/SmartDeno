@@ -11,12 +11,16 @@ import WebRouter from "./controller/web.ts";
 import {
     Application,
     DyeLog,
-    LogLevel
+    LogLevel,
+    Session
 } from './deps.ts';
 import { FaunaDb } from './db/fauna.ts';
 
+type AppState = {
+    session: Session
+}
 
-const app = new Application<{ loggedUser?: string }>({state: {}});
+const app = new Application<AppState>();
 
 // Logger
 const logger = new DyeLog({
@@ -51,14 +55,16 @@ faunaDb.getAllUsers().then(users => {
             }
         })}
     else {
-        users.forEach(user => { logger.info("Found user: " + JSON.stringify(user)) } );
+        users.forEach(user => { logger.info("Found user in FaunaDB: " + JSON.stringify(user)) } );
     }
 });
-
 
 // Routes
 // @ts-ignore: usersdb object is just fine
 const webRouter = new WebRouter(logger);
+// Session
+app.use(Session.initMiddleware())
+
 app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
 
