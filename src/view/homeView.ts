@@ -1,14 +1,17 @@
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 
-import {View} from "./view.ts";
-import {LayoutView} from "./layoutView.ts";
+import { View } from "./view.ts";
+import { LayoutView } from "./layoutView.ts";
 
-export class HomeView implements View {
+export class HomeView implements View
+{
 
     private index = `
             <div class="container text-center">
@@ -37,6 +40,8 @@ export class HomeView implements View {
                         <p class="mt-2 py-2">
                             <a href="/features" class="btn btn-lg btn-secondary fw-bold border-white bg-white">
                             Learn more</a>
+                            &nbsp;
+                            <a href="/restapi" class="btn btn-lg btn-info">Rest API</a>
                         </p>
                     </div>
                     <div class="col">
@@ -52,7 +57,8 @@ export class HomeView implements View {
             <script src="/js/index.js"></script>
         `;
 
-     get(): string {
+    get(): string
+    {
         const page = new LayoutView();
         return page.get().replace("<%~ it.body %>", this.index);
     }

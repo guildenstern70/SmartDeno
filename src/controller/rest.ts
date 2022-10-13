@@ -1,98 +1,125 @@
-// deno-lint-ignore-file no-explicit-any
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 
+// deno-lint-ignore-file no-explicit-any
 import { DyeLog, Router, Status } from "../deps.ts";
 import User from "../service/user.ts";
-import UsersDb from "../service/userdb.ts";
+import { FaunaDb } from "../db/fauna.ts";
 
 
-export default class RestRouter extends Router {
-    private readonly usersDb: UsersDb;
+export default class RestRouter extends Router
+{
+
     private readonly logger: DyeLog;
+    private readonly faunaDb: FaunaDb;
 
-    constructor(usersDb: UsersDb,
-                logger: DyeLog) {
+    constructor(logger: DyeLog)
+    {
         super();
         this.logger = logger;
-        this.usersDb = usersDb;
-        this.setupRoutes();
+        this.faunaDb = new FaunaDb(logger);
+        this.setupRoutes().then(this.logger.info("REST routes set up."));
     }
 
-    private setupRoutes() {
-        this.logger.info("Setting up routes...");
-        try {
+    private async setupRoutes()
+    {
+        this.logger.info("Setting up REST API routes...");
+        try
+        {
             this
                 .get("/api/v1/user", this.getUsers)
-                .get("/api/v1/user/:id", this.getUser)
+                .get("/api/v1/user/:username", this.getUser)
                 .post("/api/v1/user", this.addUser)
                 .delete("/api/v1/user/:id", this.deleteUser);
 
-        } catch (err: any) {
+        }
+        catch (err: any)
+        {
             this.logger.error("ERROR");
             this.logger.error(err);
         }
     }
 
-    private getUsers = (ctx: any) => {
+    private getUsers = async (ctx: any) =>
+    {
+        this.logger.info("/api/v1/user");
+        const users: User[] = await this.faunaDb.getAllUsers();
         ctx.response.status = Status.OK;
         ctx.response.type = "json";
-        ctx.response.body = this.usersDb.getAll();
-    }
+        ctx.response.body = users;
+    };
 
-    private getUser = (ctx: any) => {
+    private getUser = async (ctx: any) =>
+    {
         ctx.response.type = "json";
-        const userId = ctx.params.id;
-        if (typeof userId === "undefined") {
+        const username = ctx.params.username;
+        this.logger.info("/api/v1/user/" + username);
+        if (typeof username === "undefined")
+        {
             ctx.response.status = 404;
             ctx.response.body = {message: "User not found."};
             return;
         }
-        const user: User | undefined = this.usersDb.get(userId);
-        if (user) {
+        const users: User[] = await this.faunaDb.getAllUsers();
+        const user = users.filter( (user: User) => user.username === username)
+        if (user.length > 0)
+        {
             ctx.response.status = 200;
-            ctx.response.body = user;
-        } else {
-            ctx.response.status = 404;
-            ctx.response.body = {message: `User with ID=${userId} not found.`};
+            ctx.response.body = user[0];
         }
-    }
+        else
+        {
+            ctx.response.status = 404;
+            ctx.response.body = {message: `User with username=${username} not found.`};
+        }
+    };
 
-    private addUser = async (ctx: any) => {
+    private addUser = async (ctx: any) =>
+    {
         const {username, password} = await ctx.request.body().value;
         const newUser = {username, password};
         this.logger.info("Received " + JSON.stringify(newUser));
-        if (!Object.prototype.hasOwnProperty.call(newUser, username)) {
+        if (!Object.prototype.hasOwnProperty.call(newUser, username))
+        {
             ctx.response.body = {message: "KO - Cannot insert user unknown"};
             ctx.response.status = 400;
-        } else {
+        }
+        else
+        {
             this.usersDb.add(newUser);
             ctx.response.body = {message: "OK - User inserted"};
             ctx.response.status = 201;
         }
-    }
+    };
 
-    private deleteUser = (ctx: any) => {
+    private deleteUser = (ctx: any) =>
+    {
         ctx.response.type = "json";
         const userId = ctx.params.id;
-        if (typeof userId === "undefined") {
+        if (typeof userId === "undefined")
+        {
             ctx.response.status = 404;
             ctx.response.body = {message: "User not found."};
             return;
         }
         const deleted = this.usersDb.delete(userId);
-        if (deleted) {
+        if (deleted)
+        {
             ctx.response.body = {message: "OK - Deleted"};
             ctx.response.status = 200;
-        } else {
+        }
+        else
+        {
             ctx.response.body = {message: `User with ID=${userId} was not found.`};
             ctx.response.status = 404;
         }
-    }
+    };
 
 }
 

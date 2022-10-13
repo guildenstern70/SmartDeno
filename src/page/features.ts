@@ -1,8 +1,10 @@
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 // deno-lint-ignore-file no-explicit-any
 
@@ -11,17 +13,18 @@ import { Page } from "./page.ts";
 import { FeaturesView } from "../view/featuresView.ts";
 
 
-export class Features extends Page {
+export class Features extends Page
+{
 
-    constructor(logger: DyeLog, ctx: any) {
+    constructor(logger: DyeLog, ctx: any)
+    {
         super(logger, ctx);
     }
 
-    async render() {
-
+    async render()
+    {
         this.logger.info("GET /features");
-        const featuresEta = new FeaturesView().get();
-        this.ctx.response.body = await render(featuresEta, {
+        this.ctx.response.body = await render(new FeaturesView().get(), {
             appname: "SmartDeno",
             title: "Features",
             description: "🦕 SmartDeno has been made with the following building blocks: 🦕",

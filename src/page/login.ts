@@ -1,8 +1,10 @@
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 // deno-lint-ignore-file no-explicit-any
 
@@ -14,20 +16,25 @@ import { FaunaDb } from "../db/fauna.ts";
 import User from "../service/user.ts";
 
 
-export class Login extends Page {
+export class Login extends Page
+{
 
-    private faunaDb: FaunaDb
+    private faunaDb: FaunaDb;
 
-    constructor(logger: DyeLog, ctx: any) {
+    constructor(logger: DyeLog, ctx: any)
+    {
         super(logger, ctx);
         this.faunaDb = new FaunaDb(logger);
     }
 
-    async post() {
+    async post()
+    {
         this.logger.info("POST /login");
-        if (this.ctx.request.hasBody) {
+        if (this.ctx.request.hasBody)
+        {
             const value: URLSearchParams = await this.ctx.request.body().value;
-            if (typeof value === "undefined") {
+            if (typeof value === "undefined")
+            {
                 this.logger.info("Unknown form parameters");
                 this.ctx.response.redirect("/login?error=notfound");
             }
@@ -37,30 +44,37 @@ export class Login extends Page {
             };
 
             const foundUser = await this.checkLogin(posteduser);
-            if (foundUser) {
+            if (foundUser)
+            {
                 this.logger.info("Ok, user logged in > " + posteduser.username);
                 await this.ctx.state.session.set("logged-user", posteduser.username);
-                const loggedUser = await this.ctx.state.session.get('logged-user');
+                const loggedUser = await this.ctx.state.session.get("logged-user");
                 this.logger.info("POST LOGIN Logged User is " + loggedUser);
                 this.ctx.response.redirect("/");
-            } else {
+            }
+            else
+            {
                 this.logger.info("User unknown or wrong password");
                 this.ctx.response.redirect("/login?error=notfound");
             }
 
-        } else {
+        }
+        else
+        {
             this.logger.error("Empty body");
             this.ctx.response.redirect("/login?error=notfound");
         }
     }
 
-    async render() {
+    async render()
+    {
 
         this.logger.info("GET /login");
         const qParams = this.ctx.request.url.searchParams;
         const error = qParams.get("error");
         let loginErrors = false;
-        if (error) {
+        if (error)
+        {
             this.logger.warn("Error == " + error);
             loginErrors = true;
         }
@@ -73,23 +87,26 @@ export class Login extends Page {
         });
     }
 
-    private checkLogin(postedUser: IUser): Promise<boolean> {
+    private checkLogin(postedUser: IUser): Promise<boolean>
+    {
 
         this.logger.info("Got login request with User=" + postedUser.username
             + " and password=" + postedUser.password);
 
-        return new Promise((resolve, _reject) => {
-            this.faunaDb.getAllUsers().then( (users: User[]) => {
-                const foundUsers = users.filter( (u: User) => u.username === postedUser.username );
+        return new Promise((resolve, _reject) =>
+        {
+            this.faunaDb.getAllUsers().then((users: User[]) =>
+            {
+                const foundUsers = users.filter((u: User) => u.username === postedUser.username);
                 if (foundUsers.length > 0)
                 {
-                    resolve (foundUsers[0].password === postedUser.password);
+                    resolve(foundUsers[0].password === postedUser.password);
                 }
                 else
                 {
                     resolve(false);
                 }
-            })
+            });
         });
 
     }

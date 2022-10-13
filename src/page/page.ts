@@ -1,15 +1,17 @@
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 // deno-lint-ignore-file no-explicit-any
 
 import { DyeLog } from "../deps.ts";
 
-
-export abstract class Page {
+export abstract class Page
+{
 
     protected ctx: any;
     protected logger: DyeLog;

@@ -1,11 +1,13 @@
-/*global Deno */
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 
+/*global Deno */
 import {
     assertEquals,
     assertExists

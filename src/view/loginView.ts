@@ -1,14 +1,17 @@
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 
-import {View} from "./view.ts";
-import {LayoutView} from "./layoutView.ts";
+import { View } from "./view.ts";
+import { LayoutView } from "./layoutView.ts";
 
-export class LoginView implements View {
+export class LoginView implements View
+{
 
     private login = `
             <div class="container">
@@ -44,7 +47,8 @@ export class LoginView implements View {
         <script src="/js/login.js"></script>
     `;
 
-     get(): string {
+    get(): string
+    {
         const page = new LayoutView();
         return page.get().replace("<%~ it.body %>", this.login);
     }

@@ -1,21 +1,19 @@
-/*global Deno */
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 
+/*global Deno */
 import WebRouter from "./controller/web.ts";
-import {
-    Application,
-    DyeLog,
-    LogLevel,
-    Session
-} from "./deps.ts";
+import { Application, DyeLog, LogLevel, Session } from "./deps.ts";
 import { FaunaDb } from "./db/fauna.ts";
 import User from "./service/user.ts";
-import { UserDump } from './service/types.ts';
+import { UserDump } from "./service/types.ts";
+import RestRouter from "./controller/rest.ts";
 
 type AppState = {
     session: Session
@@ -31,12 +29,14 @@ const logger = new DyeLog({
 });
 
 // Timing (Logger and Response Header)
-app.use(async (ctx, next) => {
+app.use(async (ctx, next) =>
+{
     await next();
     const rt = ctx.response.headers.get("X-Response-Time");
     logger.info(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
 });
-app.use(async (ctx, next) => {
+app.use(async (ctx, next) =>
+{
     const start = Date.now();
     await next();
     const ms = Date.now() - start;
@@ -45,40 +45,56 @@ app.use(async (ctx, next) => {
 
 // Fauna DB
 const faunaDb = new FaunaDb(logger);
-faunaDb.getAllUsers().then( (users: User[]) => {
-    if (users === undefined || users.length === 0) {
-        faunaDb.createUser(0,"guest", "guest").then( (data: UserDump) => {
-            if (data.error) {
+faunaDb.getAllUsers().then((users: User[]) =>
+{
+    if (users === undefined || users.length === 0)
+    {
+        faunaDb.createUser(0, "guest", "guest").then((data: UserDump) =>
+        {
+            if (data.error)
+            {
                 logger.error("FaunaDB cannot create first user: " + JSON.stringify(data.error));
             }
-            else {
+            else
+            {
                 logger.info("Created guest user. ");
             }
-        });}
-    else {
-        users.forEach(user => { logger.info("Found user in FaunaDB: " + JSON.stringify(user)) } );
+        });
+    }
+    else
+    {
+        users.forEach(user =>
+        {
+            logger.info("Found user in FaunaDB: " + JSON.stringify(user));
+        });
     }
 });
 
 // Routes
 // @ts-ignore: usersdb object is just fine
 const webRouter = new WebRouter(logger);
+const restRouter = new RestRouter(logger);
 
-// Session
 app.use(Session.initMiddleware());
-
 app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
+app.use(restRouter.routes());
+app.use(restRouter.allowedMethods());
 
 // Static Files
-app.use(async (context, next) => {
+app.use(async (context, next) =>
+{
     const root = `${Deno.cwd()}/static`;
-    try {
-        await context.send({ root });
-    } catch {
+    try
+    {
+        await context.send({root});
+    }
+    catch
+    {
         await next();
     }
-})
+});
+
 
 logger.info("Running in: " + Deno.cwd());
 app.addEventListener(

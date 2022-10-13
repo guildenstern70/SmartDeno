@@ -1,8 +1,10 @@
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 // deno-lint-ignore-file no-explicit-any
 
@@ -17,7 +19,8 @@ export class FaunaDb
         this.logger = logger;
     }
 
-    async getAllUsers(): Promise<User[]> {
+    async getSingleUser(userId: number): Promise<User>
+    {
         const query = `
                 query {
                   allUsers {
@@ -30,7 +33,31 @@ export class FaunaDb
                 }`;
 
         const response: UsersQuery = await this.queryFauna(query, {});
-        if (response.error) {
+        if (response.error)
+        {
+            this.logger.error("Fauna DB error: " + JSON.stringify(response.error));
+            return response.error;
+        }
+
+        return response.data.allUsers.data;
+    }
+
+    async getAllUsers(): Promise<User[]>
+    {
+        const query = `
+                query {
+                  allUsers {
+                    data {
+                      id
+                      username
+                      password
+                    }
+                  }
+                }`;
+
+        const response: UsersQuery = await this.queryFauna(query, {});
+        if (response.error)
+        {
             this.logger.error("Fauna DB error: " + JSON.stringify(response.error));
             return response.error;
         }

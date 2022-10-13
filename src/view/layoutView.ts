@@ -1,14 +1,17 @@
-/**
+/*
+ *
  * Smart Deno
- * A template project for DENO
+ * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
+ *
  */
 
-import {View} from "./view.ts";
-import {BaseView} from "./baseView.ts";
+import { View } from "./view.ts";
+import { BaseView } from "./baseView.ts";
 
-export class LayoutView implements View {
+export class LayoutView implements View
+{
 
     private page = `
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
@@ -42,7 +45,8 @@ export class LayoutView implements View {
         </div>
         `;
 
-     get(): string {
+    get(): string
+    {
         const base = new BaseView();
         return base.get().replace("<%~ it.body %>", this.page);
     }
