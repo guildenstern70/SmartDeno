@@ -4,10 +4,11 @@
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
  */
+// deno-lint-ignore-file no-explicit-any
 
 import { DyeLog } from "../deps.ts";
-import User from '../service/user.ts';
-import { UserDump, UsersQuery } from '../service/types.ts';
+import User from "../service/user.ts";
+import { UserDump, UsersQuery } from "../service/types.ts";
 
 export class FaunaDb
 {
@@ -37,9 +38,9 @@ export class FaunaDb
         return response.data.allUsers.data;
     }
 
-    async createUser(id: Number,
-                     username: String,
-                     password: String): Promise<UserDump>
+    async createUser(id: number,
+                     username: string,
+                     password: string): Promise<UserDump>
     {
 
         const query = `
@@ -74,11 +75,11 @@ export class FaunaDb
         error?: any;
     }>
     {
-        const token = Deno.env.get('FAUNA_SECRET');
+        const token = Deno.env.get("FAUNA_SECRET");
         if (!token)
         {
             this.logger.error("Fauna DB error: environment variable FAUNA_SECRET not set");
-            throw new Error('environment variable FAUNA_SECRET not set');
+            throw new Error("environment variable FAUNA_SECRET not set");
         }
 
         try

@@ -1,4 +1,4 @@
-FROM denoland/deno:centos-1.13.2
+FROM denoland/deno:centos-1.26.1
 EXPOSE 8000
 WORKDIR /app
 
@@ -14,5 +14,6 @@ RUN deno cache deps.ts
 COPY . .
 # Compile the main app so that it doesn"t need to be compiled each startup/entry.
 RUN deno cache src/main.ts
+ENV FAUNA_SECRET=fnAEyTnwmwAAzFRM_Zvo-WMDJcOCA9IbZ2BQxHwS
 
-CMD ["run", "--allow-net", "--allow-read", "src/main.ts"]
+CMD ["run", "--allow-net", "--allow-read", "--allow-env", "src/main.ts"]

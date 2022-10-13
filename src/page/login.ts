@@ -4,6 +4,7 @@
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
  */
+// deno-lint-ignore-file no-explicit-any
 
 import { DyeLog, render } from "../deps.ts";
 import { Page } from "./page.ts";
@@ -75,12 +76,12 @@ export class Login extends Page {
         });
     }
 
-    private async checkLogin(postedUser: IUser): Promise<boolean> {
+    private checkLogin(postedUser: IUser): Promise<boolean> {
 
         this.logger.info("Got login request with User=" + postedUser.username
             + " and password=" + postedUser.password);
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, _reject) => {
             this.faunaDb.getAllUsers().then( (users: User[]) => {
                 const foundUsers = users.filter( (u: User) => u.username === postedUser.username );
                 if (foundUsers.length > 0)

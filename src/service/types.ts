@@ -13,7 +13,7 @@ export interface IUser {
 }
 
 export interface UserDump {
-    id?: Number,
+    id?: number,
     username?: string,
     password?: string,
     error?: string

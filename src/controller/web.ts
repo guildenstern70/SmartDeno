@@ -27,11 +27,11 @@ export default class WebRouter extends Router {
         this.logger.info("Setting up web routes...");
         try {
             this
-                .get("/", this.getHome)
-                .get("/features", this.getFeatures)
-                .get("/login", this.getLogin)
-                .post("/login", this.postLogin)
-                .get("/logout", this.getLogout);
+                .get("/", await this.getHome)
+                .get("/features", await this.getFeatures)
+                .get("/login", await this.getLogin)
+                .post("/login", await this.postLogin)
+                .get("/logout", await this.getLogout);
 
         } catch (err) {
             this.logger.error("ERROR");

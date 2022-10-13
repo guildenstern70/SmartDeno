@@ -4,6 +4,7 @@
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
  */
+// deno-lint-ignore-file no-explicit-any
 
 import { DyeLog } from "../deps.ts";
 
