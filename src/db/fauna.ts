@@ -84,8 +84,8 @@ export class FaunaDb
 
         try
         {
-            const res = await fetch('https://graphql.eu.fauna.com/graphql', {
-                method: 'POST',
+            const res = await fetch("https://graphql.eu.fauna.com/graphql", {
+                method: "POST",
                 headers: {
                     authorization: `Bearer ${token}`,
                     "content-type": "application/json",

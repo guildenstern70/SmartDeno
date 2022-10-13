@@ -7,14 +7,15 @@
  */
 
 import WebRouter from "./controller/web.ts";
-
 import {
     Application,
     DyeLog,
     LogLevel,
     Session
-} from './deps.ts';
-import { FaunaDb } from './db/fauna.ts';
+} from "./deps.ts";
+import { FaunaDb } from "./db/fauna.ts";
+import User from "./service/user.ts";
+import { UserDump } from './service/types.ts';
 
 type AppState = {
     session: Session
@@ -44,9 +45,9 @@ app.use(async (ctx, next) => {
 
 // Fauna DB
 const faunaDb = new FaunaDb(logger);
-faunaDb.getAllUsers().then(users => {
+faunaDb.getAllUsers().then( (users: User[]) => {
     if (users === undefined || users.length === 0) {
-        faunaDb.createUser(0,"guest", "guest").then( data => {
+        faunaDb.createUser(0,"guest", "guest").then( (data: UserDump) => {
             if (data.error) {
                 logger.error("FaunaDB cannot create first user: " + JSON.stringify(data.error));
             }
@@ -62,19 +63,20 @@ faunaDb.getAllUsers().then(users => {
 // Routes
 // @ts-ignore: usersdb object is just fine
 const webRouter = new WebRouter(logger);
+
 // Session
-app.use(Session.initMiddleware())
+app.use(Session.initMiddleware());
 
 app.use(webRouter.routes());
 app.use(webRouter.allowedMethods());
 
 // Static Files
 app.use(async (context, next) => {
-    const root = `${Deno.cwd()}/static`
+    const root = `${Deno.cwd()}/static`;
     try {
-        await context.send({ root })
+        await context.send({ root });
     } catch {
-        await next()
+        await next();
     }
 })
 

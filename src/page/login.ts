@@ -11,7 +11,7 @@ import { Page } from "./page.ts";
 import { LoginView } from "../view/loginView.ts";
 import { IUser } from "../service/types.ts";
 import { FaunaDb } from "../db/fauna.ts";
-import User from '../service/user.ts';
+import User from "../service/user.ts";
 
 
 export class Login extends Page {
@@ -48,7 +48,6 @@ export class Login extends Page {
                 this.ctx.response.redirect("/login?error=notfound");
             }
 
-
         } else {
             this.logger.error("Empty body");
             this.ctx.response.redirect("/login?error=notfound");
@@ -60,13 +59,11 @@ export class Login extends Page {
         this.logger.info("GET /login");
         const qParams = this.ctx.request.url.searchParams;
         const error = qParams.get("error");
-        if (error) this.logger.warn("Error == " + error);
         let loginErrors = false;
         if (error) {
+            this.logger.warn("Error == " + error);
             loginErrors = true;
         }
-        if (loginErrors) this.logger.warn("loginErrors == " + loginErrors);
-
         const loginEta = new LoginView().get();
         this.ctx.response.body = await render(loginEta, {
             appname: "SmartDeno",

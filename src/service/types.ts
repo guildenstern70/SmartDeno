@@ -1,11 +1,12 @@
-import User from './user.ts';
-
 /**
  * Smart Deno
  * A template project for DENO
  * Copyright (c) 2020-22 Alessio Saltarin
  * MIT License
  */
+
+import User from "./user.ts";
+
 
 export interface IUser {
     username: string;
