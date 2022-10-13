@@ -5,9 +5,9 @@
  * MIT License
  */
 
-import { DyeLog, render } from '../deps.ts';
-import { Page } from './page.ts';
-import { FeaturesView } from '../view/featuresView.ts';
+import { DyeLog, render } from "../deps.ts";
+import { Page } from "./page.ts";
+import { FeaturesView } from "../view/featuresView.ts";
 
 
 export class Features extends Page {

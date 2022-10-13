@@ -45,7 +45,7 @@ app.use(async (ctx, next) => {
 // Fauna DB
 const faunaDb = new FaunaDb(logger);
 faunaDb.getAllUsers().then(users => {
-    if (users === undefined || users.length == 0) {
+    if (users === undefined || users.length === 0) {
         faunaDb.createUser(0,"guest", "guest").then( data => {
             if (data.error) {
                 logger.error("FaunaDB cannot create first user: " + JSON.stringify(data.error));
@@ -53,7 +53,7 @@ faunaDb.getAllUsers().then(users => {
             else {
                 logger.info("Created guest user. ");
             }
-        })}
+        });}
     else {
         users.forEach(user => { logger.info("Found user in FaunaDB: " + JSON.stringify(user)) } );
     }

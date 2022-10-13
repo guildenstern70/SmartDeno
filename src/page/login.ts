@@ -5,12 +5,12 @@
  * MIT License
  */
 
-import { DyeLog, render } from '../deps.ts';
-import { Page } from './page.ts';
-import { LoginView } from '../view/loginView.ts';
-import { IUser } from '../service/types.ts';
+import { DyeLog, render } from "../deps.ts";
+import { Page } from "./page.ts";
+import { LoginView } from "../view/loginView.ts";
+import { IUser } from "../service/types.ts";
+import { FaunaDb } from "../db/fauna.ts";
 import User from '../service/user.ts';
-import { FaunaDb } from '../db/fauna.ts';
 
 
 export class Login extends Page {
@@ -81,8 +81,8 @@ export class Login extends Page {
             + " and password=" + postedUser.password);
 
         return new Promise((resolve, reject) => {
-            this.faunaDb.getAllUsers().then( users => {
-                const foundUsers = users.filter( u => u.username === postedUser.username );
+            this.faunaDb.getAllUsers().then( (users: User[]) => {
+                const foundUsers = users.filter( (u: User) => u.username === postedUser.username );
                 if (foundUsers.length > 0)
                 {
                     resolve (foundUsers[0].password === postedUser.password);

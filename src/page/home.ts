@@ -5,9 +5,9 @@
  * MIT License
  */
 
-import { DyeLog, render } from '../deps.ts';
-import { HomeView } from '../view/homeView.ts';
-import { Page } from './page.ts';
+import { DyeLog, render } from "../deps.ts";
+import { HomeView } from "../view/homeView.ts";
+import { Page } from "./page.ts";
 
 export class Home extends Page {
 

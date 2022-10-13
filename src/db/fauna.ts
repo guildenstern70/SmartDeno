@@ -5,7 +5,7 @@
  * MIT License
  */
 
-import { DyeLog } from '../deps.ts';
+import { DyeLog } from "../deps.ts";
 import User from '../service/user.ts';
 import { UserDump, UsersQuery } from '../service/types.ts';
 
@@ -87,7 +87,7 @@ export class FaunaDb
                 method: 'POST',
                 headers: {
                     authorization: `Bearer ${token}`,
-                    'content-type': 'application/json',
+                    "content-type": "application/json",
                 },
                 body: JSON.stringify({
                     query,

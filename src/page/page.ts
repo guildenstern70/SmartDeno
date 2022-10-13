@@ -5,7 +5,7 @@
  * MIT License
  */
 
-import { DyeLog } from '../deps.ts';
+import { DyeLog } from "../deps.ts";
 
 
 export abstract class Page {
