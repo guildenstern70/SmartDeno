@@ -10,13 +10,12 @@
 
 
 import { View } from "./view.ts";
-import { LayoutView } from "./layoutView.ts";
 
 
-export class RestApiView implements View
+export class Restapiview extends View
 {
 
-    private restapi = `
+    html = `
            <div class="container">
             <div class="row">
                 <div style="height: 80px">&nbsp;</div>
@@ -52,10 +51,5 @@ export class RestApiView implements View
            <script src="/js/restapi.js"></script>
             `;
 
-    get(): string
-    {
-        const page = new LayoutView();
-        return page.get().replace("<%~ it.body %>", this.restapi);
-    }
 }
 

@@ -8,12 +8,12 @@
  */
 
 import { View } from "./view.ts";
-import { LayoutView } from "./layoutView.ts";
 
-export class FeaturesView implements View
+
+export class Featuresview extends View
 {
 
-    private features = `
+    html = `
            <div class="container text-center">
             <div class="row">
                 <div class="col">
@@ -64,9 +64,4 @@ export class FeaturesView implements View
         <script src="/js/features.js"></script>
      `;
 
-    get(): string
-    {
-        const page = new LayoutView();
-        return page.get().replace("<%~ it.body %>", this.features);
-    }
 }

@@ -8,12 +8,10 @@
  */
 
 import { View } from "./view.ts";
-import { LayoutView } from "./layoutView.ts";
 
-export class LoginView implements View
+export class Loginview extends View
 {
-
-    private login = `
+    html = `
             <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6">
@@ -47,9 +45,4 @@ export class LoginView implements View
         <script src="/js/login.js"></script>
     `;
 
-    get(): string
-    {
-        const page = new LayoutView();
-        return page.get().replace("<%~ it.body %>", this.login);
-    }
 }

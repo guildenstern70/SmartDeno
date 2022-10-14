@@ -9,7 +9,7 @@
 
 import { Page } from "./page.ts";
 import { DyeLog, render } from "../deps.ts";
-import { RestApiView } from "../view/restApiView.ts";
+import { Restapiview } from "../view/restapiview.ts";
 
 export class Restapi extends Page
 {
@@ -22,7 +22,7 @@ export class Restapi extends Page
     async render()
     {
         this.logger.info("GET /restapi");
-        this.ctx.response.body = await render(new RestApiView().get(), {
+        this.ctx.response.body = await render(new Restapiview().get(), {
             appname: "SmartDeno"
         });
     }

@@ -9,7 +9,7 @@
 
 import { DyeLog, render } from "../deps.ts";
 import { Page } from "./page.ts";
-import { LoginView } from "../view/loginView.ts";
+import { Loginview } from "../view/loginview.ts";
 import { IUser } from "../service/types.ts";
 import { FaunaDb } from "../db/fauna.ts";
 import User from "../service/user.ts";
@@ -77,7 +77,7 @@ export class Login extends Page
             this.logger.warn("Error == " + error);
             loginErrors = true;
         }
-        const loginEta = new LoginView().get();
+        const loginEta = new Loginview().get();
         this.ctx.response.body = await render(loginEta, {
             appname: "SmartDeno",
             title: "Contact",

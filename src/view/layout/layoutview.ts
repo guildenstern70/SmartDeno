@@ -7,13 +7,12 @@
  *
  */
 
-import { View } from "./view.ts";
-import { BaseView } from "./baseView.ts";
+import { Baseview } from "./baseview.ts";
 
-export class LayoutView implements View
+export class Layoutview
 {
 
-    private page = `
+    html = `
         <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
             <header class="mb-auto">
                 <div>
@@ -48,7 +47,7 @@ export class LayoutView implements View
 
     get(): string
     {
-        const base = new BaseView();
-        return base.get().replace("<%~ it.body %>", this.page);
+        const base = new Baseview();
+        return base.get().replace("<%~ it.body %>", this.html);
     }
 }

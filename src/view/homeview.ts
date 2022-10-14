@@ -8,12 +8,10 @@
  */
 
 import { View } from "./view.ts";
-import { LayoutView } from "./layoutView.ts";
 
-export class HomeView implements View
+export class Homeview extends View
 {
-
-    private index = `
+    html = `
             <div class="container text-center">
                 <div class="row">
                     <div class="col">
@@ -57,9 +55,4 @@ export class HomeView implements View
             <script src="/js/index.js"></script>
         `;
 
-    get(): string
-    {
-        const page = new LayoutView();
-        return page.get().replace("<%~ it.body %>", this.index);
-    }
 }

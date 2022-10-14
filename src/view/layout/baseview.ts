@@ -7,9 +7,8 @@
  *
  */
 
-import { View } from "./view.ts";
 
-export class BaseView implements View
+export class Baseview
 {
     get(): string
     {
@@ -39,7 +38,6 @@ export class BaseView implements View
                     crossorigin="anonymous"></script>
             </body>
             </html>
-        `;
-
+        `
     }
 }

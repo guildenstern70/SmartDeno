@@ -8,7 +8,7 @@
  */
 
 import { DyeLog, render } from "../deps.ts";
-import { HomeView } from "../view/homeView.ts";
+import { Homeview } from "../view/homeview.ts";
 import { Page } from "./page.ts";
 
 export class Home extends Page
@@ -30,7 +30,7 @@ export class Home extends Page
             welcomeMessage = "Welcome to SmartDeno, ";
         }
 
-        this.ctx.response.body = await render(new HomeView().get(), {
+        this.ctx.response.body = await render(new Homeview().get(), {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
             sessionUser

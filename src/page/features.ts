@@ -9,7 +9,7 @@
 
 import { DyeLog, render } from "../deps.ts";
 import { Page } from "./page.ts";
-import { FeaturesView } from "../view/featuresView.ts";
+import { Featuresview } from "../view/featuresview.ts";
 
 
 export class Features extends Page
@@ -23,7 +23,7 @@ export class Features extends Page
     async render()
     {
         this.logger.info("GET /features");
-        this.ctx.response.body = await render(new FeaturesView().get(), {
+        this.ctx.response.body = await render(new Featuresview().get(), {
             appname: "SmartDeno",
             title: "Features",
             description: "🦕 SmartDeno has been made with the following building blocks: 🦕",
