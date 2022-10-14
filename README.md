@@ -4,9 +4,10 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/7ce723763948494fb69c6efd861fce4c)](https://www.codacy.com/gh/guildenstern70/SmartDeno/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guildenstern70/SmartDeno&amp;utm_campaign=Badge_Grade)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-SmartDeno is a simple template for an application written in [TypeScript](https://www.typescriptlang.org/) using [Deno](https://deno.land/)
+![SmartDeno screenshot](./static/img/smartdeno.png "SmartDeno screenshot")
 
-This application is based on the following libraries:
+**SmartDeno** is a simple Web Template Application written in [TypeScript](https://www.typescriptlang.org/) using [Deno](https://deno.land/).
+It is based on the following building blocks:
 
 * [Oak Application Server](https://deno.land/x/oak)
 * [Fauna DB](https://fauna.com/)

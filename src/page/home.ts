@@ -23,7 +23,7 @@ export class Home extends Page
     {
         this.logger.info("GET /home");
         const sessionUser = await this.ctx.state.session.get("logged-user");
-        let welcomeMessage = "A simple template site written in Deno";
+        let welcomeMessage = "A simple web template written in Deno";
         if (sessionUser)
         {
             this.logger.info(`Logged user > ${sessionUser}`);
