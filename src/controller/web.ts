@@ -7,7 +7,6 @@
  *
  */
 
-// deno-lint-ignore-file no-explicit-any
 import { Home } from "../page/home.ts";
 import { Login } from "../page/login.ts";
 import { DyeLog, Router } from "../deps.ts";

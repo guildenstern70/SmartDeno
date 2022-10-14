@@ -6,7 +6,6 @@
  * MIT License
  *
  */
-// deno-lint-ignore-file no-explicit-any
 
 import { DyeLog, render } from "../deps.ts";
 import { HomeView } from "../view/homeView.ts";

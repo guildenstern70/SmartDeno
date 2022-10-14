@@ -56,6 +56,6 @@ export class RestApiView implements View
     {
         const page = new LayoutView();
         return page.get().replace("<%~ it.body %>", this.restapi);
-    };
+    }
 }
 

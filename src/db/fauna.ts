@@ -6,7 +6,6 @@
  * MIT License
  *
  */
-// deno-lint-ignore-file no-explicit-any
 
 import { DyeLog } from "../deps.ts";
 import User from "../service/user.ts";
@@ -19,27 +18,14 @@ export class FaunaDb
         this.logger = logger;
     }
 
-    async getSingleUser(userId: number): Promise<User>
+    async getSingleUser(username: string): Promise<User>
     {
-        const query = `
-                query {
-                  allUsers {
-                    data {
-                      id
-                      username
-                      password
-                    }
-                  }
-                }`;
-
-        const response: UsersQuery = await this.queryFauna(query, {});
-        if (response.error)
+        const users: User[] = await this.getAllUsers();
+        if (users.length > 0)
         {
-            this.logger.error("Fauna DB error: " + JSON.stringify(response.error));
-            return response.error;
+            return users.filter( (user: User) => user.username === username)
         }
-
-        return response.data.allUsers.data;
+        return null;
     }
 
     async getAllUsers(): Promise<User[]>

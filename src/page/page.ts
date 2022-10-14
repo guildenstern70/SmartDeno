@@ -6,7 +6,6 @@
  * MIT License
  *
  */
-// deno-lint-ignore-file no-explicit-any
 
 import { DyeLog } from "../deps.ts";
 

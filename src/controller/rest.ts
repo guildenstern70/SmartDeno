@@ -7,11 +7,10 @@
  *
  */
 
-// deno-lint-ignore-file no-explicit-any
 import { DyeLog, Router, Status } from "../deps.ts";
 import User from "../service/user.ts";
 import { FaunaDb } from "../db/fauna.ts";
-import { UserDump, UserDumpResponse } from "../service/types.ts";
+import { UserDumpResponse } from "../service/types.ts";
 
 
 export default class RestRouter extends Router
@@ -34,10 +33,10 @@ export default class RestRouter extends Router
         try
         {
             this
-                .get("/api/v1/user", this.getUsers)
-                .get("/api/v1/user/:username", this.getUser)
-                .post("/api/v1/user", this.addUser)
-                .delete("/api/v1/user/:id", this.deleteUser);
+                .get("/api/v1/user", await this.getUsers)
+                .get("/api/v1/user/:username", await this.getUser)
+                .post("/api/v1/user", await this.addUser)
+                .delete("/api/v1/user/:id", await this.deleteUser);
 
         }
         catch (err: any)
@@ -67,9 +66,8 @@ export default class RestRouter extends Router
             ctx.response.body = {message: "User not found."};
             return;
         }
-        const users: User[] = await this.faunaDb.getAllUsers();
-        const user = users.filter( (user: User) => user.username === username)
-        if (user.length > 0)
+        const user = await this.faunaDb.getSingleUser(username);
+        if (user)
         {
             ctx.response.status = 200;
             ctx.response.body = user[0];
