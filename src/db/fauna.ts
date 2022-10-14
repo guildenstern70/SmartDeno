@@ -10,7 +10,7 @@
 
 import { DyeLog } from "../deps.ts";
 import User from "../service/user.ts";
-import { UserDump, UsersQuery } from "../service/types.ts";
+import { IId, IidResponse, UserDump, UsersQuery } from "../service/types.ts";
 
 export class FaunaDb
 {
@@ -65,11 +65,46 @@ export class FaunaDb
         return response.data.allUsers.data;
     }
 
-    async createUser(id: number,
-                     username: string,
+    async deleteUser(id: int): string
+    {
+        // Find _id of user
+        const allIds = `
+                query {
+                  allUsers {
+                    data {
+                      _id
+                      id
+                    }
+                  }
+                }`;
+        const userids: IidResponse = await this.queryFauna(allIds, {});
+        const iids: IId[] = userids.data.allUsers.data;
+        const _ids: IId[] = iids.filter( x => x.id == id);
+        if (_ids.length > 0) {
+            this.logger.info("_ID of #" + id + " is " + _ids[0]._id);
+        } else {
+            this.logger.info("User #"+ id + " not found.");
+            return null;
+        }
+        const _idToBeDeleted = _ids[0]._id;
+        const deleteQuery = `   
+                mutation {
+                  deleteUser(id: ${_idToBeDeleted}) {
+                    username
+                  }
+                }
+                `
+        await this.queryFauna(deleteQuery, {});
+        return _idToBeDeleted;
+    }
+
+    async createUser(username: string,
                      password: string): Promise<UserDump>
     {
+        const id = Math.floor(Math.random() * 1000000);
 
+        // We store the password in clear text. In production environment passwords should
+        // be masked using, for instance, SHA-256 algorithm.
         const query = `
             mutation($username: String!, 
                      $password: String!, 

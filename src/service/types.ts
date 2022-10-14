@@ -16,6 +16,11 @@ export interface IUser
     password: string;
 }
 
+export interface UserDumpResponse
+{
+    createUser: UserDump
+}
+
 export interface UserDump
 {
     id?: number,
@@ -24,9 +29,20 @@ export interface UserDump
     error?: string
 }
 
+export interface IId
+{
+    _id: string
+    id: int,
+}
+
 export interface DataResponse
 {
     allUsers: AllUsers;
+}
+
+export interface IidResponse
+{
+    data: AllUsersData;
 }
 
 export interface AllUsers
@@ -34,8 +50,24 @@ export interface AllUsers
     data: User[];
 }
 
+export interface AllUsersData
+{
+    allUsers: AllIds
+}
+
+export interface AllIds
+{
+    data: IId[]
+}
+
 export interface UsersQuery
 {
     data: DataResponse,
+    error?: string
+}
+
+export interface IdsQuery
+{
+    data: IidResponse,
     error?: string
 }

@@ -21,6 +21,7 @@ export class LayoutView implements View
                     <nav class="nav nav-masthead justify-content-center float-md-end mr-4">
                         <a id="menuitem0" class="nav-link active" aria-current="page" href="/">Home</a>
                         <a id="menuitem1" class="nav-link" href="/features">Features</a>
+                        <a id="menuitem3" class="nav-link" href="/restapi">API</a>
                         <% if (it.sessionUser) { %>
                             <a id="menuitem2" class="nav-link" href="/logout">Logout</a>
                         <% } else { %>
@@ -32,7 +33,7 @@ export class LayoutView implements View
             <main class="px-3">
                 <%~ it.body %>
             </main>
-            <footer class="mt-auto text-white-50">
+            <footer class="fixed-bottom text-white-50">
                 <div class="text-end">
                     <% if (it.sessionUser) { %>
                         You are logged as <b><%= it.sessionUser %></b>. <a href="/logout">Logout</a>.

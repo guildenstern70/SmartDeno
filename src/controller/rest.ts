@@ -11,6 +11,7 @@
 import { DyeLog, Router, Status } from "../deps.ts";
 import User from "../service/user.ts";
 import { FaunaDb } from "../db/fauna.ts";
+import { UserDump, UserDumpResponse } from "../service/types.ts";
 
 
 export default class RestRouter extends Router
@@ -85,20 +86,26 @@ export default class RestRouter extends Router
         const {username, password} = await ctx.request.body().value;
         const newUser = {username, password};
         this.logger.info("Received " + JSON.stringify(newUser));
-        if (!Object.prototype.hasOwnProperty.call(newUser, username))
+        if (newUser.username && newUser.password)
         {
-            ctx.response.body = {message: "KO - Cannot insert user unknown"};
-            ctx.response.status = 400;
+            const createdUser: UserDumpResponse = await this.faunaDb.createUser(username, password);
+            if (createdUser.error)
+            {
+                ctx.response.body = { message: "Error - Cannot create user: " + JSON.stringify(createdUser.error)};
+                ctx.response.status = 400;
+                return;
+            }
+            ctx.response.body = { message: "OK - User inserted with ID = " + createdUser.createUser.id };
+            ctx.response.status = 201;
         }
         else
         {
-            this.usersDb.add(newUser);
-            ctx.response.body = {message: "OK - User inserted"};
-            ctx.response.status = 201;
+            ctx.response.body = { message: "KO - Cannot insert due to bad request"};
+            ctx.response.status = 400;
         }
     };
 
-    private deleteUser = (ctx: any) =>
+    private deleteUser = async (ctx: any) =>
     {
         ctx.response.type = "json";
         const userId = ctx.params.id;
@@ -108,10 +115,10 @@ export default class RestRouter extends Router
             ctx.response.body = {message: "User not found."};
             return;
         }
-        const deleted = this.usersDb.delete(userId);
+        const deleted = await this.faunaDb.deleteUser(userId);
         if (deleted)
         {
-            ctx.response.body = {message: "OK - Deleted"};
+            ctx.response.body = {message: "OK - Deleted _ID " + deleted};
             ctx.response.status = 200;
         }
         else

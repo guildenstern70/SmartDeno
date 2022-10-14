@@ -9,5 +9,6 @@
 
 /*global setFeatureActive */
 (function () {
-    setFeatureActive(3);
+    setFeatureActive(2);
 })();
+
