@@ -65,7 +65,7 @@ export class FaunaDb
                 }`;
         const userids: IidResponse = await this.queryFauna(allIds, {});
         const iids: IId[] = userids.data.allUsers.data;
-        const _ids: IId[] = iids.filter( x => x.id == id);
+        const _ids: IId[] = iids.filter( (x: IId) => x.id == id);
         if (_ids.length > 0) {
             this.logger.info("_ID of #" + id + " is " + _ids[0]._id);
         } else {
@@ -79,7 +79,7 @@ export class FaunaDb
                     username
                   }
                 }
-                `
+                `;
         await this.queryFauna(deleteQuery, {});
         return _idToBeDeleted;
     }
