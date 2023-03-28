@@ -2,33 +2,36 @@
  *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-22 Alessio Saltarin
+ * Copyright (c) 2020-23 Alessio Saltarin
  * MIT License
  *
  */
 
 import { DyeLog } from "../deps.ts";
-import User from "../service/user.ts";
-import { IId, IidResponse, UserDump, UsersQuery } from "../service/types.ts";
+import User from "../model/user.ts";
+import { IId, UserDump } from "../model/types.ts";
 
 export class FaunaDb
 {
+    private readonly logger: DyeLog;
+
     constructor(logger: DyeLog)
     {
         this.logger = logger;
     }
 
-    async getSingleUser(username: string): Promise<User>
+    async getSingleUser(username: string): Promise<User|null>
     {
-        const users: User[] = await this.getAllUsers();
-        if (users.length > 0)
+        const users: User[] | null = await this.getAllUsers();
+        if (users != null && users.length > 0)
         {
-            return users.filter( (user: User) => user.username === username)
+            return users
+                .filter( (user: User) => user.username === username)[0]
         }
         return null;
     }
 
-    async getAllUsers(): Promise<User[]>
+    async getAllUsers(): Promise<User[]|null>
     {
         const query = `
                 query {
@@ -41,17 +44,17 @@ export class FaunaDb
                   }
                 }`;
 
-        const response: UsersQuery = await this.queryFauna(query, {});
+        const response: { data?: any; error?: any } = await this.queryFauna(query, {});
         if (response.error)
         {
             this.logger.error("Fauna DB error: " + JSON.stringify(response.error));
-            return response.error;
+            return null;
         }
 
         return response.data.allUsers.data;
     }
 
-    async deleteUser(id: int): string
+    async deleteUser(id: number): Promise<string|null>
     {
         // Find _id of user
         const allIds = `
@@ -63,7 +66,7 @@ export class FaunaDb
                     }
                   }
                 }`;
-        const userids: IidResponse = await this.queryFauna(allIds, {});
+        const userids: { data?: any; error?: any } = await this.queryFauna(allIds, {});
         const iids: IId[] = userids.data.allUsers.data;
         const _ids: IId[] = iids.filter( (x: IId) => x.id == id);
         if (_ids.length > 0) {

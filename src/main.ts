@@ -1,8 +1,9 @@
+#!/usr/bin/env -S deno run --allow-read
 /*
  *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-22 Alessio Saltarin
+ * Copyright (c) 2020-23 Alessio Saltarin
  * MIT License
  *
  */
@@ -11,8 +12,8 @@
 import WebRouter from "./controller/web.ts";
 import { Application, DyeLog, LogLevel, Session } from "./deps.ts";
 import { FaunaDb } from "./db/fauna.ts";
-import User from "./service/user.ts";
-import { UserDump } from "./service/types.ts";
+import User from "./model/user.ts";
+import { UserDump } from "./model/types.ts";
 import RestRouter from "./controller/rest.ts";
 
 type AppState = {
@@ -45,11 +46,11 @@ app.use(async (ctx, next) =>
 
 // Fauna DB
 const faunaDb = new FaunaDb(logger);
-faunaDb.getAllUsers().then((users: User[]) =>
+faunaDb.getAllUsers().then((users: User[]|null) =>
 {
-    if (users === undefined || users.length === 0)
+    if (users === null || users.length === 0)
     {
-        faunaDb.createUser(0, "guest", "guest").then((data: UserDump) =>
+        faunaDb.createUser("guest", "guest").then((data: UserDump) =>
         {
             if (data.error)
             {

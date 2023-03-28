@@ -2,15 +2,15 @@
  *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-22 Alessio Saltarin
+ * Copyright (c) 2020-23 Alessio Saltarin
  * MIT License
  *
  */
 
 import { DyeLog, Router, Status } from "../deps.ts";
-import User from "../service/user.ts";
+import User from "../model/user.ts";
 import { FaunaDb } from "../db/fauna.ts";
-import { UserDumpResponse } from "../service/types.ts";
+import { UserDump } from "../model/types.ts";
 
 
 export default class RestRouter extends Router
@@ -24,7 +24,7 @@ export default class RestRouter extends Router
         super();
         this.logger = logger;
         this.faunaDb = new FaunaDb(logger);
-        this.setupRoutes().then(this.logger.info("REST routes set up."));
+        this.setupRoutes();
     }
 
     private async setupRoutes()
@@ -49,10 +49,15 @@ export default class RestRouter extends Router
     private getUsers = async (ctx: any) =>
     {
         this.logger.info("/api/v1/user");
-        const users: User[] = await this.faunaDb.getAllUsers();
-        ctx.response.status = Status.OK;
-        ctx.response.type = "json";
-        ctx.response.body = users;
+        const users: User[]|null = await this.faunaDb.getAllUsers();
+        if (users != null) {
+            ctx.response.status = Status.OK;
+            ctx.response.type = "json";
+            ctx.response.body = users;
+        } else {
+            ctx.response.status = Status.NotFound;
+        }
+
     };
 
     private getUser = async (ctx: any) =>
@@ -70,7 +75,7 @@ export default class RestRouter extends Router
         if (user)
         {
             ctx.response.status = 200;
-            ctx.response.body = user[0];
+            ctx.response.body = user;
         }
         else
         {
@@ -86,14 +91,14 @@ export default class RestRouter extends Router
         this.logger.info("Received " + JSON.stringify(newUser));
         if (newUser.username && newUser.password)
         {
-            const createdUser: UserDumpResponse = await this.faunaDb.createUser(username, password);
+            const createdUser: UserDump = await this.faunaDb.createUser(username, password);
             if (createdUser.error)
             {
                 ctx.response.body = { message: "Error - Cannot create user: " + JSON.stringify(createdUser.error)};
                 ctx.response.status = 400;
                 return;
             }
-            ctx.response.body = { message: "OK - User inserted with ID = " + createdUser.createUser.id };
+            ctx.response.body = { message: "OK - User inserted with ID = " + createdUser.id };
             ctx.response.status = 201;
         }
         else

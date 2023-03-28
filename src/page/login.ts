@@ -2,7 +2,7 @@
  *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-22 Alessio Saltarin
+ * Copyright (c) 2020-23 Alessio Saltarin
  * MIT License
  *
  */
@@ -10,9 +10,9 @@
 import { DyeLog, render } from "../deps.ts";
 import { Page } from "./page.ts";
 import { Loginview } from "../view/loginview.ts";
-import { IUser } from "../service/types.ts";
+import { IUser } from "../model/types.ts";
 import { FaunaDb } from "../db/fauna.ts";
-import User from "../service/user.ts";
+import User from "../model/user.ts";
 
 
 export class Login extends Page

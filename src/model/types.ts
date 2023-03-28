@@ -2,7 +2,7 @@
  *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-22 Alessio Saltarin
+ * Copyright (c) 2020-23 Alessio Saltarin
  * MIT License
  *
  */
@@ -43,7 +43,7 @@ export interface UsersQuery
 export interface IId
 {
     _id: string
-    id: int,
+    id: number,
 }
 
 export interface DataResponse
