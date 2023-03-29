@@ -38,6 +38,6 @@ export class Baseview
                     crossorigin="anonymous"></script>
             </body>
             </html>
-        `
+        `;
     }
 }

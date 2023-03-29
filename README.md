@@ -29,7 +29,7 @@ src/db/fauna.ts)
 1. Go to https://dashboard.fauna.com (login if required) and click on New Database
 2. Fill the Database Name field and click on Save.
 3. Click on GraphQL section visible on the left sidebar.
-4. Copy the file /data/users.gql to create initial schema
+4. Select the file /data/users.gql to create initial schema
 
 Generate a secret to access the database:
 
@@ -48,7 +48,7 @@ You must export an environment variable named FAUNA_SECRET with the secret above
 
 ### Cache dependencies locally
 
-    deno cache src/deps.ts
+    deno cache src/main.ts
 
 ### Run with Docker
 

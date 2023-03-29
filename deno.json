@@ -12,7 +12,7 @@
    },
   "importMap": "./import_map.json",
   "tasks": {
-    "start": "deno run -r --allow-net --allow-env --allow-read src/main.ts"
+    "start": "deno run --allow-net --allow-env --allow-read src/main.ts"
   }
 }
 

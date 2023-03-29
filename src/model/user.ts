@@ -7,22 +7,39 @@
  *
  */
 
+import { FaunaUser } from './types.ts';
+
 export default class User
 {
-    id: number;
-    username: string;
-    password: string;
+    public id: number;
+    public username: string;
+    public password: string;
+    public name: string;
+    public surname: string;
+    public group: string;
 
-    constructor(id: number, username: string, password: string)
-    {
-        this.id = id;
-        this.username = username;
-        this.password = password;
+    public constructor(init?:Partial<User>) {
+        Object.assign(this, init);
     }
+
+    toFaunaUser = (): FaunaUser => {
+        let faunaId = this.id;
+        if (this.id == undefined) {
+            faunaId = Math.floor(Math.random() * 9000000);
+        }
+        return {
+            username: this.username,
+            password: this.password,
+            first_name: this.name,
+            last_name: this.surname,
+            group: this.group,
+            id: faunaId,
+        };
+    };
 
     toString = (): string =>
     {
-        return `#${this.id} - ${this.username}`;
+        return `#${this.username} - ${this.name} ${this.surname}`;
     };
 }
 

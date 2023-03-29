@@ -28,7 +28,7 @@ export class FaunaDb
         if (users != null && users.length > 0)
         {
             return users
-                .filter( (user: User) => user.username === username)[0]
+                .filter( (user: User) => user.username === username)[0];
         }
         return null;
     }
@@ -70,7 +70,7 @@ export class FaunaDb
                 }`;
         const userids: { data?: any; error?: any } = await this.queryFauna(allIds, {});
         const iids: IId[] = userids.data.allUsers.data;
-        const _ids: IId[] = iids.filter( (x: IId) => x.id == id);
+        const _ids: IId[] = iids.filter( (x: IId) => x.id === id);
         if (_ids.length > 0) {
             this.logger.info("_ID of #" + id + " is " + _ids[0]._id);
         } else {
@@ -89,26 +89,34 @@ export class FaunaDb
         return _idToBeDeleted;
     }
 
-    async createUser(username: string,
-                     password: string): Promise<UserDump>
+    async createUser(user:User): Promise<UserDump>
     {
-        const id = Math.floor(Math.random() * 1000000);
-
         // We store the password in clear text. In production environment passwords should
         // be masked using, for instance, SHA-256 algorithm.
         const query = `
             mutation($username: String!, 
                      $password: String!, 
+                     $first_name: String,
+                     $last_name: String,
+                     $group: String,
                      $id: Int!) {
-                createUser(data: { username: $username, password: $password, id: $id }) {
+                createUser(data: { username: $username, 
+                                   password: $password, 
+                                   first_name: $first_name,
+                                   last_name: $last_name,
+                                   group: $group,
+                                   id: $id }) {
                     username
                     password
+                    first_name
+                    last_name
+                    group
                     id
                 }
             }`;
 
         this.logger.info("Querying Fauna...");
-        const {data, error} = await this.queryFauna(query, {username, password, id});
+        const {data, error} = await this.queryFauna(query, user.toFaunaUser());
         this.logger.info("Fauna returned => " + JSON.stringify(data));
 
         if (error)

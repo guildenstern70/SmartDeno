@@ -12,7 +12,7 @@
 import WebRouter from "./controller/web.ts";
 import { Application } from "oak";
 import { Session } from "oak_sessions";
-import { DyeLog, LogLevel } from 'dyelog';
+import { DyeLog, LogLevel } from "dyelog";
 import { FaunaDb } from "./db/fauna.ts";
 import User from "./model/user.ts";
 import { UserDump } from "./model/types.ts";
@@ -52,24 +52,32 @@ faunaDb.getAllUsers().then((users: User[]|null) =>
 {
     if (users === null || users.length === 0)
     {
-        faunaDb.createUser("guest", "guest").then((data: UserDump) =>
-        {
-            if (data.error)
+        const defaultUsers: User[] = [
+            new User({username: "admin", password: "admin", name:"Alec", surname:"Jumpreen", group: "admins"}),
+            new User({username: "guest", password: "guest", name:"John", surname:"Doe", group: "users"})
+        ];
+        defaultUsers.forEach( user => {
+            logger.info("Creating user " + user.toString())
+            faunaDb.createUser(user).then((data: UserDump) =>
             {
-                logger.error("FaunaDB cannot create first user: " + JSON.stringify(data.error));
-            }
-            else
-            {
-                logger.info("Created guest user. ");
-            }
-        });
+                if (data.error)
+                {
+                    logger.error("FaunaDB cannot create user " + user.username);
+                }
+                else
+                {
+                    logger.info("- Created user:  " + user.username);
+                }
+            });
+        })
     }
     else
     {
-        users.forEach(user =>
-        {
-            logger.info("Found user in FaunaDB: " + JSON.stringify(user));
-        });
+        const userLen = users.length;
+        let userDescription = "user";
+        if (userLen > 1)
+            userDescription = "users";
+        logger.info("Found " + userLen + " " + userDescription + " in FaunaDB.");
     }
 });
 
