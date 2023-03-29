@@ -7,7 +7,7 @@
  *
  */
 
-import { FaunaUser } from './types.ts';
+import { FaunaUser } from "./types.ts";
 
 export default class User
 {
@@ -24,7 +24,7 @@ export default class User
 
     toFaunaUser = (): FaunaUser => {
         let faunaId = this.id;
-        if (this.id == undefined) {
+        if (this.id === undefined) {
             faunaId = Math.floor(Math.random() * 9000000);
         }
         return {

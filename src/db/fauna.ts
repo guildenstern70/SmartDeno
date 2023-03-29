@@ -11,7 +11,7 @@ import { DyeLog } from "dyelog";
 import User from "../model/user.ts";
 import { IId, UserDump } from "../model/types.ts";
 
-const FAUNA_URL= "https://graphql.eu.fauna.com"
+const FAUNA_URL= "https://graphql.eu.fauna.com";
 
 export class FaunaDb
 {

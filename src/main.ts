@@ -56,8 +56,7 @@ faunaDb.getAllUsers().then((users: User[]|null) =>
             new User({username: "admin", password: "admin", name:"Alec", surname:"Jumpreen", group: "admins"}),
             new User({username: "guest", password: "guest", name:"John", surname:"Doe", group: "users"})
         ];
-        defaultUsers.forEach( user => {
-            logger.info("Creating user " + user.toString())
+        defaultUsers.forEach( (user) => {
             faunaDb.createUser(user).then((data: UserDump) =>
             {
                 if (data.error)
@@ -69,14 +68,15 @@ faunaDb.getAllUsers().then((users: User[]|null) =>
                     logger.info("- Created user:  " + user.username);
                 }
             });
-        })
+        });
     }
     else
     {
         const userLen = users.length;
         let userDescription = "user";
-        if (userLen > 1)
+        if (userLen > 1) {
             userDescription = "users";
+        }
         logger.info("Found " + userLen + " " + userDescription + " in FaunaDB.");
     }
 });
