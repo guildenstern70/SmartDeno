@@ -38,6 +38,11 @@ Generate a secret to access the database:
 
 If everything went OK, on the first run, a new "guest" user will be created on your Fauna DB.
 
+IMPORTANT:
+You must create an environment variable named FAUNA_SECRET with the secret above in order to run the application.
+
+    
+
 ### Run locally
 
     deno run --allow-net --allow-read --allow-env src/main.ts

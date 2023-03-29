@@ -8,4 +8,5 @@
 #
 #
 
-deno run -r --allow-net --allow-read src/main.ts
+export FAUNA_SECRET=your_fauna_secret
+deno run -r --allow-net --allow-env --allow-read src/main.ts
