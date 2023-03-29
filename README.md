@@ -23,7 +23,8 @@ This application is compatible with [Deno Deploy](https://deno.com/deploy) and c
 
 Before running this application you need to create a [Fauna DB](https://fauna.com/).
 
-Create a new database in EU region.
+Create a new database in EU region. (You may setup Fauna in other regions, but remember to update FAUNA_URL in
+src/db/fauna.ts)
 
 1. Go to https://dashboard.fauna.com (login if required) and click on New Database
 2. Fill the Database Name field and click on Save.
@@ -39,13 +40,11 @@ Generate a secret to access the database:
 If everything went OK, on the first run, a new "guest" user will be created on your Fauna DB.
 
 IMPORTANT:
-You must create an environment variable named FAUNA_SECRET with the secret above in order to run the application.
-
-    
+You must export an environment variable named FAUNA_SECRET with the secret above in order to run the application.
 
 ### Run locally
 
-    deno run --allow-net --allow-read --allow-env src/main.ts
+    deno task start
 
 ### Cache dependencies locally
 

@@ -11,6 +11,8 @@ import { DyeLog } from "dyelog";
 import User from "../model/user.ts";
 import { IId, UserDump } from "../model/types.ts";
 
+const FAUNA_URL= "https://graphql.eu.fauna.com"
+
 export class FaunaDb
 {
     private readonly logger: DyeLog;
@@ -135,7 +137,7 @@ export class FaunaDb
 
         try
         {
-            const res = await fetch("https://graphql.eu.fauna.com/graphql", {
+            const res = await fetch(FAUNA_URL + "/graphql", {
                 method: "POST",
                 headers: {
                     authorization: `Bearer ${token}`,
