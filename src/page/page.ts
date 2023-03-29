@@ -7,7 +7,7 @@
  *
  */
 
-import { DyeLog } from "../deps.ts";
+import { DyeLog } from "dyelog";
 
 export abstract class Page
 {

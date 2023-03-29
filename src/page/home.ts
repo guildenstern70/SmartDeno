@@ -7,7 +7,7 @@
  *
  */
 
-import { DyeLog, render } from "../deps.ts";
+import { render } from "eta";
 import { Homeview } from "../view/homeview.ts";
 import { Page } from "./page.ts";
 

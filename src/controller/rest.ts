@@ -7,7 +7,7 @@
  *
  */
 
-import { DyeLog, Router, Status } from "../deps.ts";
+import { DyeLog, Router, Status } from "oak";
 import User from "../model/user.ts";
 import { FaunaDb } from "../db/fauna.ts";
 import { UserDump } from "../model/types.ts";

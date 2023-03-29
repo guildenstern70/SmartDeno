@@ -7,7 +7,7 @@
  *
  */
 
-import { DyeLog } from "../deps.ts";
+import { DyeLog } from "dyelog";
 import User from "../model/user.ts";
 import { IId, UserDump } from "../model/types.ts";
 

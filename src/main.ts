@@ -10,7 +10,9 @@
 
 /*global Deno */
 import WebRouter from "./controller/web.ts";
-import { Application, DyeLog, LogLevel, Session } from "./deps.ts";
+import { Application } from "oak";
+import { Session } from "oak_sessions";
+import { DyeLog, LogLevel } from 'dyelog';
 import { FaunaDb } from "./db/fauna.ts";
 import User from "./model/user.ts";
 import { UserDump } from "./model/types.ts";
