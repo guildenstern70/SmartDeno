@@ -110,7 +110,7 @@ app.use(async (context, next) =>
 logger.info("Running in: " + Deno.cwd());
 app.addEventListener(
     "listen",
-    (_e) => logger.warn("🦕 Deno server running at http://localhost:8000/ 🦕"),
+    (_e) => logger.warn("🦕 SmartDeno running at http://localhost:8000/ 🦕"),
 );
 
 await app.listen({port: 8000});

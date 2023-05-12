@@ -15,7 +15,7 @@ export abstract class Page
     protected ctx: any;
     protected logger: DyeLog;
 
-    protected abstract async render(): void;
+    protected abstract async render(): Promise<void>;
 
     protected constructor(logger: DyeLog, ctx: any)
     {
