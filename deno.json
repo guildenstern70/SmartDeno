@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "strict": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "https://esm.sh/preact"
+    "strict": true
   },
   "lint": {
     "rules": {

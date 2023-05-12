@@ -35,7 +35,7 @@ export class Layoutview
             <footer class="fixed-bottom text-white-50">
                 <div class="text-end">
                     <% if (it.sessionUser) { %>
-                        You are logged as <b><%= it.sessionUser %></b>. <a href="/logout">Logout</a>.
+                        You are logged in as <b><%= it.sessionUser %></b>. <a href="/logout">Logout</a>.
                     <% } else { %>
                             <%= it.appname %> Powered by 
                             <a href="https://deno.land/" target="_blank" class="text-white">Deno</a>.

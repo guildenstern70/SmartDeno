@@ -9,6 +9,7 @@
 
 import { Page } from "./page.ts";
 import { render } from "eta";
+import { DyeLog } from "dyelog";
 import { Restapiview } from "../view/restapiview.ts";
 
 export class Restapi extends Page
