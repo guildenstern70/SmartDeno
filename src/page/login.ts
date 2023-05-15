@@ -7,13 +7,11 @@
  *
  */
 
-import { render } from "eta";
 import { Page } from "./page.ts";
-import { Loginview } from "../view/loginview.ts";
 import { IUser } from "../model/types.ts";
 import { FaunaDb } from "../db/fauna.ts";
 import User from "../model/user.ts";
-import { Homeview } from "../view/homeview.ts";
+import { View } from "../view/view.ts";
 
 
 export class Login extends Page
@@ -79,10 +77,7 @@ export class Login extends Page
             loginErrors = true;
         }
 
-        const view = new Loginview();
-        const html = await view.get();
-
-        this.ctx.response.body = await render(html, {
+        this.ctx.response.body = await View.render("./static/templates/login.eta", {
             appname: "SmartDeno",
             title: "Contact",
             loginerrors: loginErrors,

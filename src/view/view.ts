@@ -8,15 +8,22 @@
  */
 
 import { Layoutview } from "./layout/layoutview.ts";
+import { render } from "eta";
 
-export abstract class View
+export class View
 {
-    protected etaTemplatePath = "";  // Override this to read ETA template files
+    static async render(etaTemplatePath: string, data: Record<string, string>)
+    {
+        const html = await View.get(etaTemplatePath);
+        return await render(html, data);
+    }
 
-    async get(): Promise<string>
+    private static async get(etaTemplatePath: string): Promise<string>
     {
         const layout = new Layoutview();
-        const html =  await Deno.readTextFile(this.etaTemplatePath);
-        return layout.get().replace("<%~ it.body %>", html);
+        const html =  await Deno.readTextFile(etaTemplatePath);
+        const layoutHtml = await layout.get();
+        return layoutHtml.replace("<%~ it.body %>", html);
     }
+
 }

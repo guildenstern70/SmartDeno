@@ -8,10 +8,8 @@
  */
 
 import { Page } from "./page.ts";
-import { render } from "eta";
 import { DyeLog } from "dyelog";
-import { Restapiview } from "../view/restapiview.ts";
-import { Loginview } from "../view/loginview.ts";
+import { View } from "../view/view.ts";
 
 export class Restapi extends Page
 {
@@ -24,11 +22,7 @@ export class Restapi extends Page
     async render()
     {
         this.logger.info("GET /restapi");
-
-        const view = new Restapiview();
-        const html = await view.get();
-
-        this.ctx.response.body = await render(html, {
+        this.ctx.response.body = await View.render("./static/templates/restapi.eta", {
             appname: "SmartDeno"
         });
     }

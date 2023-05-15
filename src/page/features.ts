@@ -7,11 +7,8 @@
  *
  */
 
-import { render } from "eta";
 import { Page } from "./page.ts";
-import { Featuresview } from "../view/featuresview.ts";
-import { Homeview } from "../view/homeview.ts";
-
+import { View } from "../view/view.ts";
 
 export class Features extends Page
 {
@@ -24,11 +21,7 @@ export class Features extends Page
     async render()
     {
         this.logger.info("GET /features");
-
-        const view = new Featuresview();
-        const html = await view.get();
-
-        this.ctx.response.body = await render(html, {
+        this.ctx.response.body = await View.render("./static/templates/features.eta", {
             appname: "SmartDeno",
             title: "Features",
             description: "🦕 SmartDeno has been made with the following building blocks: 🦕",

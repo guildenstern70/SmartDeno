@@ -7,47 +7,13 @@
  *
  */
 
-import { Baseview } from "./baseview.ts";
 
 export class Layoutview
 {
-
-    html = `
-        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <header class="mb-auto">
-                <div>
-                    <h3 class="float-md-start mb-0 xtitle"><%= it.appname %></h3>
-                    <nav class="nav nav-masthead justify-content-center float-md-end mr-4">
-                        <a id="menuitem0" class="nav-link active" aria-current="page" href="/">Home</a>
-                        <a id="menuitem1" class="nav-link" href="/features">Features</a>
-                        <a id="menuitem3" class="nav-link" href="/restapi">API</a>
-                        <% if (it.sessionUser) { %>
-                            <a id="menuitem2" class="nav-link" href="/logout">Logout</a>
-                        <% } else { %>
-                            <a id="menuitem2" class="nav-link" href="/login">Login</a>
-                        <% } %>
-                    </nav>
-                </div>
-            </header>
-            <main class="px-3">
-                <%~ it.body %>
-            </main>
-            <footer class="fixed-bottom text-white-50">
-                <div class="text-end">
-                    <% if (it.sessionUser) { %>
-                        You are logged in as <b><%= it.sessionUser %></b>. <a href="/logout">Logout</a>.
-                    <% } else { %>
-                            <%= it.appname %> Powered by 
-                            <a href="https://deno.land/" target="_blank" class="text-white">Deno</a>.
-                    <% } %>
-                </div>
-            </footer>
-        </div>
-        `;
-
-    get(): string
+    async get(): Promise<string>
     {
-        const base = new Baseview();
-        return base.get().replace("<%~ it.body %>", this.html);
+        const htmlBase = await Deno.readTextFile("./static/templates/base.eta");
+        const htmlLayout =  await Deno.readTextFile("./static/templates/layout.eta");
+        return htmlBase.replace("<%~ it.body %>", htmlLayout);
     }
 }

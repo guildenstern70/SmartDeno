@@ -7,9 +7,8 @@
  *
  */
 
-import { render } from "eta";
-import { Homeview } from "../view/homeview.ts";
 import { Page } from "./page.ts";
+import { View } from "../view/view.ts";
 
 export class Home extends Page
 {
@@ -30,10 +29,7 @@ export class Home extends Page
             welcomeMessage = "Welcome to SmartDeno, ";
         }
 
-        const view = new Homeview();
-        const html = await view.get();
-
-        this.ctx.response.body = await render(html, {
+        this.ctx.response.body = await View.render("./static/templates/home.eta", {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
             sessionUser
