@@ -30,7 +30,10 @@ export class Home extends Page
             welcomeMessage = "Welcome to SmartDeno, ";
         }
 
-        this.ctx.response.body = await render(new Homeview().get(), {
+        const view = new Homeview();
+        const html = await view.get();
+
+        this.ctx.response.body = await render(html, {
             appname: "SmartDeno",
             appdescription: welcomeMessage,
             sessionUser

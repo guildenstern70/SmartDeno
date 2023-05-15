@@ -13,6 +13,7 @@ import { Loginview } from "../view/loginview.ts";
 import { IUser } from "../model/types.ts";
 import { FaunaDb } from "../db/fauna.ts";
 import User from "../model/user.ts";
+import { Homeview } from "../view/homeview.ts";
 
 
 export class Login extends Page
@@ -77,8 +78,11 @@ export class Login extends Page
             this.logger.warn("Error == " + error);
             loginErrors = true;
         }
-        const loginEta = new Loginview().get();
-        this.ctx.response.body = await render(loginEta, {
+
+        const view = new Loginview();
+        const html = await view.get();
+
+        this.ctx.response.body = await render(html, {
             appname: "SmartDeno",
             title: "Contact",
             loginerrors: loginErrors,

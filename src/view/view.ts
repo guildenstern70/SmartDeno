@@ -11,11 +11,12 @@ import { Layoutview } from "./layout/layoutview.ts";
 
 export abstract class View
 {
-    protected html = "";  // Override this to implement HTML views using ETA
+    protected etaTemplatePath = "";  // Override this to read ETA template files
 
-    get(): string
+    async get(): Promise<string>
     {
-        const page = new Layoutview();
-        return page.get().replace("<%~ it.body %>", this.html);
+        const layout = new Layoutview();
+        const html =  await Deno.readTextFile(this.etaTemplatePath);
+        return layout.get().replace("<%~ it.body %>", html);
     }
 }

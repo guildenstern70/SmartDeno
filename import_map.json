@@ -3,6 +3,7 @@
     "oak": "https://deno.land/x/oak@v12.1.0/mod.ts",
     "oak_sessions": "https://deno.land/x/oak_sessions@v4.1.3/mod.ts",
     "dyelog": "https://deno.land/x/dyelog@v1.0.5/mod.ts",
-    "eta": "https://deno.land/x/eta@v2.0.1/mod.ts"
+    "eta": "https://deno.land/x/eta@v2.0.1/mod.ts",
+    "serve": "https://deno.land/std@0.185.0/http/server.ts"
   }
 }

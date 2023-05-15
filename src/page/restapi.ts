@@ -11,6 +11,7 @@ import { Page } from "./page.ts";
 import { render } from "eta";
 import { DyeLog } from "dyelog";
 import { Restapiview } from "../view/restapiview.ts";
+import { Loginview } from "../view/loginview.ts";
 
 export class Restapi extends Page
 {
@@ -23,7 +24,11 @@ export class Restapi extends Page
     async render()
     {
         this.logger.info("GET /restapi");
-        this.ctx.response.body = await render(new Restapiview().get(), {
+
+        const view = new Restapiview();
+        const html = await view.get();
+
+        this.ctx.response.body = await render(html, {
             appname: "SmartDeno"
         });
     }
