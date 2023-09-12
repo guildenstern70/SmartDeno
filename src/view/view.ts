@@ -15,7 +15,7 @@ export class View
     static async render(etaTemplatePath: string, data: Record<string, string>)
     {
         const html = await View.get(etaTemplatePath);
-        return await render(html, data);
+        return render(html, data);
     }
 
     private static async get(etaTemplatePath: string): Promise<string>

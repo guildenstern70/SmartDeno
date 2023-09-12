@@ -12,11 +12,8 @@
 import { Application } from "oak";
 import { Session } from "oak_sessions";
 import { DyeLog, LogLevel } from "dyelog";
-import { FaunaDb } from "./db/fauna.ts";
-import { UserDump } from "./model/types.ts";
 import RestRouter from "./controller/rest.ts";
 import WebRouter from "./controller/web.ts";
-import User from "./model/user.ts";
 
 type AppState = {
     session: Session
@@ -46,40 +43,16 @@ app.use(async (ctx, next) =>
     ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
-// Fauna DB
-const faunaDb = new FaunaDb(logger);
-faunaDb.getAllUsers().then((users: User[]|null) =>
-{
-    if (users === null || users.length === 0)
-    {
-        const defaultUsers: User[] = [
-            new User({username: "admin", password: "admin", name:"Alec", surname:"Jumpreen", group: "admins"}),
-            new User({username: "guest", password: "guest", name:"John", surname:"Doe", group: "users"})
-        ];
-        defaultUsers.forEach( (user) => {
-            faunaDb.createUser(user).then((data: UserDump) =>
-            {
-                if (data.error)
-                {
-                    logger.error("FaunaDB cannot create user " + user.username);
-                }
-                else
-                {
-                    logger.info("- Created user:  " + user.username);
-                }
-            });
-        });
-    }
-    else
-    {
-        const userLen = users.length;
-        let userDescription = "user";
-        if (userLen > 1) {
-            userDescription = "users";
-        }
-        logger.info("Found " + userLen + " " + userDescription + " in FaunaDB.");
-    }
-});
+// Deno KV (Users DB)
+const kv = await Deno.openKv();
+const denoKvUsers = await kv.get(["users"]);
+console.log("Deno KV Users: " + JSON.stringify(denoKvUsers));
+if (denoKvUsers.value == null) {
+    logger.info('* Deno KV Users DB not found... Creating...');
+    await kv.set(["users", "guest"], { name: "guest", password: "guest" });
+    await kv.set(["users", "alessio"], { name: "guest", password: "doctor" });
+    logger.info('* Deno KV DB has been initialized.');
+}
 
 // Routes
 // @ts-ignore: usersdb object is just fine

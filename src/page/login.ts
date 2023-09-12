@@ -8,21 +8,17 @@
  */
 
 import { Page } from "./page.ts";
-import { IUser } from "../model/types.ts";
-import { FaunaDb } from "../db/fauna.ts";
-import User from "../model/user.ts";
+import { User } from "../model/types.ts";
 import { View } from "../view/view.ts";
+import { DyeLog } from "dyelog";
+import { DenoKV } from "../db/denokv.ts";
 
 
 export class Login extends Page
 {
-
-    private faunaDb: FaunaDb;
-
     constructor(logger: DyeLog, ctx: any)
     {
         super(logger, ctx);
-        this.faunaDb = new FaunaDb(logger);
     }
 
     async post()
@@ -36,7 +32,7 @@ export class Login extends Page
                 this.logger.info("Unknown form parameters");
                 this.ctx.response.redirect("/login?error=notfound");
             }
-            const posteduser: IUser = {
+            const posteduser: User = {
                 username: value.get("username")!,
                 password: value.get("password")!,
             };
@@ -85,7 +81,7 @@ export class Login extends Page
         });
     }
 
-    private checkLogin(postedUser: IUser): Promise<boolean>
+    private checkLogin(postedUser: User): Promise<boolean>
     {
 
         this.logger.info("Got login request with User=" + postedUser.username
@@ -93,17 +89,11 @@ export class Login extends Page
 
         return new Promise((resolve, _reject) =>
         {
-            this.faunaDb.getAllUsers().then((users: User[]) =>
+            const denokv = new DenoKV(this.logger);
+            denokv.getSingleUser(postedUser.username).then((user: User | null) =>
             {
-                const foundUsers = users.filter((u: User) => u.username === postedUser.username);
-                if (foundUsers.length > 0)
-                {
-                    resolve(foundUsers[0].password === postedUser.password);
-                }
-                else
-                {
-                    resolve(false);
-                }
+                if (user == null) resolve(false);
+                resolve(user!.password === postedUser.password);
             });
         });
 

@@ -9,6 +9,7 @@
 
 import { Page } from "./page.ts";
 import { View } from "../view/view.ts";
+import { DyeLog } from "dyelog";
 
 export class Features extends Page
 {
@@ -28,7 +29,7 @@ export class Features extends Page
             features: {
                 "Deno": "https://deno.land",
                 "Bootstrap": "https://getbootstrap.com/",
-                "Fauna DB": "https://fauna.com/",
+                "Deno KV": "https://deno.com/kv",
                 "Oak": "https://deno.land/x/oak",
                 "Oak Sessions": "https://github.com/jcs224/oak_sessions",
                 "Eta": "https://eta.js.org/",
