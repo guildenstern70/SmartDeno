@@ -41,13 +41,15 @@ export class DenoKV
         return users;
     }
 
-    async deleteUser(username: string): Promise<string|null>
+    async deleteUser(username: string)
     {
-        return null;
+        const kv: Deno.Kv = await Deno.openKv();
+        await kv.delete(["users", username]);
     }
 
-    async createUser(user: User)
+    async createUser(username: string, password: string)
     {
-        return null;
+        const kv: Deno.Kv = await Deno.openKv();
+        await kv.set(["users", username], { username , password });
     }
 }
