@@ -22,7 +22,7 @@ export class DenoKV
 
     async getSingleUser(username: string): Promise<User|null>
     {
-        const kv = await Deno.openKv();
+        const kv: Deno.Kv = await Deno.openKv();
         console.log("Looking for user " + username + " in Deno KV...");
         const user: Deno.KvEntryMaybe<User> = await kv.get(["users", username]);
         console.log("Retrieved user " + JSON.stringify(user.value));
@@ -31,7 +31,14 @@ export class DenoKV
 
     async getAllUsers(): Promise<User[]|null>
     {
-        return null;
+        const kv: Deno.Kv = await Deno.openKv();
+        const entries: Deno.KvListIterator<User> = kv.list({ prefix: ["users"] });
+        if (entries.next == null) return null;
+        const users: User[] = [];
+        for await (const entry of entries) {
+            users.push(entry.value as User);
+        }
+        return users;
     }
 
     async deleteUser(username: string): Promise<string|null>

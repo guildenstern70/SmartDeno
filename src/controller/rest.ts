@@ -7,54 +7,59 @@
  *
  */
 
-import { Router } from "oak";
+import { Router, Status } from "oak";
 import { DyeLog } from "dyelog";
+import { DenoKV } from '../db/denokv.ts';
+import { User } from "../model/types.ts";
 
 
 export default class RestRouter extends Router
 {
 
     private readonly logger: DyeLog;
+    private readonly denokv: DenoKV;
 
     constructor(logger: DyeLog)
     {
         super();
         this.logger = logger;
+        this.denokv = new DenoKV(logger);
         this.setupRoutes();
     }
 
     private async setupRoutes()
     {
         this.logger.info("Setting up REST API routes...");
-        // try
-        // {
-        //     this
-        //         .get("/api/v1/user", await this.getUsers)
-        //         .get("/api/v1/user/:username", await this.getUser)
-        //         .post("/api/v1/user", await this.addUser)
-        //         .delete("/api/v1/user/:id", await this.deleteUser);
-        //
-        // }
-        // catch (err: any)
-        // {
-        //     this.logger.error("ERROR");
-        //     this.logger.error(err);
-        // }
+        try
+        {
+            this
+                .get("/api/v1/user", await this.getUsers)
+                // .get("/api/v1/user/:username", await this.getUser)
+                // .post("/api/v1/user", await this.addUser)
+                // .delete("/api/v1/user/:id", await this.deleteUser)
+            ;
+
+        }
+        catch (err: any)
+        {
+            this.logger.error("ERROR");
+            this.logger.error(err);
+        }
     }
 
-    // private getUsers = async (ctx: any) =>
-    // {
-    //     this.logger.info("/api/v1/user");
-    //     const users: User[]|null = await this.faunaDb.getAllUsers();
-    //     if (users != null) {
-    //         ctx.response.status = Status.OK;
-    //         ctx.response.type = "json";
-    //         ctx.response.body = users;
-    //     } else {
-    //         ctx.response.status = Status.NotFound;
-    //     }
-    //
-    // };
+    private getUsers = async (ctx: any) =>
+    {
+        this.logger.info("/api/v1/user");
+        const users: User[]|null = await this.denokv.getAllUsers();
+        if (users != null) {
+            ctx.response.status = Status.OK;
+            ctx.response.type = "json";
+            ctx.response.body = users;
+        } else {
+            ctx.response.status = Status.NotFound;
+        }
+
+    };
 
     // private getUser = async (ctx: any) =>
     // {
