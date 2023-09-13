@@ -113,7 +113,7 @@ export default class RestRouter extends Router
             ctx.response.body = {message: "Missing user name."};
             return;
         }
-        const deleted = await this.denokv.deleteUser(username);
+        await this.denokv.deleteUser(username);
         ctx.response.body = {message: "OK - Deleted user " + username};
         ctx.response.status = 200;
     };

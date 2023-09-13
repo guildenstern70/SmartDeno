@@ -8,5 +8,4 @@
 #
 #
 
-export FAUNA_SECRET=your_fauna_secret
 deno task start
