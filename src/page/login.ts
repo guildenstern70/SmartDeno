@@ -75,28 +75,31 @@ export class Login extends Page
 
         this.ctx.response.body = await View.render("./static/templates/login.eta", {
             appname: "SmartDeno",
+            appversion: this.version,
             title: "Contact",
             loginerrors: loginErrors,
             description: "🦕 SmartDeno has been made by Alessio Saltarin <alessiosaltarin@gmail.com> 🦕"
         });
     }
 
-    private checkLogin(postedUser: User): Promise<boolean>
+    private async checkLogin(postedUser: User): Promise<boolean>
     {
 
         this.logger.info("Got login request with User=" + postedUser.username
             + " and password=" + postedUser.password);
 
-        return new Promise((resolve, _reject) =>
+        const denokv = await DenoKV.Create(this.logger);
+        const user = await denokv.getSingleUser(postedUser.username);
+        if (user)
         {
-            const denokv = new DenoKV(this.logger);
-            denokv.getSingleUser(postedUser.username).then((user: User | null) =>
-            {
-                if (user == null) resolve(false);
-                resolve(user!.password === postedUser.password);
-            });
-        });
-
+            this.logger.info("User found: " + JSON.stringify(user));
+            return user.password === postedUser.password;
+        }
+        else
+        {
+            this.logger.info("User not found");
+            return false;
+        }
     }
 
 }

@@ -14,6 +14,8 @@ import { Session } from "oak_sessions";
 import { DyeLog, LogLevel } from "dyelog";
 import RestRouter from "./controller/rest.ts";
 import WebRouter from "./controller/web.ts";
+import { DenoKV } from "./db/denokv.ts";
+import { VERSION } from "./version.ts";
 
 type AppState = {
     session: Session
@@ -27,6 +29,8 @@ const logger = new DyeLog({
     printlevel: true,
     level: LogLevel.TRACE
 });
+
+logger.info("Welcome to SmartDeno v."+ VERSION);
 
 // Timing (Logger and Response Header)
 app.use(async (ctx, next) =>
@@ -44,12 +48,11 @@ app.use(async (ctx, next) =>
 });
 
 // Deno KV (Users DB)
-const kv = await Deno.openKv();
-const denoKvUsers = await kv.get(["users"]);
-if (denoKvUsers.value == null) {
+const kv = await DenoKV.Create(logger);
+if (!(await kv.isReady())) {
     logger.info('Deno KV Users DB not found... Creating...');
-    await kv.set(["users", "guest"], { name: "guest", password: "guest" });
-    await kv.set(["users", "alessio"], { name: "alessio", password: "doctor" });
+    await kv.createUser("guest", "guest");
+    await kv.createUser("alessio", "doctor");
     logger.info('Deno KV DB has been initialized.');
 }
 

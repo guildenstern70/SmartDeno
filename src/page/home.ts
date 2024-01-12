@@ -32,6 +32,7 @@ export class Home extends Page
 
         this.ctx.response.body = await View.render("./static/templates/home.eta", {
             appname: "SmartDeno",
+            appversion: this.version,
             appdescription: welcomeMessage,
             sessionUser
         });

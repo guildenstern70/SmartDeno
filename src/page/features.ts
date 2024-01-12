@@ -24,6 +24,7 @@ export class Features extends Page
         this.logger.info("GET /features");
         this.ctx.response.body = await View.render("./static/templates/features.eta", {
             appname: "SmartDeno",
+            appversion: this.version,
             title: "Features",
             description: "🦕 SmartDeno has been made with the following building blocks: 🦕",
             features: {

@@ -13,7 +13,6 @@ import { View } from "../view/view.ts";
 
 export class Restapi extends Page
 {
-
     constructor(logger: DyeLog, ctx: any)
     {
         super(logger, ctx);
@@ -23,7 +22,8 @@ export class Restapi extends Page
     {
         this.logger.info("GET /restapi");
         this.ctx.response.body = await View.render("./static/templates/restapi.eta", {
-            appname: "SmartDeno"
+            appname: "SmartDeno",
+            appversion: this.version
         });
     }
 

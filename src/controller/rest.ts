@@ -17,13 +17,11 @@ export default class RestRouter extends Router
 {
 
     private readonly logger: DyeLog;
-    private readonly denokv: DenoKV;
 
     constructor(logger: DyeLog)
     {
         super();
         this.logger = logger;
-        this.denokv = new DenoKV(logger);
         this.setupRoutes();
     }
 
@@ -49,8 +47,9 @@ export default class RestRouter extends Router
 
     private getUsers = async (ctx: any) =>
     {
+        const denokv: DenoKV = await DenoKV.Create(this.logger);
         this.logger.info("/api/v1/user");
-        const users: User[]|null = await this.denokv.getAllUsers();
+        const users: User[]|null = await denokv.getAllUsers();
         if (users != null) {
             ctx.response.status = Status.OK;
             ctx.response.type = "json";
@@ -72,7 +71,8 @@ export default class RestRouter extends Router
             ctx.response.body = {message: "User not found."};
             return;
         }
-        const user = await this.denokv.getSingleUser(username);
+        const denokv: DenoKV = await DenoKV.Create(this.logger);
+        const user = await denokv.getSingleUser(username);
         if (user)
         {
             ctx.response.status = 200;
@@ -87,12 +87,13 @@ export default class RestRouter extends Router
 
     private addUser = async (ctx: any) =>
     {
+        const denokv: DenoKV = await DenoKV.Create(this.logger);
         const {username, password} = await ctx.request.body().value;
         const newUser = {username, password};
         this.logger.info("Received " + JSON.stringify(newUser));
         if (newUser.username && newUser.password)
         {
-            await this.denokv.createUser(username, password);
+            await denokv.createUser(username, password);
             ctx.response.body = { message: "OK - User inserted with username = " + username };
             ctx.response.status = 201;
         }
@@ -113,7 +114,8 @@ export default class RestRouter extends Router
             ctx.response.body = {message: "Missing user name."};
             return;
         }
-        await this.denokv.deleteUser(username);
+        const denokv: DenoKV = await DenoKV.Create(this.logger);
+        await denokv.deleteUser(username);
         ctx.response.body = {message: "OK - Deleted user " + username};
         ctx.response.status = 200;
     };

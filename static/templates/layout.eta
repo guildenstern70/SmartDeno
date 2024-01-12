@@ -22,7 +22,7 @@
             <% if (it.sessionUser) { %>
                 You are logged in as <b><%= it.sessionUser %></b>. <a href="/logout">Logout</a>.
             <% } else { %>
-                <%= it.appname %> Powered by
+                <%= it.appname %> v.<%= it.appversion %> is powered by
                 <a href="https://deno.land/" target="_blank" class="text-white">Deno</a>.
             <% } %>
         </div>

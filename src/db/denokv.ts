@@ -14,25 +14,38 @@ import { User } from "../model/types.ts";
 export class DenoKV
 {
     private readonly logger: DyeLog;
+    private kv: Deno.Kv | undefined;
 
-    constructor(logger: DyeLog)
+    public static Create = async (logger: DyeLog): Promise<DenoKV> => {
+        const me = new DenoKV(logger);
+        me.kv = await Deno.openKv();
+        return me;
+    };
+
+    private constructor(logger: DyeLog)
     {
         this.logger = logger;
     }
 
+    async isReady(): Promise<boolean>
+    {
+        if (this.kv == null) this.kv = await Deno.openKv();
+        return this.kv != null;
+    }
+
     async getSingleUser(username: string): Promise<User|null>
     {
-        const kv: Deno.Kv = await Deno.openKv();
+        if (this.kv == null) this.kv = await Deno.openKv();
         console.log("Looking for user " + username + " in Deno KV...");
-        const user: Deno.KvEntryMaybe<User> = await kv.get(["users", username]);
+        const user: Deno.KvEntryMaybe<User> = await this.kv.get(["users", username]);
         console.log("Retrieved user " + JSON.stringify(user.value));
         return user.value;
     }
 
     async getAllUsers(): Promise<User[]|null>
     {
-        const kv: Deno.Kv = await Deno.openKv();
-        const entries: Deno.KvListIterator<User> = kv.list({ prefix: ["users"] });
+        if (this.kv == null) this.kv = await Deno.openKv();
+        const entries: Deno.KvListIterator<User> = this.kv.list({ prefix: ["users"] });
         if (entries.next == null) return null;
         const users: User[] = [];
         for await (const entry of entries) {
@@ -43,13 +56,13 @@ export class DenoKV
 
     async deleteUser(username: string)
     {
-        const kv: Deno.Kv = await Deno.openKv();
-        await kv.delete(["users", username]);
+        if (this.kv == null) this.kv = await Deno.openKv();
+        await this.kv.delete(["users", username]);
     }
 
     async createUser(username: string, password: string)
     {
-        const kv: Deno.Kv = await Deno.openKv();
-        await kv.set(["users", username], { username , password });
+        if (this.kv == null) this.kv = await Deno.openKv();
+        await this.kv.set(["users", username], { username , password });
     }
 }

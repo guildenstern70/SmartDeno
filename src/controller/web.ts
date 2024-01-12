@@ -11,7 +11,8 @@ import { Home } from "../page/home.ts";
 import { Login } from "../page/login.ts";
 import { Features } from "../page/features.ts";
 import { Restapi } from "../page/restapi.ts";
-import { DyeLog, Router } from "oak";
+import { Router } from "oak";
+import { DyeLog } from "dyelog";
 
 export default class WebRouter extends Router
 {
@@ -22,7 +23,7 @@ export default class WebRouter extends Router
     {
         super();
         this.logger = logger;
-        this.setupRoutes().then(this.logger.info("Web routes set up."));
+        this.setupRoutes();
     }
 
 

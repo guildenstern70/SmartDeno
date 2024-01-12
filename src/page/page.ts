@@ -8,19 +8,22 @@
  */
 
 import { DyeLog } from "dyelog";
+import { VERSION } from "../version.ts";
 
 export abstract class Page
 {
 
     protected ctx: any;
     protected logger: DyeLog;
+    protected version: string;
 
-    protected abstract async render(): Promise<void>;
+    protected abstract render(): Promise<void>;
 
     protected constructor(logger: DyeLog, ctx: any)
     {
         this.logger = logger;
         this.ctx = ctx;
+        this.version = VERSION;
         ctx.response.headers.set("Content-Type", "text/html");
     }
 

@@ -12,7 +12,7 @@ import { render } from "eta";
 
 export class View
 {
-    static async render(etaTemplatePath: string, data: Record<string, string>)
+    static async render(etaTemplatePath: string, data: object)
     {
         const html = await View.get(etaTemplatePath);
         return render(html, data);

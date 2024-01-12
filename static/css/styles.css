@@ -13,23 +13,23 @@ body {
 
 a:link {
   text-decoration: none;
-  color: lightblue;
+  color: #7d20a6;
 }
 
 a:visited {
   text-decoration: none;
-  color: cadetblue;
+  color: #7d20a6;
 }
 
 a:hover {
   text-decoration: none;
   font-weight: bold;
-  color: lightgreen;
+  color: #7d20a6;
 }
 
 a:active {
   text-decoration: none;
-  color: hotpink;
+  color: #7d20a6;
 }
 
 .featuresfiller {
