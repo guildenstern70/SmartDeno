@@ -12,11 +12,12 @@ import { User } from "../model/types.ts";
 import { View } from "../view/view.ts";
 import { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from "../db/denokv.ts";
+import { Context } from "jsr:@oak/oak";
 
 
 export class Login extends Page
 {
-    constructor(logger: DyeLog, ctx: any)
+    constructor(logger: DyeLog, ctx: Context)
     {
         super(logger, ctx);
     }
@@ -26,15 +27,16 @@ export class Login extends Page
         this.logger.info("POST /login");
         if (this.ctx.request.hasBody)
         {
-            const value: URLSearchParams = await this.ctx.request.body().value;
-            if (typeof value === "undefined")
+            const formData = await this.ctx.request.body.form();
+
+            if (typeof formData === "undefined")
             {
                 this.logger.info("Unknown form parameters");
                 this.ctx.response.redirect("/login?error=notfound");
             }
             const posteduser: User = {
-                username: value.get("username")!,
-                password: value.get("password")!,
+                username: formData.get("username")!,
+                password: formData.get("password")!,
             };
 
             const foundUser = await this.checkLogin(posteduser);

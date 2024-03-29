@@ -10,10 +10,11 @@
 import { Page } from "./page.ts";
 import { DyeLog } from "@littlelite/dyelog";
 import { View } from "../view/view.ts";
+import { Context } from "jsr:@oak/oak";
 
 export class Restapi extends Page
 {
-    constructor(logger: DyeLog, ctx: any)
+    constructor(logger: DyeLog, ctx: Context)
     {
         super(logger, ctx);
     }

@@ -4,6 +4,7 @@
     "specifiers": {
       "jsr:@littlelite/dyelog@^0.1.8": "jsr:@littlelite/dyelog@0.1.8",
       "jsr:@oak/commons@0.7": "jsr:@oak/commons@0.7.0",
+      "jsr:@oak/oak": "jsr:@oak/oak@14.2.0",
       "jsr:@oak/oak@^14.2.0": "jsr:@oak/oak@14.2.0",
       "jsr:@std/assert@0.218": "jsr:@std/assert@0.218.2",
       "jsr:@std/assert@^0.218.2": "jsr:@std/assert@0.218.2",

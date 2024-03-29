@@ -8,6 +8,7 @@
  */
 
 import { DyeLog } from "@littlelite/dyelog";
+import { Context } from "jsr:@oak/oak";
 import { VERSION } from "../version.ts";
 
 export abstract class Page
@@ -19,7 +20,7 @@ export abstract class Page
 
     protected abstract render(): Promise<void>;
 
-    protected constructor(logger: DyeLog, ctx: any)
+    protected constructor(logger: DyeLog, ctx: Context)
     {
         this.logger = logger;
         this.ctx = ctx;
