@@ -17,6 +17,6 @@
     "@std/server": "jsr:@std/server@^0.219.1"
   },
   "tasks": {
-    "start": "deno run --allow-net --allow-env --allow-read --allow-write src/main.ts"
+    "start": "deno run --allow-net --allow-env --allow-read --allow-write --unstable-kv src/main.ts"
   }
 }
