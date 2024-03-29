@@ -8,7 +8,7 @@
  */
 
 import { Page } from "./page.ts";
-import { DyeLog } from "dyelog";
+import { DyeLog } from "@littlelite/dyelog";
 import { View } from "../view/view.ts";
 
 export class Restapi extends Page

@@ -11,8 +11,8 @@ import { Home } from "../page/home.ts";
 import { Login } from "../page/login.ts";
 import { Features } from "../page/features.ts";
 import { Restapi } from "../page/restapi.ts";
-import { Router } from "oak";
-import { DyeLog } from "dyelog";
+import { Router } from "@oak/oak/router";
+import { DyeLog } from "@littlelite/dyelog";
 
 export default class WebRouter extends Router
 {

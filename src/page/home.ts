@@ -9,7 +9,7 @@
 
 import { Page } from "./page.ts";
 import { View } from "../view/view.ts";
-import { DyeLog } from "dyelog";
+import { DyeLog } from "@littlelite/dyelog";
 
 export class Home extends Page
 {

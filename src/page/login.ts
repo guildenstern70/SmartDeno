@@ -10,7 +10,7 @@
 import { Page } from "./page.ts";
 import { User } from "../model/types.ts";
 import { View } from "../view/view.ts";
-import { DyeLog } from "dyelog";
+import { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from "../db/denokv.ts";
 
 

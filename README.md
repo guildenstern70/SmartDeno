@@ -19,12 +19,6 @@ It is based on the following building blocks:
 
 This application is compatible with [Deno Deploy](https://deno.com/deploy) and can be visited [here](https://smart-deno-project.deno.dev/)
 
-## Setup
-
-### Cache dependencies locally
-
-    deno cache src/main.ts
-
 ## Run
 
 ### Locally

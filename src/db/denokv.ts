@@ -7,7 +7,7 @@
  *
  */
 
-import { DyeLog } from "dyelog";
+import { DyeLog } from "@littlelite/dyelog";
 import { User } from "../model/types.ts";
 
 

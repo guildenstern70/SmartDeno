@@ -7,7 +7,7 @@
  *
  */
 
-import { DyeLog } from "dyelog";
+import { DyeLog } from "@littlelite/dyelog";
 import { VERSION } from "../version.ts";
 
 export abstract class Page

@@ -9,9 +9,9 @@
  */
 
 /*global Deno */
-import { Application } from "oak";
 import { Session } from "oak_sessions";
-import { DyeLog, LogLevel } from "dyelog";
+import { Application } from "@oak/oak/application";
+import { DyeLog, LogLevel } from "@littlelite/dyelog";
 import RestRouter from "./controller/rest.ts";
 import WebRouter from "./controller/web.ts";
 import { DenoKV } from "./db/denokv.ts";

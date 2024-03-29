@@ -7,8 +7,8 @@
  *
  */
 
-import { Router, Status } from "oak";
-import { DyeLog } from "dyelog";
+import { Router, Status } from "@oak/oak";
+import { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from '../db/denokv.ts';
 import { User } from "../model/types.ts";
 
