@@ -2,7 +2,7 @@
   "version": "4",
   "specifiers": {
     "jsr:@eta-dev/eta@3.5.0": "3.5.0",
-    "jsr:@littlelite/dyelog@~0.1.8": "0.1.8",
+    "jsr:@littlelite/dyelog@~0.1.9": "0.1.9",
     "jsr:@oak/commons@1": "1.0.0",
     "jsr:@oak/oak@*": "17.1.0",
     "jsr:@oak/oak@^17.1.0": "17.1.0",
@@ -12,7 +12,7 @@
     "jsr:@std/crypto@1": "1.0.3",
     "jsr:@std/encoding@1": "1.0.5",
     "jsr:@std/encoding@^1.0.5": "1.0.5",
-    "jsr:@std/fmt@0.219.1": "0.219.1",
+    "jsr:@std/fmt@1.0.2": "1.0.2",
     "jsr:@std/http@1": "1.0.8",
     "jsr:@std/io@0.224": "0.224.9",
     "jsr:@std/media-types@1": "1.0.3",
@@ -24,8 +24,8 @@
     "@eta-dev/eta@3.5.0": {
       "integrity": "6b70827efc14c7cbf08498ac7a922ecab003641caf3852a6cb5b1b12ee58fb37"
     },
-    "@littlelite/dyelog@0.1.8": {
-      "integrity": "eec79c7ef9995805377d87a9dbcd0c15e3c80fce7492b793f8a130d87cd5eecb",
+    "@littlelite/dyelog@0.1.9": {
+      "integrity": "23323dc0a1c55300635a36bffb4080a79bcf1665c06b0607403aa8475faa2d27",
       "dependencies": [
         "jsr:@std/fmt"
       ]
@@ -67,8 +67,8 @@
     "@std/encoding@1.0.5": {
       "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
     },
-    "@std/fmt@0.219.1": {
-      "integrity": "2432152e927df249a207177aa048a6d9465956ea0047653ee6abd4f514db504f"
+    "@std/fmt@1.0.2": {
+      "integrity": "87e9dfcdd3ca7c066e0c3c657c1f987c82888eb8103a3a3baa62684ffeb0f7a7"
     },
     "@std/http@1.0.8": {
       "integrity": "6ea1b2e8d33929967754a3b6d6c6f399ad6647d7bbb5a466c1eaf9b294a6ebcd",
@@ -670,7 +670,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@eta-dev/eta@3.5.0",
-      "jsr:@littlelite/dyelog@~0.1.8",
+      "jsr:@littlelite/dyelog@~0.1.9",
       "jsr:@oak/oak@^17.1.0",
       "jsr:@std/fmt@1.0.2",
       "jsr:@std/path@^1.0.6",
