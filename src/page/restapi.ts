@@ -19,10 +19,10 @@ export class Restapi extends Page
         super(logger, ctx);
     }
 
-    async render()
+    render()
     {
         this.logger.info("GET /restapi");
-        this.ctx.response.body = await View.render("./static/templates/restapi.eta", {
+        this.ctx.response.body = View.render("./restapi", {
             appname: "SmartDeno",
             appversion: this.version
         });

@@ -31,7 +31,7 @@ export class Home extends Page
             welcomeMessage = "Welcome to SmartDeno, ";
         }
 
-        this.ctx.response.body = await View.render("./static/templates/home.eta", {
+        this.ctx.response.body = View.render("./home", {
             appname: "SmartDeno",
             appversion: this.version,
             appdescription: welcomeMessage,

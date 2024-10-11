@@ -7,23 +7,13 @@
  *
  */
 
-import { Layoutview } from "./layout/layoutview.ts";
-import { render } from "eta";
+import { Eta } from "eta";
 
 export class View
 {
-    static async render(etaTemplatePath: string, data: object)
+    static render(templateName: string, data: object)
     {
-        const html = await View.get(etaTemplatePath);
-        return render(html, data);
+        const eta = new Eta({ views: './static/templates' });
+        return eta.render(templateName, data);
     }
-
-    private static async get(etaTemplatePath: string): Promise<string>
-    {
-        const layout = new Layoutview();
-        const html =  await Deno.readTextFile(etaTemplatePath);
-        const layoutHtml = await layout.get();
-        return layoutHtml.replace("<%~ it.body %>", html);
-    }
-
 }

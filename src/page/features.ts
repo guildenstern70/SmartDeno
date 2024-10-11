@@ -20,10 +20,10 @@ export class Features extends Page
         super(logger, ctx);
     }
 
-    async render()
+    render()
     {
         this.logger.info("GET /features");
-        this.ctx.response.body = await View.render("./static/templates/features.eta", {
+        this.ctx.response.body = View.render("./features", {
             appname: "SmartDeno",
             appversion: this.version,
             title: "Features",

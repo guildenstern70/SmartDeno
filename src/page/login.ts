@@ -62,7 +62,7 @@ export class Login extends Page
         }
     }
 
-    async render()
+    render()
     {
 
         this.logger.info("GET /login");
@@ -75,7 +75,7 @@ export class Login extends Page
             loginErrors = true;
         }
 
-        this.ctx.response.body = await View.render("./static/templates/login.eta", {
+        this.ctx.response.body = View.render("./login", {
             appname: "SmartDeno",
             appversion: this.version,
             title: "Contact",
