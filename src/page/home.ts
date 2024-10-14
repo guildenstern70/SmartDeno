@@ -8,7 +8,6 @@
  */
 
 import { Page } from "./page.ts";
-import { View } from "../view/view.ts";
 import { DyeLog } from "@littlelite/dyelog";
 import { Context } from "jsr:@oak/oak";
 
@@ -18,6 +17,7 @@ export class Home extends Page
     constructor(logger: DyeLog, ctx: Context)
     {
         super(logger, ctx);
+        this.template = "./home";
     }
 
     async render()
@@ -31,7 +31,7 @@ export class Home extends Page
             welcomeMessage = "Welcome to SmartDeno, ";
         }
 
-        this.ctx.response.body = View.render("./home", {
+        this.ctx.response.body = this.eta({
             appname: "SmartDeno",
             appversion: this.version,
             appdescription: welcomeMessage,

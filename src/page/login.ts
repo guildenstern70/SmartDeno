@@ -20,6 +20,7 @@ export class Login extends Page
     constructor(logger: DyeLog, ctx: Context)
     {
         super(logger, ctx);
+        this.template = "./login";
     }
 
     async post()
@@ -75,7 +76,7 @@ export class Login extends Page
             loginErrors = true;
         }
 
-        this.ctx.response.body = View.render("./login", {
+        this.ctx.response.body = this.eta({
             appname: "SmartDeno",
             appversion: this.version,
             title: "Contact",

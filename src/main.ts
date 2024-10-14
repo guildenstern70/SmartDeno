@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-net --allow-env --allow-read --unstable-kv
+#!/usr/bin/env -S deno run --allow-net --allow-env --allow-read
 /*
  *
  * Smart Deno

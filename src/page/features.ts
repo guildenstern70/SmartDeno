@@ -8,7 +8,6 @@
  */
 
 import { Page } from "./page.ts";
-import { View } from "../view/view.ts";
 import { DyeLog } from "@littlelite/dyelog";
 import { Context } from "jsr:@oak/oak";
 
@@ -18,12 +17,13 @@ export class Features extends Page
     constructor(logger: DyeLog, ctx: Context)
     {
         super(logger, ctx);
+        this.template = "./features";
     }
 
     render()
     {
         this.logger.info("GET /features");
-        this.ctx.response.body = View.render("./features", {
+        this.ctx.response.body = this.eta({
             appname: "SmartDeno",
             appversion: this.version,
             title: "Features",

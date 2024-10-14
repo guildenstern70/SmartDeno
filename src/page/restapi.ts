@@ -17,12 +17,13 @@ export class Restapi extends Page
     constructor(logger: DyeLog, ctx: Context)
     {
         super(logger, ctx);
+        this.template = "./restapi";
     }
 
     render()
     {
         this.logger.info("GET /restapi");
-        this.ctx.response.body = View.render("./restapi", {
+        this.ctx.response.body = this.eta({
             appname: "SmartDeno",
             appversion: this.version
         });
