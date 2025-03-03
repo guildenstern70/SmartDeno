@@ -3,7 +3,7 @@
 #
 # Smart Deno
 # A web template project for Deno
-# Copyright (c) 2020-24 Alessio Saltarin
+# Copyright (c) 2020-25 Alessio Saltarin
 # MIT License
 #
 #

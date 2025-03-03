@@ -2,14 +2,13 @@
  *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-24 Alessio Saltarin
+ * Copyright (c) 2020-25 Alessio Saltarin
  * MIT License
  *
  */
 
 import { Page } from "./page.ts";
 import { User } from "../model/types.ts";
-import { View } from "../view/view.ts";
 import { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from "../db/denokv.ts";
 import { Context } from "jsr:@oak/oak";

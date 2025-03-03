@@ -2,7 +2,7 @@
  *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-24 Alessio Saltarin
+ * Copyright (c) 2020-25 Alessio Saltarin
  * MIT License
  *
  */
@@ -27,45 +27,45 @@ export default class WebRouter extends Router
     }
 
 
-    private async setupRoutes()
+    private setupRoutes()
     {
         this.logger.info("Setting up web routes...");
         try
         {
             this
-                .get("/", await this.getHome)
-                .get("/features", await this.getFeatures)
-                .get("/restapi", await this.getRestApi)
-                .get("/login", await this.getLogin)
-                .post("/login", await this.postLogin)
-                .get("/logout", await this.getLogout);
+                .get("/", this.getHome)
+                .get("/features", this.getFeatures)
+                .get("/restapi", this.getRestApi)
+                .get("/login", this.getLogin)
+                .post("/login", this.postLogin)
+                .get("/logout", this.getLogout);
 
         }
-        catch (err)
+        catch (err: any)
         {
             this.logger.error("ERROR");
-            this.logger.error(err);
+            this.logger.error(err.toString());
         }
     }
 
-    private getHome = async (ctx: any) =>
+    private getHome = (ctx: any) =>
     {
-        await new Home(this.logger, ctx).render();
+        new Home(this.logger, ctx).render();
     };
 
-    private getFeatures = async (ctx: any) =>
+    private getFeatures = (ctx: any) =>
     {
-        await new Features(this.logger, ctx).render();
+        new Features(this.logger, ctx).render();
     };
 
-    private getLogin = async (ctx: any) =>
+    private getLogin = (ctx: any) =>
     {
-        await new Login(this.logger, ctx).render();
+        new Login(this.logger, ctx).render();
     };
 
-    private getRestApi = async (ctx: any) =>
+    private getRestApi = (ctx: any) =>
     {
-        await new Restapi(this.logger, ctx).render();
+        new Restapi(this.logger, ctx).render();
     };
 
     private getLogout = async (ctx: any) =>

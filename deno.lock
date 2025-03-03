@@ -4,21 +4,18 @@
     "jsr:@eta-dev/eta@3.5.0": "3.5.0",
     "jsr:@littlelite/dyelog@~0.1.9": "0.1.9",
     "jsr:@oak/commons@1": "1.0.0",
-    "jsr:@oak/oak@*": "17.1.0",
-    "jsr:@oak/oak@^17.1.0": "17.1.0",
-    "jsr:@std/assert@1": "1.0.6",
-    "jsr:@std/bytes@1": "1.0.2",
-    "jsr:@std/bytes@^1.0.2": "1.0.2",
-    "jsr:@std/crypto@1": "1.0.3",
-    "jsr:@std/encoding@1": "1.0.5",
-    "jsr:@std/encoding@^1.0.5": "1.0.5",
+    "jsr:@oak/oak@*": "17.1.4",
+    "jsr:@oak/oak@^17.1.4": "17.1.4",
+    "jsr:@std/assert@1": "1.0.11",
+    "jsr:@std/bytes@1": "1.0.5",
+    "jsr:@std/crypto@1": "1.0.4",
+    "jsr:@std/encoding@1": "1.0.7",
+    "jsr:@std/encoding@^1.0.7": "1.0.7",
     "jsr:@std/fmt@1.0.2": "1.0.2",
-    "jsr:@std/http@1": "1.0.8",
-    "jsr:@std/io@0.224": "0.224.9",
-    "jsr:@std/media-types@1": "1.0.3",
-    "jsr:@std/path@1": "1.0.6",
-    "jsr:@std/path@^1.0.6": "1.0.6",
-    "npm:path-to-regexp@6.2.1": "6.2.1"
+    "jsr:@std/http@1": "1.0.13",
+    "jsr:@std/media-types@1": "1.1.0",
+    "jsr:@std/path@1": "1.0.8",
+    "npm:path-to-regexp@^6.3.0": "6.3.0"
   },
   "jsr": {
     "@eta-dev/eta@3.5.0": {
@@ -34,64 +31,56 @@
       "integrity": "49805b55603c3627a9d6235c0655aa2b6222d3036b3a13ff0380c16368f607ac",
       "dependencies": [
         "jsr:@std/assert",
-        "jsr:@std/bytes@1",
+        "jsr:@std/bytes",
         "jsr:@std/crypto",
         "jsr:@std/encoding@1",
         "jsr:@std/http",
         "jsr:@std/media-types"
       ]
     },
-    "@oak/oak@17.1.0": {
-      "integrity": "14ffb400c3c268bdc7b3a838664fab782b4ed35bb0dfe7669013c95bb12a9503",
+    "@oak/oak@17.1.4": {
+      "integrity": "60530b582bf276ff741e39cc664026781aa08dd5f2bc5134d756cc427bf2c13e",
       "dependencies": [
         "jsr:@oak/commons",
         "jsr:@std/assert",
-        "jsr:@std/bytes@1",
-        "jsr:@std/crypto",
+        "jsr:@std/bytes",
         "jsr:@std/http",
-        "jsr:@std/io",
         "jsr:@std/media-types",
-        "jsr:@std/path@1",
+        "jsr:@std/path",
         "npm:path-to-regexp"
       ]
     },
-    "@std/assert@1.0.6": {
-      "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207"
+    "@std/assert@1.0.11": {
+      "integrity": "2461ef3c368fe88bc60e186e7744a93112f16fd110022e113a0849e94d1c83c1"
     },
-    "@std/bytes@1.0.2": {
-      "integrity": "fbdee322bbd8c599a6af186a1603b3355e59a5fb1baa139f8f4c3c9a1b3e3d57"
+    "@std/bytes@1.0.5": {
+      "integrity": "4465dd739d7963d964c809202ebea6d5c6b8e3829ef25c6a224290fbb8a1021e"
     },
-    "@std/crypto@1.0.3": {
-      "integrity": "a2a32f51ddef632d299e3879cd027c630dcd4d1d9a5285d6e6788072f4e51e7f"
+    "@std/crypto@1.0.4": {
+      "integrity": "cee245c453bd5366207f4d8aa25ea3e9c86cecad2be3fefcaa6cb17203d79340"
     },
-    "@std/encoding@1.0.5": {
-      "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
+    "@std/encoding@1.0.7": {
+      "integrity": "f631247c1698fef289f2de9e2a33d571e46133b38d042905e3eac3715030a82d"
     },
     "@std/fmt@1.0.2": {
       "integrity": "87e9dfcdd3ca7c066e0c3c657c1f987c82888eb8103a3a3baa62684ffeb0f7a7"
     },
-    "@std/http@1.0.8": {
-      "integrity": "6ea1b2e8d33929967754a3b6d6c6f399ad6647d7bbb5a466c1eaf9b294a6ebcd",
+    "@std/http@1.0.13": {
+      "integrity": "d29618b982f7ae44380111f7e5b43da59b15db64101198bb5f77100d44eb1e1e",
       "dependencies": [
-        "jsr:@std/encoding@^1.0.5"
+        "jsr:@std/encoding@^1.0.7"
       ]
     },
-    "@std/io@0.224.9": {
-      "integrity": "4414664b6926f665102e73c969cfda06d2c4c59bd5d0c603fd4f1b1c840d6ee3",
-      "dependencies": [
-        "jsr:@std/bytes@^1.0.2"
-      ]
+    "@std/media-types@1.1.0": {
+      "integrity": "c9d093f0c05c3512932b330e3cc1fe1d627b301db33a4c2c2185c02471d6eaa4"
     },
-    "@std/media-types@1.0.3": {
-      "integrity": "b12d30a7852f7578f4d210622df713bbfd1cbdd9b4ec2eaf5c1845ab70bab159"
-    },
-    "@std/path@1.0.6": {
-      "integrity": "ab2c55f902b380cf28e0eec501b4906e4c1960d13f00e11cfbcd21de15f18fed"
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
     }
   },
   "npm": {
-    "path-to-regexp@6.2.1": {
-      "integrity": "sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw=="
+    "path-to-regexp@6.3.0": {
+      "integrity": "sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ=="
     }
   },
   "remote": {
@@ -587,6 +576,17 @@
     "https://deno.land/x/oak@v12.1.0/structured_clone.ts": "9c2d21c62f616400305a60cbd29eb06764ee97edc423223424b6cf55df0e8be2",
     "https://deno.land/x/oak@v12.1.0/testing.ts": "a0be5c84981afde666de29630f34b09d944ca1a2fe6a5185644b60ad95e16d18",
     "https://deno.land/x/oak@v12.1.0/util.ts": "3af8c4ed04c6cc2bedbe66e562a77fc59c72df31c55a902a63885861ca1639d6",
+    "https://deno.land/x/oak_sessions@v4.1.11/mod.ts": "ad069850ea964630827917e3f0447b803b79238a0d11dcb8045334f917e099b7",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/Session.ts": "9bf64dc834eb491b8f7249adcd2c7bd0f65bd66a51e74c0ac5939d2895b5db18",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/crypto.ts": "b0f481d64daef35161177af7cd9e46f59267bcc46b2706ab918269321b6d5f36",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/CookieStore.ts": "88c49062bb054e26ee441af8fbb139c16f9572494b3fa238c5231f18506aff27",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/MemoryStore.ts": "60208a0679e40b56d55c97250262b5b3c84d71db4940c7145acae70b378bb923",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/MongoStore.ts": "57759b89ab8453432b24e8675acca2b45736cd687388786f9673cd02bc64d375",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/PostgresStore.ts": "6e5c8789c18c48db7e1539201266ac70ccc8051c51eb12b2323eb25ba1c54c5d",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/RedisStore.ts": "d737dfbf76d8452f642c326677c858bb6b931cd74d139348f5e28627aab69c23",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/SqliteStore.ts": "8939430eb3b3ee5e61677f0ef881d55a0408e24f8297e93d217c9e3ff471343f",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/Store.ts": "0e472d293d4930d48a3d83214be1b6e6b46de96d9ce6ca31f545b39c7d8bdfa1",
+    "https://deno.land/x/oak_sessions@v4.1.11/src/stores/WebdisStore.ts": "0b39d1962177b742845984b0dce3837e37d1e01ca4352b265be927d39437b74e",
     "https://deno.land/x/oak_sessions@v4.1.3/deps.ts": "43fdb09ead911885aa4de09b3f9dd58dfc5ea34cf1739a4e651793f99b518d15",
     "https://deno.land/x/oak_sessions@v4.1.3/mod.ts": "ad069850ea964630827917e3f0447b803b79238a0d11dcb8045334f917e099b7",
     "https://deno.land/x/oak_sessions@v4.1.3/src/Session.ts": "9bf64dc834eb491b8f7249adcd2c7bd0f65bd66a51e74c0ac5939d2895b5db18",
@@ -671,9 +671,9 @@
     "dependencies": [
       "jsr:@eta-dev/eta@3.5.0",
       "jsr:@littlelite/dyelog@~0.1.9",
-      "jsr:@oak/oak@^17.1.0",
-      "jsr:@std/fmt@1.0.2",
-      "jsr:@std/path@^1.0.6",
+      "jsr:@oak/oak@^17.1.4",
+      "jsr:@std/fmt@1.0.5",
+      "jsr:@std/path@^1.0.8",
       "jsr:@std/server@~0.219.1"
     ]
   }
