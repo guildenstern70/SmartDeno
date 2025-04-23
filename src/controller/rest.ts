@@ -7,11 +7,10 @@
  *
  */
 
-import { Router, Status } from "@oak/oak";
+import { Status, Router } from "@oak/oak";
 import { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from '../db/denokv.ts';
 import { User } from "../model/types.ts";
-
 
 export default class RestRouter extends Router
 {
@@ -56,6 +55,7 @@ export default class RestRouter extends Router
             ctx.response.body = users;
         } else {
             ctx.response.status = Status.NotFound;
+            ctx.response.body = {message: "Cannot find any user."};
         }
 
     };
@@ -67,7 +67,7 @@ export default class RestRouter extends Router
         this.logger.info("/api/v1/user/" + username);
         if (typeof username === "undefined")
         {
-            ctx.response.status = 404;
+            ctx.response.status = Status.NotFound;
             ctx.response.body = {message: "User not found."};
             return;
         }
@@ -75,12 +75,12 @@ export default class RestRouter extends Router
         const user = await denokv.getSingleUser(username);
         if (user)
         {
-            ctx.response.status = 200;
+            ctx.response.status = Status.OK;
             ctx.response.body = user;
         }
         else
         {
-            ctx.response.status = 404;
+            ctx.response.status = Status.NotFound;
             ctx.response.body = {message: `User with username=${username} not found.`};
         }
     };

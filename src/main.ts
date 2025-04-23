@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-net --allow-env --allow-read
+#!/usr/bin/env -S deno run --allow-net --allow-env --allow-read --unstable-kv
 /*
  *
  * Smart Deno
@@ -47,11 +47,18 @@ app.use(async (ctx, next) => {
 
 // Deno KV (Users DB)
 const kv = await DenoKV.Create(logger);
-if (!(await kv.isReady())) {
-  logger.info("Deno KV Users DB not found... Creating...");
-  await kv.createUser("guest", "guest");
-  await kv.createUser("alessio", "doctor");
-  logger.info("Deno KV DB has been initialized.");
+if (await kv.isReady()) {
+    logger.info("Deno KV DB found.");
+    const users = await kv.getAllUsers();
+    if (users == null || users.length === 0) {
+      await kv.createDefaultUsers();
+    }
+    else {
+      logger.info("Deno KV contains " + users.length + " users.");
+    }
+} else {
+    logger.error("Cannot create Deno KV Users DB.");
+    Deno.exit(1);
 }
 
 // Routes
