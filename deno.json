@@ -10,6 +10,7 @@
   },
   "imports": {
     "eta": "jsr:@eta-dev/eta@3.5.0",
+    "bcrypt": "https://deno.land/x/bcrypt@v0.4.1/mod.ts",
     "oak_sessions": "https://deno.land/x/oak_sessions@v4.1.11/mod.ts",
     "@littlelite/dyelog": "jsr:@littlelite/dyelog@^0.1.9",
     "@oak/oak": "jsr:@oak/oak@^17.1.4",

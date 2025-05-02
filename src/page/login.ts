@@ -12,6 +12,7 @@ import { User } from "../model/types.ts";
 import { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from "../db/denokv.ts";
 import { Context } from "jsr:@oak/oak";
+import { compare } from "bcrypt";
 
 
 export class Login extends Page
@@ -86,22 +87,24 @@ export class Login extends Page
 
     private async checkLogin(postedUser: User): Promise<boolean>
     {
-
         this.logger.info("Got login request with User=" + postedUser.username
             + " and password=" + postedUser.password);
 
-        const denokv = await DenoKV.Create(this.logger);
-        const user = await denokv.getSingleUser(postedUser.username);
-        if (user)
+        const denokv = DenoKV.Create(this.logger);
+        const storedUser = await denokv.getSingleUser(postedUser.username);
+        if (storedUser)
         {
-            this.logger.info("User found: " + JSON.stringify(user));
-            return user.password === postedUser.password;
+            this.logger.info("User found: " + JSON.stringify(storedUser));
+            const passwordMatch = await compare(postedUser.password, storedUser.password);
+            if (passwordMatch)
+            {
+                this.logger.info("Password match for user " + postedUser.username);
+                return true;
+            }
         }
-        else
-        {
-            this.logger.info("User not found");
-            return false;
-        }
+        this.logger.info("User not found");
+        return false;
+    
     }
 
 }

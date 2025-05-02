@@ -9,14 +9,14 @@
 
 import { DyeLog } from "@littlelite/dyelog";
 import { User } from "../model/types.ts";
-
+import { hash } from "bcrypt";
 
 export class DenoKV
 {
     private readonly logger: DyeLog;
     private kv: Deno.Kv | undefined;
 
-    public static Create = async (logger: DyeLog): Promise<DenoKV> => {
+    public static Create = (logger: DyeLog): DenoKV => {
         return new DenoKV(logger);
     };
 
@@ -36,7 +36,7 @@ export class DenoKV
         if (this.kv == null) this.kv = await Deno.openKv();
         this.logger.info("Looking for user " + username + " in Deno KV...");
         const user: Deno.KvEntryMaybe<User> = await this.kv.get(["users", username]);
-        this.logger.info("Retrieved user " + JSON.stringify(user.value));
+        this.logger.info("Retrieved user " + user.value?.username + " from Deno KV.");
         return user.value;
     }
 
@@ -65,14 +65,19 @@ export class DenoKV
     {
         this.logger.info("Creating user " + username + " in Deno KV...");
         if (this.kv == null) this.kv = await Deno.openKv();
-        await this.kv.set(["users", username], { username , password });
+        const hashedPassword = await hash(password);
+        await this.kv.set(["users", username], { username , password: hashedPassword });
     }
 
     async createDefaultUsers()
     {
         this.logger.info("Creating default users in Deno KV...");
         if (this.kv == null) this.kv = await Deno.openKv();
-        await this.kv.set(["users", "alessio"], { username: "alessio", password: "doctor" });
-        await this.kv.set(["users", "guest"], { username: "guest", password: "guest" });
+        const doctorHash = await hash("doctor");
+        this.logger.info("Doctor Hash: " + doctorHash);
+        const guestHash = await hash("guest");
+        this.logger.info("Guest Hash: " + guestHash);
+        await this.kv.set(["users", "alessio"], { username: "alessio", password: doctorHash });
+        await this.kv.set(["users", "guest"], { username: "guest", password: guestHash });
     }
 }
