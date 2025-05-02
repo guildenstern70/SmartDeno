@@ -33,6 +33,3 @@ This application is compatible with [Deno Deploy](https://deno.com/deploy) and c
 ## Version
 
 Version info is stored in `VERSION` and `/src/version.ts` files.
-
-
-
