@@ -18,6 +18,7 @@ export abstract class Page
     protected logger: DyeLog;
     protected version: string;
     protected template!: string;
+    protected sessionUser!: string | null;
 
     protected abstract render(): void;
 
@@ -26,7 +27,14 @@ export abstract class Page
         this.logger = logger;
         this.ctx = ctx;
         this.version = VERSION;
+
         ctx.response.headers.set("Content-Type", "text/html");
+    }
+
+    protected async initializeSession()
+    {
+        this.sessionUser = await this.ctx.state.session.get("logged-user");
+        this.logger.info(`Logged user > ${this.sessionUser}`);
     }
 
     protected eta(pageData: object): string

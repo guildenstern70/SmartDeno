@@ -19,12 +19,14 @@ export class Restapi extends Page
         this.template = "./restapi";
     }
 
-    render()
+    async render()
     {
         this.logger.info("GET /restapi");
+        await this.initializeSession();
         this.ctx.response.body = this.eta({
             appname: "SmartDeno",
-            appversion: this.version
+            appversion: this.version,
+            sessionUser: this.sessionUser
         });
     }
 

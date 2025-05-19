@@ -23,11 +23,10 @@ export class Home extends Page
     async render()
     {
         this.logger.info("GET /home");
-        const sessionUser = await this.ctx.state.session.get("logged-user");
+        await this.initializeSession();
         let welcomeMessage = "A simple web template written in Deno";
-        if (sessionUser)
+        if (this.sessionUser)
         {
-            this.logger.info(`Logged user > ${sessionUser}`);
             welcomeMessage = "Welcome to SmartDeno, ";
         }
 
@@ -35,7 +34,7 @@ export class Home extends Page
             appname: "SmartDeno",
             appversion: this.version,
             appdescription: welcomeMessage,
-            sessionUser
+            sessionUser: this.sessionUser
         });
 
     }

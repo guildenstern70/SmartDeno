@@ -20,14 +20,16 @@ export class Features extends Page
         this.template = "./features";
     }
 
-    render()
+    async render()
     {
         this.logger.info("GET /features");
+        await this.initializeSession();
         this.ctx.response.body = this.eta({
             appname: "SmartDeno",
             appversion: this.version,
             title: "Features",
             description: "🦕 SmartDeno has been made with the following building blocks: 🦕",
+            sessionUser: this.sessionUser,
             features: {
                 "Deno": "https://deno.land",
                 "Bootstrap": "https://getbootstrap.com/",
