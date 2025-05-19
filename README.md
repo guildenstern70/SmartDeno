@@ -33,3 +33,13 @@ This application is compatible with [Deno Deploy](https://deno.com/deploy) and c
 ## Version
 
 Version info is stored in `VERSION` and `/src/version.ts` files.
+
+## FAQ
+
+### How can I reset the local KV database?
+The local DB database is stored in Deno directory. For instance, on Mac, it is located in
+
+    ./Users/<user>/Library/Caches/deno/location_data
+
+Just remove every directory inside `location_data` and restart the application. The database will be recreated.
+

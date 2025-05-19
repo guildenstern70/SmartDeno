@@ -12,7 +12,6 @@ import { User } from "../model/types.ts";
 import { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from "../db/denokv.ts";
 import { Context } from "jsr:@oak/oak";
-import { compare } from "bcrypt";
 
 
 export class Login extends Page
@@ -95,14 +94,13 @@ export class Login extends Page
         if (storedUser)
         {
             this.logger.info("User found: " + JSON.stringify(storedUser));
-            const passwordMatch = await compare(postedUser.password, storedUser.password);
-            if (passwordMatch)
+            if (storedUser.password === postedUser.password)
             {
                 this.logger.info("Password match for user " + postedUser.username);
                 return true;
             }
         }
-        this.logger.info("User not found");
+        this.logger.info("User not found or password mismatch");
         return false;
     
     }

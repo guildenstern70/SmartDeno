@@ -9,7 +9,6 @@
 
 import { DyeLog } from "@littlelite/dyelog";
 import { User } from "../model/types.ts";
-import { hash } from "bcrypt";
 
 export class DenoKV
 {
@@ -65,19 +64,14 @@ export class DenoKV
     {
         this.logger.info("Creating user " + username + " in Deno KV...");
         if (this.kv == null) this.kv = await Deno.openKv();
-        const hashedPassword = await hash(password);
-        await this.kv.set(["users", username], { username , password: hashedPassword });
+        await this.kv.set(["users", username], { username , password });
     }
 
     async createDefaultUsers()
     {
         this.logger.info("Creating default users in Deno KV...");
         if (this.kv == null) this.kv = await Deno.openKv();
-        const doctorHash = await hash("doctor");
-        this.logger.info("Doctor Hash: " + doctorHash);
-        const guestHash = await hash("guest");
-        this.logger.info("Guest Hash: " + guestHash);
-        await this.kv.set(["users", "alessio"], { username: "alessio", password: doctorHash });
-        await this.kv.set(["users", "guest"], { username: "guest", password: guestHash });
+        await this.kv.set(["users", "alessio"], { username: "alessio", password: "doctor" });
+        await this.kv.set(["users", "guest"], { username: "guest", password: "guest" });
     }
 }
