@@ -17,7 +17,7 @@ It is based on the following building blocks:
 
 ## Deno Deploy
 
-This application is compatible with [Deno Deploy](https://deno.com/deploy) and can be visited [here](https://smart-deno-project.deno.dev/)
+This application is compatible with [Deno Deploy](https://deno.com/deploy) and can be visited [here](https://smartdeno.guildenstern70.deno.net/)
 
 ## Run
 
@@ -42,4 +42,10 @@ The local DB database is stored in Deno directory. For instance, on Mac, it is l
     ./Users/<user>/Library/Caches/deno/location_data
 
 Just remove every directory inside `location_data` and restart the application. The database will be recreated.
+
+### When I run the app on Deno Deploy it complains that it lacks "unstable kv" flag
+
+You need to create a Deno KV database in your Deno Deploy console, and then assign it to this app.
+
+
 
