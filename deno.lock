@@ -1,7 +1,7 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@eta-dev/eta@3.5.0": "3.5.0",
+    "jsr:@eta-dev/eta@^3.5.0": "3.5.0",
     "jsr:@littlelite/dyelog@~0.1.9": "0.1.9",
     "jsr:@oak/commons@1": "1.0.0",
     "jsr:@oak/oak@*": "17.1.4",
@@ -12,7 +12,6 @@
     "jsr:@std/encoding@1": "1.0.7",
     "jsr:@std/encoding@^1.0.7": "1.0.7",
     "jsr:@std/fmt@1.0.2": "1.0.2",
-    "jsr:@std/fmt@1.0.5": "1.0.5",
     "jsr:@std/http@1": "1.0.13",
     "jsr:@std/media-types@1": "1.1.0",
     "jsr:@std/path@1": "1.0.8",
@@ -27,7 +26,7 @@
     "@littlelite/dyelog@0.1.9": {
       "integrity": "23323dc0a1c55300635a36bffb4080a79bcf1665c06b0607403aa8475faa2d27",
       "dependencies": [
-        "jsr:@std/fmt@1.0.2"
+        "jsr:@std/fmt"
       ]
     },
     "@oak/commons@1.0.0": {
@@ -67,9 +66,6 @@
     },
     "@std/fmt@1.0.2": {
       "integrity": "87e9dfcdd3ca7c066e0c3c657c1f987c82888eb8103a3a3baa62684ffeb0f7a7"
-    },
-    "@std/fmt@1.0.5": {
-      "integrity": "0cfab43364bc36650d83c425cd6d99910fc20c4576631149f0f987eddede1a4d"
     },
     "@std/http@1.0.13": {
       "integrity": "d29618b982f7ae44380111f7e5b43da59b15db64101198bb5f77100d44eb1e1e",
@@ -652,10 +648,10 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@eta-dev/eta@3.5.0",
+      "jsr:@eta-dev/eta@^3.5.0",
       "jsr:@littlelite/dyelog@~0.1.9",
       "jsr:@oak/oak@^17.1.4",
-      "jsr:@std/fmt@1.0.5",
+      "jsr:@std/fmt@^1.0.5",
       "jsr:@std/path@^1.0.8",
       "jsr:@std/server@~0.219.1"
     ]

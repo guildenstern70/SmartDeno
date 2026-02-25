@@ -1,5 +1,4 @@
 /*
- *
  * Smart Deno
  * A web template project for Deno
  * Copyright (c) 2020-22 Alessio Saltarin
@@ -7,8 +6,8 @@
  *
  */
 
-import { DyeLog } from "@littlelite/dyelog";
-import { User } from "../model/types.ts";
+import type { DyeLog } from "@littlelite/dyelog";
+import type { User } from "../model/types.ts";
 
 export class DenoKV
 {

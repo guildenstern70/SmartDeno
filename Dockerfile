@@ -1,4 +1,4 @@
-FROM denoland/deno:centos-1.36.4
+FROM denoland/deno:2.1.9
 EXPOSE 8000
 WORKDIR /app
 
@@ -9,6 +9,6 @@ USER deno
 COPY . .
 
 # Compile the main app so that it doesn"t need to be compiled each startup/entry.
-RUN deno cache --import-map=import_map.json ./src/main.ts
+RUN deno cache src/main.ts
 
-CMD ["run", "--allow-net", "--allow-read", "--allow-env", "--allow-write", "--unstable", "src/main.ts"]
+CMD ["run", "--unstable-kv", "--allow-net", "--allow-read", "--allow-env", "--allow-write", "src/main.ts"]

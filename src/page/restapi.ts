@@ -1,19 +1,18 @@
 /*
- *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-25 Alessio Saltarin
+ * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
  *
  */
 
 import { Page } from "./page.ts";
-import { DyeLog } from "@littlelite/dyelog";
-import { Context } from "jsr:@oak/oak";
+import type { DyeLog } from "@littlelite/dyelog";
+import type { RouterContext } from "@oak/oak";
 
 export class Restapi extends Page
 {
-    constructor(logger: DyeLog, ctx: Context)
+    constructor(logger: DyeLog, ctx: RouterContext<any>)
     {
         super(logger, ctx);
         this.template = "./restapi";

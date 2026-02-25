@@ -1,16 +1,15 @@
 /*
- *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-25 Alessio Saltarin
+ * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
  *
  */
 
-import { Status, Router } from "@oak/oak";
-import { DyeLog } from "@littlelite/dyelog";
+import { Status, Router, type RouterContext } from "@oak/oak";
+import type { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from '../db/denokv.ts';
-import { User } from "../model/types.ts";
+import type { User } from "../model/types.ts";
 
 export default class RestRouter extends Router
 {
@@ -44,7 +43,7 @@ export default class RestRouter extends Router
         }
     }
 
-    private getUsers = async (ctx: any) =>
+    private getUsers = async (ctx: RouterContext<any>) =>
     {
         const denokv: DenoKV = await DenoKV.Create(this.logger);
         this.logger.info("/api/v1/user");
@@ -60,7 +59,7 @@ export default class RestRouter extends Router
 
     };
 
-    private getUser = async (ctx: any) =>
+    private getUser = async (ctx: RouterContext<any>) =>
     {
         ctx.response.type = "json";
         const username = ctx.params.username;
@@ -85,10 +84,11 @@ export default class RestRouter extends Router
         }
     };
 
-    private addUser = async (ctx: any) =>
+    private addUser = async (ctx: RouterContext<any>) =>
     {
         const denokv: DenoKV = await DenoKV.Create(this.logger);
-        const {username, password} = await ctx.request.body().value;
+        const body = ctx.request.body;
+        const { username, password } = await body.json();
         const newUser = {username, password};
         this.logger.info("Received " + JSON.stringify(newUser));
         if (newUser.username && newUser.password)
@@ -104,7 +104,7 @@ export default class RestRouter extends Router
         }
     };
 
-    private deleteUser = async (ctx: any) =>
+    private deleteUser = async (ctx: RouterContext<any>) =>
     {
         ctx.response.type = "json";
         const username = ctx.params.username;

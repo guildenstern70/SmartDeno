@@ -1,9 +1,8 @@
-#!/usr/bin/env -S deno run --allow-net --allow-env --allow-read --unstable-kv
+#!/usr/bin/env -S deno run --unstable-kv --allow-net --allow-env --allow-read
 /*
- *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-25 Alessio Saltarin
+ * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
  *
  */

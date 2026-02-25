@@ -1,20 +1,19 @@
 /*
- *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-25 Alessio Saltarin
+ * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
  *
  */
 
-import { DyeLog } from "@littlelite/dyelog";
-import { Context } from "jsr:@oak/oak";
+import type { DyeLog } from "@littlelite/dyelog";
+import type { RouterContext } from "@oak/oak";
 import { Eta } from "eta";
 import { VERSION } from "../version.ts";
 
 export abstract class Page
 {
-    protected ctx: any;
+    protected ctx: RouterContext<any>;
     protected logger: DyeLog;
     protected version: string;
     protected template!: string;
@@ -22,7 +21,7 @@ export abstract class Page
 
     protected abstract render(): void;
 
-    protected constructor(logger: DyeLog, ctx: Context)
+    protected constructor(logger: DyeLog, ctx: RouterContext<any>)
     {
         this.logger = logger;
         this.ctx = ctx;

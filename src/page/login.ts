@@ -1,22 +1,21 @@
 /*
- *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-25 Alessio Saltarin
+ * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
  *
  */
 
 import { Page } from "./page.ts";
-import { User } from "../model/types.ts";
-import { DyeLog } from "@littlelite/dyelog";
+import type { User } from "../model/types.ts";
+import type { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from "../db/denokv.ts";
-import { Context } from "jsr:@oak/oak";
+import type { RouterContext } from "@oak/oak";
 
 
 export class Login extends Page
 {
-    constructor(logger: DyeLog, ctx: Context)
+    constructor(logger: DyeLog, ctx: RouterContext<any>)
     {
         super(logger, ctx);
         this.template = "./login";

@@ -1,8 +1,7 @@
 /*
- *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-25 Alessio Saltarin
+ * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
  *
  */
@@ -11,8 +10,8 @@ import { Home } from "../page/home.ts";
 import { Login } from "../page/login.ts";
 import { Features } from "../page/features.ts";
 import { Restapi } from "../page/restapi.ts";
-import { Router } from "@oak/oak";
-import { DyeLog } from "@littlelite/dyelog";
+import { Router, type RouterContext } from "@oak/oak";
+import type { DyeLog } from "@littlelite/dyelog";
 
 export default class WebRouter extends Router
 {
@@ -48,34 +47,34 @@ export default class WebRouter extends Router
         }
     }
 
-    private getHome = (ctx: any) =>
+    private getHome = (ctx: RouterContext<any>) =>
     {
         new Home(this.logger, ctx).render();
     };
 
-    private getFeatures = (ctx: any) =>
+    private getFeatures = (ctx: RouterContext<any>) =>
     {
         new Features(this.logger, ctx).render();
     };
 
-    private getLogin = (ctx: any) =>
+    private getLogin = (ctx: RouterContext<any>) =>
     {
         new Login(this.logger, ctx).render();
     };
 
-    private getRestApi = (ctx: any) =>
+    private getRestApi = (ctx: RouterContext<any>) =>
     {
         new Restapi(this.logger, ctx).render();
     };
 
-    private getLogout = async (ctx: any) =>
+    private getLogout = async (ctx: RouterContext<any>) =>
     {
         this.logger.info("GET /logout");
         await ctx.state.session.set("logged-user", undefined);
         ctx.response.redirect("/");
     };
 
-    private postLogin = async (ctx: any) =>
+    private postLogin = async (ctx: RouterContext<any>) =>
     {
         await new Login(this.logger, ctx).post();
     };
