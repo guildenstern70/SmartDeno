@@ -3,28 +3,19 @@
  * A web template project for Deno
  * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
- *
  */
 
-
-export interface User
-{
-    username: string;
-    password: string;
+export interface User {
+  username: string;
+  password: string;
 }
 
-export interface AllUsers
-{
-    data: User[];
+export interface AllUsers {
+  data: User[];
 }
 
 export interface KVRecord {
-    key: string[]
-    value: User
-    versionstamp: string
+  key: string[];
+  value: User;
+  versionstamp: string;
 }
-
-
-
-
-

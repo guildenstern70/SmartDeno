@@ -1,6 +1,6 @@
 {
   "name": "@alessiosaltarin/smartdeno",
-  "version": "2.1.0",
+  "version": "0.14.0",
   "exports": "./src/main.ts",
   "compilerOptions": {
     "checkJs": true,
@@ -15,14 +15,14 @@
     "eta": "jsr:@eta-dev/eta@^3.5.0",
     "oak_sessions": "https://deno.land/x/oak_sessions@v4.1.11/mod.ts",
     "@littlelite/dyelog": "jsr:@littlelite/dyelog@^0.1.9",
-    "@oak/oak": "jsr:@oak/oak@^17.1.4",
+    "@oak/oak": "jsr:@oak/oak@17.2.0",
     "@std/fmt": "jsr:@std/fmt@^1.0.5",
-    "@std/path": "jsr:@std/path@^1.0.8",
+    "@std/path": "jsr:@std/path@1.1.4",
     "@std/server": "jsr:@std/server@^0.219.1"
   },
   "tasks": {
-    "start": "deno run --unstable-kv --allow-net --allow-env --allow-read --allow-write src/main.ts",
-    "dev": "deno run --watch --unstable-kv --allow-net --allow-env --allow-read --allow-write src/main.ts",
+    "start": "deno run --unstable-kv --allow-net=0.0.0.0:8000 --allow-env --allow-read=. --allow-write=. src/main.ts",
+    "dev": "deno run --watch --unstable-kv --allow-net=0.0.0.0:8000 --allow-env --allow-read=. --allow-write=. src/main.ts",
     "lint": "deno lint src",
     "fmt": "deno fmt src"
   }

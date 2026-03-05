@@ -3,7 +3,6 @@
  * A web template project for Deno
  * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
- *
  */
 
-export const VERSION = "0.12.0";
+export const VERSION = "0.14.0";
