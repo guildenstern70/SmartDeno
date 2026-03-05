@@ -18,17 +18,13 @@ export class Home extends Page {
   async render() {
     this.logger.info("GET /home");
     await this.initializeSession();
-    let welcomeMessage = "A simple web template written in Deno";
+    let welcomeMessage = "A starter template for Deno Deploy solutions.";
     if (this.sessionUser) {
       welcomeMessage = "Welcome to SmartDeno, ";
     }
 
     this.ctx.response.body = this.eta({
-      appname: "SmartDeno",
-      appversion: this.version,
-      appdescription: welcomeMessage,
-      explanation: "SmartDeno is a starter template for Deno Deploy solutions.",
-      sessionUser: this.sessionUser,
+      appDescription: welcomeMessage,
     });
   }
 }

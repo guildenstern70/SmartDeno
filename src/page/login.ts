@@ -59,8 +59,6 @@ export class Login extends Page {
     }
 
     this.ctx.response.body = this.eta({
-      appname: "SmartDeno",
-      appversion: this.version,
       title: "Contact",
       loginerrors: loginErrors,
       description:

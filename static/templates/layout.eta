@@ -2,7 +2,7 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
         <div>
-            <h3 class="float-md-start mb-0 xtitle"><%= it.appname %></h3>
+            <h3 class="float-md-start mb-0 xtitle"><%= it.appName %></h3>
             <nav class="nav nav-masthead justify-content-center float-md-end mr-4">
                 <a id="menuitem0" class="nav-link active" aria-current="page" href="/">Home</a>
                 <a id="menuitem1" class="nav-link" href="/features">Features</a>
@@ -23,7 +23,7 @@
             <% if (it.sessionUser) { %>
                 You are logged in as <b><%= it.sessionUser %></b>. <a href="/logout">Logout</a>.
             <% } else { %>
-                <%= it.appname %> v.<%= it.appversion %> is powered by
+                <%= it.appName %> v.<%= it.appVersion %> is powered by
                 <a href="https://deno.land/" target="_blank" class="text-white">Deno</a>.
             <% } %>
         </div>

@@ -34,6 +34,11 @@ export abstract class Page {
 
   protected eta(pageData: object): string {
     const eta = new Eta({ views: "./static/templates" });
-    return eta.render(this.template, pageData);
+    const commonData = {
+      appName: "SmartDeno",
+      appVersion: this.version,
+      sessionUser: this.sessionUser,
+    };
+    return eta.render(this.template, { ...commonData, ...pageData });
   }
 }
