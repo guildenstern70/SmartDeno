@@ -11,6 +11,7 @@
             <b><%= it.sessionUser %></b>
             <% } %> 🦕
             </p>
+            <p class="lead"><%= it.explanation %></p>
             <img class="img-fluid" src="/img/cover_wide.jpeg" alt="Deno">
         </div>
         <div class="col">
@@ -23,7 +24,7 @@
         </div>
         <div class="col-8">
             <p class="mt-2 py-2">
-                <a href="/features" class="btn btn-lg btn-secondary fw-bold border-white bg-white">
+                <a href="/features" class="btn btn-lg btn-outline-light fw-bold">
                 Learn more</a>
                 &nbsp;
                 <a href="/restapi" class="btn btn-lg btn-info">Rest API</a>

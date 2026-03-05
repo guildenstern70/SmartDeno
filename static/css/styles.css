@@ -35,8 +35,31 @@ a:active {
   margin-bottom: 250px;
 }
 
+.features a:link,
+.features a:visited,
+.features a:hover,
+.features a:active {
+  text-decoration: underline;
+}
+
 .features {
-  background-color: darkgray;
+  background-color: #2b3035;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.features .list-group-item {
+  border-color: #495057;
+  color: #dee2e6;
+}
+
+.features .list-group-item a {
+  color: #b180ca;
+  font-weight: 500;
+}
+
+.features .list-group-item a:hover {
+  color: #d1a6e8;
 }
 
 /* Custom default button */
@@ -56,8 +79,9 @@ a:active {
   margin-top: 100px;
   margin-bottom: 100px;
   padding: 40px;
-  color: #333;
-  background-color: darkgray;
+  color: #dee2e6;
+  background-color: #2b3035;
+  border-radius: 10px;
 }
 
 .xtitle {
@@ -65,8 +89,9 @@ a:active {
   font-weight: 700;
 }
 
-.coverimage {
-  width: 800px;
+.img-fluid {
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .nav-masthead .nav-link {
@@ -75,11 +100,13 @@ a:active {
   color: rgba(255, 255, 255, 0.5);
   background-color: transparent;
   border-bottom: 0.25rem solid transparent;
+  transition: color 0.3s, border-bottom-color 0.3s;
 }
 
 .nav-masthead .nav-link:hover,
 .nav-masthead .nav-link:focus {
   border-bottom-color: rgba(255, 255, 255, .25);
+  color: #fff;
 }
 
 .nav-masthead .nav-link + .nav-link {

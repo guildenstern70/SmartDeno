@@ -27,6 +27,7 @@ export class Home extends Page {
       appname: "SmartDeno",
       appversion: this.version,
       appdescription: welcomeMessage,
+      explanation: "SmartDeno is a starter template for Deno Deploy solutions.",
       sessionUser: this.sessionUser,
     });
   }
