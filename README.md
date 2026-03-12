@@ -34,6 +34,19 @@ This application is compatible with [Deno Deploy](https://deno.com/deploy) and c
 
 Version info is stored in `VERSION` and `/src/version.ts` files.
 
+## Containerization
+
+The `Dockerfile` is set up to build a container image for this application. 
+It uses the official Deno image as a base, copies the application code, and runs it on port 8000.
+
+To build a Docker image, run:
+
+    docker build --platform linux/amd64 -t smart-deno .
+
+To run the Docker container, use:
+
+    docker run -p 8000:8000 smart-deno
+
 ## FAQ
 
 ### How can I reset the local KV database?
