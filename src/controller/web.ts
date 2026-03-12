@@ -37,20 +37,20 @@ export default class WebRouter extends Router {
     }
   }
 
-  private getHome = (ctx: RouterContext<any>) => {
-    new Home(this.logger, ctx).render();
+  private getHome = async (ctx: RouterContext<any>) => {
+    await new Home(this.logger, ctx).render();
   };
 
-  private getFeatures = (ctx: RouterContext<any>) => {
-    new Features(this.logger, ctx).render();
+  private getFeatures = async (ctx: RouterContext<any>) => {
+    await new Features(this.logger, ctx).render();
   };
 
-  private getLogin = (ctx: RouterContext<any>) => {
-    new Login(this.logger, ctx).render();
+  private getLogin = async (ctx: RouterContext<any>) => {
+    await new Login(this.logger, ctx).render();
   };
 
-  private getRestApi = (ctx: RouterContext<any>) => {
-    new Restapi(this.logger, ctx).render();
+  private getRestApi = async (ctx: RouterContext<any>) => {
+    await new Restapi(this.logger, ctx).render();
   };
 
   private getLogout = async (ctx: RouterContext<any>) => {

@@ -1,6 +1,6 @@
 {
   "name": "@alessiosaltarin/smartdeno",
-  "version": "0.14.0",
+  "version": "0.17.0",
   "exports": "./src/main.ts",
   "compilerOptions": {
     "checkJs": true,
@@ -14,7 +14,7 @@
   "imports": {
     "eta": "jsr:@eta-dev/eta@^3.5.0",
     "oak_sessions": "https://deno.land/x/oak_sessions@v4.1.11/mod.ts",
-    "@littlelite/dyelog": "jsr:@littlelite/dyelog@^0.1.9",
+    "@littlelite/dyelog": "jsr:@littlelite/dyelog@^0.2.1",
     "@oak/oak": "jsr:@oak/oak@17.2.0",
     "@std/fmt": "jsr:@std/fmt@^1.0.5",
     "@std/path": "jsr:@std/path@1.1.4",

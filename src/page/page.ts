@@ -17,7 +17,7 @@ export abstract class Page {
   protected template!: string;
   protected sessionUser!: string | null;
 
-  protected abstract render(): void;
+  protected abstract render(): Promise<void>;
 
   protected constructor(logger: DyeLog, ctx: RouterContext<any>) {
     this.logger = logger;

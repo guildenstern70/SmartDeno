@@ -17,12 +17,13 @@
             &nbsp;
         </div>
         <div class="col-5">
-            <p class="mt-2 py-3">
-            <ul class="list-group features">
+            <ul class="list-group features mt-2 py-3">
                 <% Object.keys(it.features).forEach((f) => { %>
                     <li class="list-group-item list-group-item-dark"><a href="<%= it.features[f] %>" target="_blank"><%= f %></a></li>
                 <% }) %>
             </ul>
+            <p class="mt-2 text-secondary">
+                SmartDeno uses <a href="https://docs.deno.com/deploy/reference/deno_kv/" target="_blank" rel="noopener noreferrer">Deno KV</a> database to store users. There are <%= it.usersCount %> users recorded.
             </p>
         </div>
         <div class="col">

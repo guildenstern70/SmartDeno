@@ -48,7 +48,9 @@ export class Login extends Page {
     }
   }
 
-  render() {
+  // This 'async' matches the method contract
+  // deno-lint-ignore require-await
+  async render(): Promise<void> {
     this.logger.info("GET /login");
     const qParams = this.ctx.request.url.searchParams;
     const error = qParams.get("error");

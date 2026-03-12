@@ -5,4 +5,12 @@
  * MIT License
  */
 
-export const VERSION = "0.14.0";
+import denoConfig from "../deno.json" with { type: "json" };
+
+const configuredVersion = denoConfig.version;
+
+if (typeof configuredVersion !== "string" || configuredVersion.trim() === "") {
+  throw new Error("Missing or invalid 'version' in deno.json");
+}
+
+export const VERSION = configuredVersion;

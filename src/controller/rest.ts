@@ -16,7 +16,7 @@ export default class RestRouter extends Router {
   constructor(logger: DyeLog) {
     super();
     this.logger = logger;
-    this.setupRoutes();
+    this.setupRoutes().then(() => this.logger.info("REST API routes setup complete."));
   }
 
   private async setupRoutes() {
@@ -70,7 +70,18 @@ export default class RestRouter extends Router {
   };
 
   private addUser = async (ctx: RouterContext<any>) => {
-    const denokv: DenoKV = await DenoKV.Create(this.logger);
+    const denokv: DenoKV = DenoKV.Create(this.logger);
+    const users: User[] | null = await denokv.getAllUsers();
+    const usersCount = users?.length ?? 0;
+    if (usersCount >= 10) {
+      this.logger.warn("Cannot insert user: reached maximum users limit (10).");
+      ctx.response.status = Status.BadRequest;
+      ctx.response.body = {
+        message: "KO - Cannot insert user: maximum number of users reached (10)",
+      };
+      return;
+    }
+
     const body = ctx.request.body;
     const { username, password } = await body.json();
     const newUser = { username, password };
@@ -95,7 +106,13 @@ export default class RestRouter extends Router {
       ctx.response.body = { message: "Missing user name." };
       return;
     }
-    const denokv: DenoKV = await DenoKV.Create(this.logger);
+    if (username === "guest") {
+      this.logger.warn("Cannot delete protected user 'guest'.");
+      ctx.response.status = Status.BadRequest;
+      ctx.response.body = { message: "KO - Cannot delete protected user 'guest'" };
+      return;
+    }
+    const denokv: DenoKV = DenoKV.Create(this.logger);
     await denokv.deleteUser(username);
     ctx.response.body = { message: "OK - Deleted user " + username };
     ctx.response.status = 200;

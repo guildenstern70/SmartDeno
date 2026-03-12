@@ -1,23 +1,20 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@eta-dev/eta@3.5.0": "3.5.0",
+    "jsr:@eta-dev/eta@^3.5.0": "3.5.0",
     "jsr:@littlelite/dyelog@~0.2.1": "0.2.2",
     "jsr:@oak/commons@1": "1.0.0",
-    "jsr:@oak/oak@*": "17.2.0",
-    "jsr:@oak/oak@^17.2.0": "17.2.0",
+    "jsr:@oak/oak@17.2.0": "17.2.0",
     "jsr:@std/assert@1": "1.0.19",
     "jsr:@std/bytes@1": "1.0.5",
     "jsr:@std/crypto@1": "1.0.4",
     "jsr:@std/encoding@1": "1.0.7",
     "jsr:@std/encoding@^1.0.7": "1.0.7",
-    "jsr:@std/fmt@1.0.5": "1.0.5",
     "jsr:@std/fmt@^1.0.9": "1.0.9",
     "jsr:@std/http@1": "1.0.13",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@std/media-types@1": "1.1.0",
     "jsr:@std/path@1": "1.1.4",
-    "jsr:@std/path@^1.1.4": "1.1.4",
     "npm:@types/node@*": "22.15.15",
     "npm:path-to-regexp@^6.3.0": "6.3.0"
   },
@@ -28,7 +25,7 @@
     "@littlelite/dyelog@0.2.2": {
       "integrity": "cdb90d599df5d79ffafe60fe69549880af5d6d93f33c94eeed0fa855bfa9d05a",
       "dependencies": [
-        "jsr:@std/fmt@^1.0.9"
+        "jsr:@std/fmt"
       ]
     },
     "@oak/commons@1.0.0": {
@@ -50,7 +47,7 @@
         "jsr:@std/bytes",
         "jsr:@std/http",
         "jsr:@std/media-types",
-        "jsr:@std/path@1",
+        "jsr:@std/path",
         "npm:path-to-regexp"
       ]
     },
@@ -65,9 +62,6 @@
     },
     "@std/encoding@1.0.7": {
       "integrity": "f631247c1698fef289f2de9e2a33d571e46133b38d042905e3eac3715030a82d"
-    },
-    "@std/fmt@1.0.5": {
-      "integrity": "0cfab43364bc36650d83c425cd6d99910fc20c4576631149f0f987eddede1a4d"
     },
     "@std/fmt@1.0.9": {
       "integrity": "2487343e8899fb2be5d0e3d35013e54477ada198854e52dd05ed0422eddcabe0"
@@ -659,11 +653,11 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@eta-dev/eta@3.5.0",
+      "jsr:@eta-dev/eta@^3.5.0",
       "jsr:@littlelite/dyelog@~0.2.1",
-      "jsr:@oak/oak@^17.2.0",
-      "jsr:@std/fmt@1.0.5",
-      "jsr:@std/path@^1.1.4",
+      "jsr:@oak/oak@17.2.0",
+      "jsr:@std/fmt@^1.0.5",
+      "jsr:@std/path@1.1.4",
       "jsr:@std/server@~0.219.1"
     ]
   }

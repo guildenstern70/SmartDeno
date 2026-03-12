@@ -54,11 +54,11 @@ The local DB database is stored in Deno directory. For instance, on Mac, it is l
 
     ./Users/<user>/Library/Caches/deno/location_data
 
-Just remove every directory inside `location_data` and restart the application. The database will be recreated.
+Remove every directory inside `location_data` and restart the application. The database will be recreated.
 
 ### When I run the app locally or on Deno Deploy it might complain that it lacks "unstable kv" flag
 
-Deno KV is currently in the process of being stabilized. While it is stable in many environments, some versions or configurations of Deno might still require the `--unstable-kv` flag. The `deno.json` tasks in this project already include this flag. If you are running the command manually, ensure you include `--unstable-kv`.
+Deno KV is currently in the process of being stabilized. While it is stable in many environments, some versions or configurations of Deno might still require the `--unstable-kv` flag. If you are running the command manually, ensure you include `--unstable-kv`.
 
 On Deno Deploy, you need to create a Deno KV database in your Deno Deploy console and then assign it to this app.
 
