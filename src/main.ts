@@ -1,11 +1,9 @@
-#!/usr/bin/env -S deno run --allow-net --allow-env --allow-read --unstable-kv
+#!/usr/bin/env -S deno run --unstable-kv --allow-net=0.0.0.0:8000 --allow-env --allow-read=. --allow-write=.
 /*
- *
  * Smart Deno
  * A web template project for Deno
- * Copyright (c) 2020-25 Alessio Saltarin
+ * Copyright (c) 2020-26 Alessio Saltarin
  * MIT License
- *
  */
 
 /*global Deno */
@@ -34,31 +32,26 @@ logger.info("Welcome to SmartDeno v." + VERSION);
 
 // Timing (Logger and Response Header)
 app.use(async (ctx, next) => {
-  await next();
-  const rt = ctx.response.headers.get("X-Response-Time");
-  logger.info(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
-});
-app.use(async (ctx, next) => {
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
   ctx.response.headers.set("X-Response-Time", `${ms}ms`);
+  logger.info(`${ctx.request.method} ${ctx.request.url} - ${ms}ms`);
 });
 
 // Deno KV (Users DB)
 const kv = await DenoKV.Create(logger);
 if (await kv.isReady()) {
-    logger.info("Deno KV DB found.");
-    const users = await kv.getAllUsers();
-    if (users == null || users.length === 0) {
-      await kv.createDefaultUsers();
-    }
-    else {
-      logger.info("Deno KV contains " + users.length + " users.");
-    }
+  logger.info("Deno KV DB found.");
+  const users = await kv.getAllUsers();
+  if (users == null || users.length === 0) {
+    await kv.createDefaultUsers();
+  } else {
+    logger.info("Deno KV contains " + users.length + " users.");
+  }
 } else {
-    logger.error("Cannot create Deno KV Users DB.");
-    Deno.exit(1);
+  logger.error("Cannot create Deno KV Users DB.");
+  Deno.exit(1);
 }
 
 // Routes
@@ -84,8 +77,9 @@ app.use(async (context, next) => {
 });
 
 logger.info("Running in: " + Deno.cwd());
-app.addEventListener("listen", (_e) =>
-  logger.warn("🦕 SmartDeno running at http://localhost:8000/ 🦕"),
+app.addEventListener(
+  "listen",
+  (_e) => logger.warn("🦕 SmartDeno running at http://localhost:8000/ 🦕"),
 );
 
 await app.listen({ port: 8000 });

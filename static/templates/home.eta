@@ -5,8 +5,8 @@
             &nbsp;
         </div>
         <div class="col-8">
-            <h1 class="xtitle"><%= it.appname %></h1>
-            <p>🦕 <%= it.appdescription %>
+            <h1 class="xtitle"><%= it.appName %></h1>
+            <p>🦕 <%= it.appDescription %>
             <% if (it.sessionUser) { %>
             <b><%= it.sessionUser %></b>
             <% } %> 🦕
@@ -23,10 +23,12 @@
         </div>
         <div class="col-8">
             <p class="mt-2 py-2">
-                <a href="/features" class="btn btn-lg btn-secondary fw-bold border-white bg-white">
+                <a href="/features" class="btn btn-lg btn-outline-light fw-bold">
                 Learn more</a>
+                <% if (!it.sessionUser) { %>
                 &nbsp;
-                <a href="/restapi" class="btn btn-lg btn-info">Rest API</a>
+                <a href="/login" class="btn btn-lg btn-info">Login</a>
+                <% } %>
             </p>
         </div>
         <div class="col">
