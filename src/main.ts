@@ -42,13 +42,10 @@ app.use(async (ctx, next) => {
 // Deno KV (Users DB)
 const kv = await DenoKV.Create(logger);
 if (await kv.isReady()) {
-  logger.info("Deno KV DB found.");
-  const users = await kv.getAllUsers();
-  if (users == null || users.length === 0) {
-    await kv.createDefaultUsers();
-  } else {
-    logger.info("Deno KV contains " + users.length + " users.");
-  }
+  logger.info("Deno KV DB found. Resetting for deployment...");
+  await kv.reset();
+  await kv.createDefaultUsers();
+  logger.info("Database reset complete. Default users created.");
 } else {
   logger.error("Cannot create Deno KV Users DB.");
   Deno.exit(1);

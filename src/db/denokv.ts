@@ -7,6 +7,7 @@
 
 import type { DyeLog } from "@littlelite/dyelog";
 import type { User } from "../model/types.ts";
+import { hashPassword } from "../utils/crypto.ts";
 
 export class DenoKV {
   private readonly logger: DyeLog;
@@ -23,6 +24,15 @@ export class DenoKV {
   async isReady(): Promise<boolean> {
     if (this.kv == null) this.kv = await Deno.openKv();
     return this.kv != null;
+  }
+
+  async reset() {
+    this.logger.info("Resetting Deno KV database...");
+    if (this.kv == null) this.kv = await Deno.openKv();
+    const entries = this.kv.list({ prefix: [] });
+    for await (const entry of entries) {
+      await this.kv.delete(entry.key);
+    }
   }
 
   async getSingleUser(username: string): Promise<User | null> {
@@ -62,19 +72,22 @@ export class DenoKV {
   async createUser(username: string, password: string) {
     this.logger.info("Creating user " + username + " in Deno KV...");
     if (this.kv == null) this.kv = await Deno.openKv();
-    await this.kv.set(["users", username], { username, password });
+    const hashedPassword = await hashPassword(password);
+    await this.kv.set(["users", username], { username, password: hashedPassword });
   }
 
   async createDefaultUsers() {
     this.logger.info("Creating default users in Deno KV...");
     if (this.kv == null) this.kv = await Deno.openKv();
+    const doctorHash = await hashPassword("doctor");
     await this.kv.set(["users", "alessio"], {
       username: "alessio",
-      password: "doctor",
+      password: doctorHash,
     });
+    const guestHash = await hashPassword("guest");
     await this.kv.set(["users", "guest"], {
       username: "guest",
-      password: "guest",
+      password: guestHash,
     });
   }
 }

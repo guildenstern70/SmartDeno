@@ -10,6 +10,7 @@ import type { User } from "../model/types.ts";
 import type { DyeLog } from "@littlelite/dyelog";
 import { DenoKV } from "../db/denokv.ts";
 import type { RouterContext } from "@oak/oak";
+import { verifyPassword } from "../utils/crypto.ts";
 
 export class Login extends Page {
   constructor(logger: DyeLog, ctx: RouterContext<any>) {
@@ -77,8 +78,9 @@ export class Login extends Page {
     const denokv = DenoKV.Create(this.logger);
     const storedUser = await denokv.getSingleUser(postedUser.username);
     if (storedUser) {
-      this.logger.info("User found: " + JSON.stringify(storedUser));
-      if (storedUser.password === postedUser.password) {
+      this.logger.info("User found: " + storedUser.username);
+      const isMatch = await verifyPassword(postedUser.password, storedUser.password);
+      if (isMatch) {
         this.logger.info("Password match for user " + postedUser.username);
         return true;
       }
