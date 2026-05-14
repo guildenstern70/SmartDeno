@@ -16,17 +16,18 @@ export default class RestRouter extends Router {
   constructor(logger: DyeLog) {
     super();
     this.logger = logger;
-    this.setupRoutes().then(() => this.logger.info("REST API routes setup complete."));
+    this.setupRoutes();
+    this.logger.info("REST API routes setup complete.");
   }
 
-  private async setupRoutes() {
+  private setupRoutes() {
     this.logger.info("Setting up REST API routes...");
     try {
       this
-        .get("/api/v1/user", await this.getUsers)
-        .get("/api/v1/user/:username", await this.getUser)
-        .post("/api/v1/user", await this.addUser)
-        .delete("/api/v1/user/:username", await this.deleteUser);
+        .get("/api/v1/user", this.getUsers)
+        .get("/api/v1/user/:username", this.getUser)
+        .post("/api/v1/user", this.addUser)
+        .delete("/api/v1/user/:username", this.deleteUser);
     } catch (err: any) {
       this.logger.error("ERROR");
       this.logger.error(err);
@@ -34,7 +35,7 @@ export default class RestRouter extends Router {
   }
 
   private getUsers = async (ctx: RouterContext<any>) => {
-    const denokv: DenoKV = await DenoKV.Create(this.logger);
+    const denokv: DenoKV = DenoKV.Create(this.logger);
     this.logger.info("/api/v1/user");
     const users: User[] | null = await denokv.getAllUsers();
     if (users != null) {
@@ -56,7 +57,7 @@ export default class RestRouter extends Router {
       ctx.response.body = { message: "User not found." };
       return;
     }
-    const denokv: DenoKV = await DenoKV.Create(this.logger);
+    const denokv: DenoKV = DenoKV.Create(this.logger);
     const user = await denokv.getSingleUser(username);
     if (user) {
       ctx.response.status = Status.OK;
