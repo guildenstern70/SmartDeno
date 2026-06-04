@@ -1,32 +1,50 @@
 <% layout("./layout") %>
 <div class="container">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-6">
-            <form class="loginform" action="/login" method="post">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <span class="logo-dino-badge mb-3">🔑</span>
+                <h2 class="fw-bold text-dark">Sign In</h2>
+                <p class="text-muted small">Access your SmartDeno dashboard</p>
+            </div>
+            
+            <form action="/login" method="post">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" name="username" id="username"
-                           aria-describedby="usernameHelp">
-                    <div id="usernameHelp" class="form-text" style="color: lightgray;">Try "guest" with password "guest".</div>
+                    <label for="username" class="form-label form-label-smart">Username</label>
+                    <input type="text" class="form-control form-control-smart w-100" name="username" id="username"
+                           aria-describedby="usernameHelp" required autocomplete="username">
+                    <div id="usernameHelp" class="form-text text-muted mt-1" style="font-size: 0.8rem;">
+                        Try <strong>guest</strong> with password <strong>guest</strong>.
+                    </div>
                 </div>
+                
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <label for="password" class="form-label form-label-smart">Password</label>
+                    <input type="password" class="form-control form-control-smart w-100" name="password" id="password" required autocomplete="current-password">
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberme">
-                    <label class="form-check-label" for="rememberme">Remember me</label>
+                
+                <div class="mb-4 d-flex align-items-center gap-2 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberme" style="cursor: pointer;">
+                    <label class="form-check-label text-muted small" for="rememberme" style="cursor: pointer; user-select: none;">
+                        Remember me on this device
+                    </label>
                 </div>
+                
                 <% if (it.loginerrors) { %>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Error</strong> Unknown username or wrong password.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert alert-danger alert-dismissible fade show p-3 border-0 rounded-3 mb-4" role="alert" style="background-color: #fee2e2; color: #991b1b;">
+                        <div class="d-flex align-items-center gap-2">
+                            <strong>Sign-in failed.</strong> Please check your username and password.
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="filter: invert(1); opacity: 0.5;"></button>
                     </div>
                 <% } %>
-                <button type="submit" class="btn btn-primary">Login</button>
+                
+                <button type="submit" class="btn-smart btn-smart-primary w-100">
+                    Sign In &rarr;
+                </button>
             </form>
         </div>
     </div>
-    <div class="mb-5">&nbsp;</div>
 </div>
+
 <script src="/js/login.js"></script>

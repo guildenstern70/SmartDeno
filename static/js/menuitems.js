@@ -7,10 +7,14 @@
  */
 
 const setFeatureActive = (activeIndex) => {
-    for (let j = 0; j < 3; j++) {
+    for (let j = 0; j < 4; j++) {
         const menuitem = document.getElementById("menuitem" + j);
-        menuitem.classList.remove("active");
+        if (menuitem) {
+            menuitem.classList.remove("active");
+        }
     }
     const menuitem = document.getElementById("menuitem" + activeIndex);
-    menuitem.classList.add("active");
+    if (menuitem) {
+        menuitem.classList.add("active");
+    }
 };

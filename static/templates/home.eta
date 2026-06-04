@@ -1,44 +1,66 @@
 <% layout("./layout") %>
 <div class="container text-center">
-    <div class="row">
-        <div class="col">
-            &nbsp;
-        </div>
-        <div class="col-8">
-            <h1 class="xtitle"><%= it.appName %></h1>
-            <p>🦕 <%= it.appDescription %>
-            <% if (it.sessionUser) { %>
-            <b><%= it.sessionUser %></b>
-            <% } %> 🦕
-            </p>
-            <img class="img-fluid" src="/img/cover_wide.jpeg" alt="Deno">
-        </div>
-        <div class="col">
-            &nbsp;
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            &nbsp;
-        </div>
-        <div class="col-8">
-            <p class="mt-2 py-2">
-                <a href="/features" class="btn btn-lg btn-outline-light fw-bold">
-                Learn more</a>
-                <% if (!it.sessionUser) { %>
-                &nbsp;
-                <a href="/login" class="btn btn-lg btn-info">Login</a>
+    <!-- Hero Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="hero-badge">
+                <span>🦕</span> Powered by Deno &amp; Oak
+            </div>
+            
+            <h1 class="hero-title">
+                The <span class="hero-highlight">smart</span> way to build Deno apps.
+            </h1>
+            
+            <p class="hero-subtitle">
+                <%= it.appDescription %>
+                <% if (it.sessionUser) { %>
+                    <strong class="text-dark"><%= it.sessionUser %></strong>.
                 <% } %>
+                SmartDeno combines Deno KV, Oak HTTP, Eta templates, and sessions into a high-performance web template.
             </p>
-        </div>
-        <div class="col">
-            &nbsp;
+            
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/features" class="btn-smart btn-smart-primary">
+                    Get Started
+                </a>
+                <% if (!it.sessionUser) { %>
+                    <a href="/login" class="btn-smart btn-smart-secondary">
+                        Sign In
+                    </a>
+                <% } else { %>
+                    <a href="/restapi" class="btn-smart btn-smart-outline">
+                        Explore REST API
+                    </a>
+                <% } %>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            &nbsp;
+
+    <!-- Interactive Counter Demo -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="counter-card">
+                <h4 class="fw-bold mb-2">Interactive Counter</h4>
+                <p class="text-muted small mb-4">
+                    The classic Deno interactive counter component. Test client-side reactivity below:
+                </p>
+                <div class="counter-container">
+                    <button class="counter-btn" id="btn-decrement" aria-label="Decrement">-</button>
+                    <span class="counter-val" id="counter-value">3</span>
+                    <button class="counter-btn" id="btn-increment" aria-label="Increment">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Showcase Cover Image -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="cover-frame">
+                <img class="cover-image" src="/img/cover_wide.jpeg" alt="Deno cover illustration">
+            </div>
         </div>
     </div>
 </div>
+
 <script src="/js/index.js"></script>

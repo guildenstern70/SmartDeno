@@ -1,39 +1,59 @@
 <% layout("./layout") %>
 <div class="container text-center">
-    <div class="row">
-        <div class="col">
-            &nbsp;
-        </div>
-        <div class="col-8">
-            <h1 class="xtitle"><%= it.title %></h1>
-            <p><%= it.description %></p>
-        </div>
-        <div class="col">
-            &nbsp;
+    <!-- Header -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="hero-title"><%= it.title %></h1>
+            <p class="hero-subtitle mb-5"><%= it.description %></p>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            &nbsp;
-        </div>
-        <div class="col-5">
-            <ul class="list-group features mt-2 py-3">
-                <% Object.keys(it.features).forEach((f) => { %>
-                    <li class="list-group-item list-group-item-dark"><a href="<%= it.features[f] %>" target="_blank"><%= f %></a></li>
-                <% }) %>
-            </ul>
-            <p class="mt-2 text-secondary">
-                SmartDeno uses <a href="https://docs.deno.com/deploy/reference/deno_kv/" target="_blank" rel="noopener noreferrer">Deno KV</a> database to store users. There are <%= it.usersCount %> users recorded.
-            </p>
-        </div>
-        <div class="col">
-            &nbsp;
-        </div>
+
+    <!-- Feature Cards Grid -->
+    <div class="feature-grid">
+        <% 
+        const featureDetails = {
+            "Deno": { icon: "🦕", desc: "A secure, modern runtime for JavaScript and TypeScript with built-in toolchain." },
+            "Bootstrap": { icon: "🎨", desc: "A feature-packed frontend library for building responsive and styled designs." },
+            "Oak": { icon: "🌳", desc: "A robust middleware framework for Deno's native HTTP server, inspired by Koa." },
+            "Oak Sessions": { icon: "🔑", desc: "A flexible and secure session management middleware tailored for Oak." },
+            "Eta": { icon: "📝", desc: "An ultra-fast, lightweight embedded JS template engine for HTML rendering." },
+            "DyeLog": { icon: "🪵", desc: "A simple, colorful, and lightweight console logger optimized for Deno." }
+        };
+        
+        Object.keys(it.features).forEach((name) => { 
+            const detail = featureDetails[name] || { icon: "⚡", desc: "SmartDeno core dependency building block." };
+        %>
+            <div class="feature-card">
+                <div class="feature-icon-badge">
+                    <%= detail.icon %>
+                </div>
+                <h3 class="feature-title"><%= name %></h3>
+                <p class="feature-description">
+                    <%= detail.desc %>
+                </p>
+                <a href="<%= it.features[name] %>" target="_blank" rel="noopener noreferrer" class="feature-link mt-auto">
+                    Learn more &rarr;
+                </a>
+            </div>
+        <% }) %>
     </div>
-    <div class="row featuresfiller">
-        <div class="col">
-            &nbsp;
+
+    <!-- Deno KV Statistics Block -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="db-stats-card">
+                <div class="feature-icon-badge mx-auto">🗄️</div>
+                <h3 class="fw-bold mt-3">Deno KV Database</h3>
+                <p class="text-muted max-width-600 mx-auto">
+                    SmartDeno uses Deno's native key-value store, <a href="https://docs.deno.com/deploy/reference/deno_kv/" target="_blank" rel="noopener noreferrer" class="text-dark fw-bold">Deno KV</a>, to store users and application state. It runs out of the box locally and scales instantly on Deno Deploy.
+                </p>
+                <div class="db-stat-badge">
+                    <%= it.usersCount %> Users
+                </div>
+                <div class="text-muted small mt-2">
+                    Default accounts populated: <code>alessio</code> and <code>guest</code>.
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script src="/js/features.js"></script>

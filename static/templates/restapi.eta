@@ -1,34 +1,83 @@
 <% layout("./layout") %>
 <div class="container">
+    <!-- Header -->
     <div class="row">
-        <div style="height: 80px">&nbsp;</div>
-        <h4 class="mt-6 mb-4 text-secondary">SmartDeno - Rest API</h4>
-        <ul>
-            <li><p>Get all users - <a href="/api/v1/user" class="link-warning">HTTP GET: api/v1/user</a></p></li>
-            <li><p>Get (existing) single user - <a href="/api/v1/user/guest" class="link-warning">HTTP GET: /api/v1/user/guest</a></p></li>
-            <li><p>Get (non existing) single user - <a href="/api/v1/user/pippo" class="link-warning">HTTP GET: /api/v1/user/pippo</a></p></li>
-        </ul>
-        <p class="mt-4 text-secondary">
-            You can also try (using a REST client, like <a href="https://www.postman.com/" target="_blank">Postman</a>)
-        </p>
-        <ul>
-            <li><p>Create new user - <span class="text-warning">HTTP POST <i>/api/v1/user</i></span></p></li>
-        </ul>
-        <p class="text-secondary">With JSON body</p>
-        <code>
-            {
-            "username": "my_new_user",
-            "password": "my_new_password"
-            }
-        </code>
-        <ul class="mt-4">
-            <li><p>Delete existing user - <span class="text-warning">HTTP DELETE <i>/api/v1/user/:username</i></span></p></li>
-        </ul>
+        <div class="col-lg-10 api-intro">
+            <h1 class="hero-title">REST API Explorer</h1>
+            <p class="hero-subtitle mb-4">
+                SmartDeno exposes a RESTful interface for managing users in the Deno KV database. Try the GET requests directly in your browser or run them in Postman.
+            </p>
+        </div>
+    </div>
 
-        <p class="text-secondary">Where</p>
-        <code>
-            :username = existing username
-        </code>
+    <!-- Read Endpoints -->
+    <h2 class="api-section-title">Querying Users</h2>
+    
+    <div class="api-card">
+        <span class="api-badge api-badge-get">GET</span>
+        <div class="api-details">
+            <div>
+                <span class="api-path">/api/v1/user</span>
+                <div class="api-desc mt-1">Retrieve a list of all registered users (excluding passwords).</div>
+            </div>
+            <a href="/api/v1/user" target="_blank" class="btn-smart btn-smart-outline btn-sm py-1 px-3 fs-6">
+                Send Request
+            </a>
+        </div>
+    </div>
+
+    <div class="api-card">
+        <span class="api-badge api-badge-get">GET</span>
+        <div class="api-details">
+            <div>
+                <span class="api-path">/api/v1/user/guest</span>
+                <div class="api-desc mt-1">Retrieve details for an existing user (e.g., <code>guest</code>).</div>
+            </div>
+            <a href="/api/v1/user/guest" target="_blank" class="btn-smart btn-smart-outline btn-sm py-1 px-3 fs-6">
+                Send Request
+            </a>
+        </div>
+    </div>
+
+    <div class="api-card">
+        <span class="api-badge api-badge-get">GET</span>
+        <div class="api-details">
+            <div>
+                <span class="api-path">/api/v1/user/nonexistent</span>
+                <div class="api-desc mt-1">Test response behaviour for a user that does not exist.</div>
+            </div>
+            <a href="/api/v1/user/nonexistent" target="_blank" class="btn-smart btn-smart-outline btn-sm py-1 px-3 fs-6">
+                Send Request
+            </a>
+        </div>
+    </div>
+
+    <!-- Write Endpoints -->
+    <h2 class="api-section-title mt-5">Modifying Database</h2>
+
+    <div class="api-card align-items-start">
+        <span class="api-badge api-badge-post mt-1">POST</span>
+        <div class="api-details">
+            <div class="w-100">
+                <span class="api-path">/api/v1/user</span>
+                <div class="api-desc mt-1">Create a new user entry in Deno KV. Send request with JSON body:</div>
+                <div class="api-json-block mt-3">
+                    <pre><code>{
+  "username": "my_new_user",
+  "password": "my_new_password"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="api-card mb-5">
+        <span class="api-badge api-badge-delete">DELETE</span>
+        <div class="api-details">
+            <div>
+                <span class="api-path">/api/v1/user/:username</span>
+                <div class="api-desc mt-1">Remove an existing user from the database. Replace <code>:username</code> with the username.</div>
+            </div>
+        </div>
     </div>
 </div>
-<script src="/js/restapi.js"></script>
