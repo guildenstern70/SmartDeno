@@ -33,6 +33,10 @@
                     </a>
                 <% } %>
             </div>
+
+            <div class="mt-4 text-muted" style="font-size: 1rem;">
+                Start building today: <a href="https://github.com/guildenstern70/SmartDeno" target="_blank" rel="noopener noreferrer" class="text-dark fw-bold text-decoration-underline" style="transition: opacity 0.2s ease;">go to source code</a>
+            </div>
         </div>
     </div>
 
