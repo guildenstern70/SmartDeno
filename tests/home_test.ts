@@ -1,6 +1,8 @@
 /*
- * Smart Deno - Unit Tests: Home Page Appearance
- * Verifies the layout, hero elements, navigation items, counter, and unauthenticated/authenticated states.
+ * Smart Deno
+ * A web template project for Deno
+ * Copyright (c) 2020-26 Alessio Saltarin
+ * MIT License
  */
 
 import { assertEquals, assertStringIncludes } from "@std/assert";

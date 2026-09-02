@@ -1,6 +1,8 @@
 /*
- * Smart Deno - Unit Tests: Login and Session Flow
- * Verifies authentication success, failure, error presentation, and logout.
+ * Smart Deno
+ * A web template project for Deno
+ * Copyright (c) 2020-26 Alessio Saltarin
+ * MIT License
  */
 
 import { assertEquals, assertStringIncludes } from "@std/assert";

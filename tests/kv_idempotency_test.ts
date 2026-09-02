@@ -1,6 +1,8 @@
 /*
- * Smart Deno - Unit Tests: KV Database Idempotency
- * Explicitly verifies that test operations leave the KV database in the exact state it was found.
+ * Smart Deno
+ * A web template project for Deno
+ * Copyright (c) 2020-26 Alessio Saltarin
+ * MIT License
  */
 
 import { assertEquals } from "@std/assert";

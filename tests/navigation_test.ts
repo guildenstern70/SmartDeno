@@ -1,6 +1,8 @@
 /*
- * Smart Deno - Unit Tests: Navigation Between Pages
- * Verifies routing across all main views, active menu items, and redirection.
+ * Smart Deno
+ * A web template project for Deno
+ * Copyright (c) 2020-26 Alessio Saltarin
+ * MIT License
  */
 
 import { assertEquals, assertStringIncludes } from "@std/assert";

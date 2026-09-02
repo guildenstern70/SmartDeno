@@ -1,6 +1,8 @@
 /*
- * Smart Deno - Unit Tests: REST API (View and Create Users)
- * Verifies GET, POST, DELETE operations, input validation, and user protection.
+ * Smart Deno
+ * A web template project for Deno
+ * Copyright (c) 2020-26 Alessio Saltarin
+ * MIT License
  */
 
 import { assertEquals, assertNotEquals } from "@std/assert";

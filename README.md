@@ -30,6 +30,16 @@ This application is compatible with [Deno Deploy](https://deno.com/deploy) and c
     docker build -t smart-deno .
     docker run -p 8000:8000 smart-deno
 
+## Test
+
+## Locally
+
+    deno test --allow-net --allow-read --allow-write --allow-env
+
+## Via GitHub Actions
+
+Test suite is executed on any commit on 'main' via GitHub Actions.
+
 ## Version
 
 Version info is stored in `VERSION` and `/src/version.ts` files.

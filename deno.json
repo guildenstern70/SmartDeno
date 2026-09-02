@@ -6,6 +6,7 @@
     "checkJs": true,
     "strict": true
   },
+  "unstable": ["kv"],
   "lint": {
     "include": ["src/", "tests/"],
     "rules": {

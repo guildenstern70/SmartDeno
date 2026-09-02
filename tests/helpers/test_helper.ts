@@ -1,6 +1,8 @@
 /*
- * Smart Deno - Unit Test Helper
- * Utilities for testing Oak endpoints and ensuring KV database idempotency.
+ * Smart Deno
+ * A web template project for Deno
+ * Copyright (c) 2020-26 Alessio Saltarin
+ * MIT License
  */
 
 import type { Application } from "@oak/oak";
