@@ -7,7 +7,7 @@
     "strict": true
   },
   "lint": {
-    "include": ["src/"],
+    "include": ["src/", "tests/"],
     "rules": {
       "exclude": ["no-explicit-any"]
     }
@@ -17,6 +17,7 @@
     "oak_sessions": "https://deno.land/x/oak_sessions@v4.1.11/mod.ts",
     "@littlelite/dyelog": "jsr:@littlelite/dyelog@^0.2.1",
     "@oak/oak": "jsr:@oak/oak@17.2.0",
+    "@std/assert": "jsr:@std/assert@^1.0.11",
     "@std/fmt": "jsr:@std/fmt@^1.0.5",
     "@std/path": "jsr:@std/path@1.1.4",
     "@std/server": "jsr:@std/server@^0.219.1"
@@ -24,7 +25,8 @@
   "tasks": {
     "start": "deno run --unstable-kv --allow-net=0.0.0.0:8000 --allow-env --allow-read=. --allow-write=. src/main.ts",
     "dev": "deno run --watch --unstable-kv --allow-net=0.0.0.0:8000 --allow-env --allow-read=. --allow-write=. src/main.ts",
-    "lint": "deno lint src",
-    "fmt": "deno fmt src"
+    "test": "deno test --unstable-kv --allow-read --allow-write --allow-env",
+    "lint": "deno lint src tests",
+    "fmt": "deno fmt src tests"
   }
 }

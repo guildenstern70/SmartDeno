@@ -8,4 +8,4 @@
 #
 #
 
-deno lint src tests
+deno task test

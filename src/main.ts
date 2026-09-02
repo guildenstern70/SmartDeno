@@ -15,68 +15,83 @@ import WebRouter from "./controller/web.ts";
 import { DenoKV } from "./db/denokv.ts";
 import { VERSION } from "./version.ts";
 
-type AppState = {
+export type AppState = {
   session: Session;
 };
 
-const app = new Application<AppState>();
+export function createApp(customLogger?: DyeLog): Application<AppState> {
+  const app = new Application<AppState>();
+  const logger = customLogger ??
+    new DyeLog({
+      timestamp: true,
+      printlevel: true,
+      level: LogLevel.TRACE,
+    });
 
-// Logger
-const logger = new DyeLog({
-  timestamp: true,
-  printlevel: true,
-  level: LogLevel.TRACE,
-});
+  // Timing (Logger and Response Header)
+  app.use(async (ctx, next) => {
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    ctx.response.headers.set("X-Response-Time", `${ms}ms`);
+    logger.info(`${ctx.request.method} ${ctx.request.url} - ${ms}ms`);
+  });
 
-logger.info("Welcome to SmartDeno v." + VERSION);
+  // Routes
+  // @ts-ignore: usersdb object is just fine
+  const webRouter = new WebRouter(logger);
+  const restRouter = new RestRouter(logger);
 
-// Timing (Logger and Response Header)
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  ctx.response.headers.set("X-Response-Time", `${ms}ms`);
-  logger.info(`${ctx.request.method} ${ctx.request.url} - ${ms}ms`);
-});
+  // @ts-ignore: initMiddleware is OK
+  app.use(Session.initMiddleware());
+  app.use(webRouter.routes());
+  app.use(webRouter.allowedMethods());
+  app.use(restRouter.routes());
+  app.use(restRouter.allowedMethods());
 
-// Deno KV (Users DB)
-const kv = await DenoKV.Create(logger);
-if (await kv.isReady()) {
-  logger.info("Deno KV DB found. Resetting for deployment...");
-  await kv.reset();
-  await kv.createDefaultUsers();
-  logger.info("Database reset complete. Default users created.");
-} else {
-  logger.error("Cannot create Deno KV Users DB.");
-  Deno.exit(1);
+  // Static Files
+  app.use(async (context, next) => {
+    const root = `${Deno.cwd()}/static`;
+    try {
+      await context.send({ root });
+    } catch {
+      await next();
+    }
+  });
+
+  return app;
 }
 
-// Routes
-// @ts-ignore: usersdb object is just fine
-const webRouter = new WebRouter(logger);
-const restRouter = new RestRouter(logger);
+if (import.meta.main) {
+  // Logger
+  const logger = new DyeLog({
+    timestamp: true,
+    printlevel: true,
+    level: LogLevel.TRACE,
+  });
 
-// @ts-ignore: initMiddleware is OK
-app.use(Session.initMiddleware());
-app.use(webRouter.routes());
-app.use(webRouter.allowedMethods());
-app.use(restRouter.routes());
-app.use(restRouter.allowedMethods());
+  logger.info("Welcome to SmartDeno v." + VERSION);
 
-// Static Files
-app.use(async (context, next) => {
-  const root = `${Deno.cwd()}/static`;
-  try {
-    await context.send({ root });
-  } catch {
-    await next();
+  // Deno KV (Users DB)
+  const kv = DenoKV.Create(logger);
+  if (await kv.isReady()) {
+    logger.info("Deno KV DB found. Resetting for deployment...");
+    await kv.reset();
+    await kv.createDefaultUsers();
+    logger.info("Database reset complete. Default users created.");
+  } else {
+    logger.error("Cannot create Deno KV Users DB.");
+    Deno.exit(1);
   }
-});
 
-logger.info("Running in: " + Deno.cwd());
-app.addEventListener(
-  "listen",
-  (_e) => logger.warn("🦕 SmartDeno running at http://localhost:8000/ 🦕"),
-);
+  const app = createApp(logger);
 
-await app.listen({ port: 8000 });
+  logger.info("Running in: " + Deno.cwd());
+  app.addEventListener(
+    "listen",
+    (_e) => logger.warn("🦕 SmartDeno running at http://localhost:8000/ 🦕"),
+  );
+
+  await app.listen({ port: 8000 });
+}
+
