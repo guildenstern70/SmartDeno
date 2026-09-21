@@ -37,9 +37,9 @@ Deno.test("Login and Authentication Flow", async (t) => {
         body: new URLSearchParams({ username: "guest", password: "guest" }),
       });
 
-      // Expect redirect to home
+      // Expect redirect to dashboard
       assertEquals(res.status, 302);
-      assertEquals(res.headers.get("location"), "/");
+      assertEquals(res.headers.get("location"), "/dashboard");
 
       // Expect session cookie to be set
       const cookie = extractSessionCookie(res);
@@ -57,7 +57,7 @@ Deno.test("Login and Authentication Flow", async (t) => {
       });
 
       assertEquals(res.status, 302);
-      assertEquals(res.headers.get("location"), "/");
+      assertEquals(res.headers.get("location"), "/dashboard");
       const cookie = extractSessionCookie(res);
       assertEquals(typeof cookie, "string");
     },

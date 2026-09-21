@@ -6,6 +6,7 @@
  */
 
 import { Home } from "../page/home.ts";
+import { Dashboard } from "../page/dashboard.ts";
 import { Login } from "../page/login.ts";
 import { Features } from "../page/features.ts";
 import { Restapi } from "../page/restapi.ts";
@@ -26,6 +27,7 @@ export default class WebRouter extends Router {
     try {
       this
         .get("/", this.getHome)
+        .get("/dashboard", this.getDashboard)
         .get("/features", this.getFeatures)
         .get("/restapi", this.getRestApi)
         .get("/login", this.getLogin)
@@ -39,6 +41,10 @@ export default class WebRouter extends Router {
 
   private getHome = async (ctx: RouterContext<any>) => {
     await new Home(this.logger, ctx).render();
+  };
+
+  private getDashboard = async (ctx: RouterContext<any>) => {
+    await new Dashboard(this.logger, ctx).render();
   };
 
   private getFeatures = async (ctx: RouterContext<any>) => {
