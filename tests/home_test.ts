@@ -100,7 +100,7 @@ Deno.test("Home Page Appearance", async (t) => {
   });
 
   await t.step(
-    "displays authenticated greeting and state when user is logged in",
+    "displays authenticated dashboard, fake stats, charts, and logout menu when user is logged in",
     async () => {
       // 1. Log in as 'guest' to receive session cookie
       const loginRes = await testFetch(app, "/login", {
@@ -115,15 +115,17 @@ Deno.test("Home Page Appearance", async (t) => {
       assertEquals(homeRes.status, 200);
       const html = await homeRes.text();
 
-      // Hero displays welcome message with username
-      assertStringIncludes(html, "Welcome to SmartDeno, ");
+      // Displays dashboard header with username
+      assertStringIncludes(html, "User Dashboard");
       assertStringIncludes(html, '<strong class="text-dark">guest</strong>');
 
-      // Action button switched to REST API explorer
-      assertStringIncludes(html, 'href="/restapi"');
-      assertStringIncludes(html, "Explore REST API");
+      // Displays fake metric cards & charts
+      assertStringIncludes(html, "Total Users");
+      assertStringIncludes(html, "API Requests");
+      assertStringIncludes(html, "Weekly Traffic Analytics");
+      assertStringIncludes(html, "Server Performance");
 
-      // Navbar displays Logout
+      // Displays logout menu items
       assertStringIncludes(html, 'href="/logout"');
       assertStringIncludes(html, "Logout");
 
