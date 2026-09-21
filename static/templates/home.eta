@@ -1,183 +1,6 @@
 <% layout("./layout") %>
 <div class="container text-center">
-    <% if (it.sessionUser) { %>
-    <!-- Customized Dashboard for Logged-In User -->
-    <div class="text-start">
-        <!-- Dashboard Header & Logout Menu Item -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between pb-3 mb-4 border-bottom">
-            <div>
-                <h1 class="hero-title mb-1 fs-2">User Dashboard</h1>
-                <p class="text-muted mb-0">
-                    Welcome back, <strong class="text-dark"><%= it.sessionUser %></strong>! Here is your fake system overview and analytics.
-                </p>
-            </div>
-            <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
-                <div class="dropdown">
-                    <button class="btn-smart btn-smart-outline dropdown-toggle" type="button" id="dashboardMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        ⚙️ Account Menu
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="dashboardMenuButton">
-                        <li><span class="dropdown-item-text text-muted small">Signed in as <strong><%= it.sessionUser %></strong></span></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item fw-bold text-danger" href="/logout">🚪 Logout</a></li>
-                    </ul>
-                </div>
-                <a href="/logout" class="btn-smart btn-smart-secondary" id="dashboard-logout-btn">
-                    Logout
-                </a>
-            </div>
-        </div>
-
-        <!-- Fake Metric Cards Grid -->
-        <div class="row g-3 mb-4">
-            <% for (const stat of (it.dashboardStats || [])) { %>
-            <div class="col-md-3 col-sm-6">
-                <div class="card border-0 shadow-sm rounded-4 p-3 h-100 bg-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-4"><%= stat.icon %></span>
-                        <span class="badge bg-light text-success fw-semibold"><%= stat.change %></span>
-                    </div>
-                    <div class="text-muted small"><%= stat.title %></div>
-                    <div class="fs-3 fw-bold text-dark mt-1"><%= stat.value %></div>
-                </div>
-            </div>
-            <% } %>
-        </div>
-
-        <!-- Fake Charts Row -->
-        <div class="row g-4 mb-4">
-            <!-- Fake SVG Line Chart (Traffic Trend) -->
-            <div class="col-lg-7">
-                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="fw-bold text-dark mb-0">📈 Weekly Traffic Analytics</h5>
-                        <span class="badge bg-primary-subtle text-primary small">Fake Realtime Data</span>
-                    </div>
-                    <p class="text-muted small mb-3">Daily page views and REST API traffic for the last 7 days.</p>
-                    <div class="chart-container py-2" style="position: relative; width: 100%; height: 200px;">
-                        <svg viewBox="0 0 500 180" class="w-100 h-100" style="overflow: visible;">
-                            <defs>
-                                <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#fad02c" stop-opacity="0.6"/>
-                                    <stop offset="100%" stop-color="#fad02c" stop-opacity="0.0"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- Grid Lines -->
-                            <line x1="30" y1="30" x2="480" y2="30" stroke="#f1f5f9" stroke-width="1"/>
-                            <line x1="30" y1="75" x2="480" y2="75" stroke="#f1f5f9" stroke-width="1"/>
-                            <line x1="30" y1="120" x2="480" y2="120" stroke="#f1f5f9" stroke-width="1"/>
-                            <line x1="30" y1="155" x2="480" y2="155" stroke="#e2e8f0" stroke-width="1.5"/>
-
-                            <!-- Area and Line Chart -->
-                            <polygon points="30,155 30,120 105,90 180,110 255,50 330,70 405,35 480,45 480,155" fill="url(#chartGradient)" />
-                            <polyline fill="none" stroke="#111827" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                                points="30,120 105,90 180,110 255,50 330,70 405,35 480,45"/>
-
-                            <!-- Data Points -->
-                            <circle cx="30" cy="120" r="4" fill="#fad02c" stroke="#111827" stroke-width="2"/>
-                            <circle cx="105" cy="90" r="4" fill="#fad02c" stroke="#111827" stroke-width="2"/>
-                            <circle cx="180" cy="110" r="4" fill="#fad02c" stroke="#111827" stroke-width="2"/>
-                            <circle cx="255" cy="50" r="4" fill="#fad02c" stroke="#111827" stroke-width="2"/>
-                            <circle cx="330" cy="70" r="4" fill="#fad02c" stroke="#111827" stroke-width="2"/>
-                            <circle cx="405" cy="35" r="4" fill="#fad02c" stroke="#111827" stroke-width="2"/>
-                            <circle cx="480" cy="45" r="4" fill="#fad02c" stroke="#111827" stroke-width="2"/>
-
-                            <!-- X Axis Labels -->
-                            <text x="30" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Mon</text>
-                            <text x="105" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Tue</text>
-                            <text x="180" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Wed</text>
-                            <text x="255" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Thu</text>
-                            <text x="330" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Fri</text>
-                            <text x="405" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Sat</text>
-                            <text x="480" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Sun</text>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fake Bar Chart (Performance Metrics) -->
-            <div class="col-lg-5">
-                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="fw-bold text-dark mb-0">📊 Server Performance</h5>
-                        <span class="badge bg-warning-subtle text-dark small">Deno KV</span>
-                    </div>
-                    <p class="text-muted small mb-3">Simulated server workload distribution.</p>
-
-                    <div class="d-flex flex-column gap-3 py-1">
-                        <div>
-                            <div class="d-flex justify-content-between small fw-bold mb-1">
-                                <span>CPU Usage</span>
-                                <span>34%</span>
-                            </div>
-                            <div class="progress" style="height: 10px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 34%;" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="d-flex justify-content-between small fw-bold mb-1">
-                                <span>Memory Allocation</span>
-                                <span>62%</span>
-                            </div>
-                            <div class="progress" style="height: 10px;">
-                                <div class="progress-bar bg-dark" role="progressbar" style="width: 62%;" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="d-flex justify-content-between small fw-bold mb-1">
-                                <span>KV Read Operations</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="progress" style="height: 10px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 88%;" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="d-flex justify-content-between small fw-bold mb-1">
-                                <span>KV Write Operations</span>
-                                <span>15%</span>
-                            </div>
-                            <div class="progress" style="height: 10px;">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Fake Activity Table -->
-        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
-            <h5 class="fw-bold text-dark mb-3">📋 Recent System Activity</h5>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">Time</th>
-                            <th scope="col">Event</th>
-                            <th scope="col">Details</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for (const act of (it.recentActivity || [])) { %>
-                        <tr>
-                            <td class="text-muted small"><%= act.time %></td>
-                            <td class="fw-bold"><%= act.event %></td>
-                            <td class="text-secondary small"><%= act.detail %></td>
-                            <td><span class="badge bg-success-subtle text-success border border-success-subtle"><%= act.status %></span></td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <% } else { %>
-    <!-- Hero Section for Unauthenticated Users -->
+    <!-- Hero Section -->
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="hero-badge">
@@ -190,6 +13,9 @@
             
             <p class="hero-subtitle">
                 <%= it.appDescription %>
+                <% if (it.sessionUser) { %>
+                    <strong class="text-dark"><%= it.sessionUser %></strong>.
+                <% } %>
                 SmartDeno combines Deno KV, Oak HTTP, Eta templates, and sessions into a high-performance web template.
             </p>
             
@@ -197,9 +23,15 @@
                 <a href="/features" class="btn-smart btn-smart-primary">
                     Get Started
                 </a>
-                <a href="/login" class="btn-smart btn-smart-secondary">
-                    Sign In
-                </a>
+                <% if (!it.sessionUser) { %>
+                    <a href="/login" class="btn-smart btn-smart-secondary">
+                        Sign In
+                    </a>
+                <% } else { %>
+                    <a href="/restapi" class="btn-smart btn-smart-outline">
+                        Explore REST API
+                    </a>
+                <% } %>
             </div>
 
             <div class="mt-4 text-muted" style="font-size: 1rem;">
@@ -233,7 +65,6 @@
             </div>
         </div>
     </div>
-    <% } %>
 </div>
 
 <script src="/js/index.js"></script>

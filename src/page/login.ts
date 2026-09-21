@@ -38,7 +38,7 @@ export class Login extends Page {
         await this.ctx.state.session.set("logged-user", posteduser.username);
         const loggedUser = await this.ctx.state.session.get("logged-user");
         this.logger.info("POST LOGIN Logged User is " + loggedUser);
-        this.ctx.response.redirect("/");
+        this.ctx.response.redirect("/dashboard");
       } else {
         this.logger.info("User unknown or wrong password");
         this.ctx.response.redirect("/login?error=notfound");
